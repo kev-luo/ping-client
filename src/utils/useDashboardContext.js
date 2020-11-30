@@ -72,7 +72,7 @@ function reducer(state, { type, payload }) {
 function DashboardProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <DashboardContext.Provider value={[state, dispatch]} {...props} />;
+  return <DashboardContext.Provider value={{state, dispatch}} {...props} />;
 }
 
 const useDashboardContext = () => {

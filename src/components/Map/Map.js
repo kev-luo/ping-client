@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import PlaceTwoTone from "@material-ui/icons/PlaceTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,11 +11,7 @@ import Loading from "../Loading";
 
 export default function Map({ data }) {
   const classes = useStyles();
-  const [{ viewport, userPosition }, dispatch] = useDashboardContext();
-
-  useEffect(() => {
-    getUserPosition();
-  }, []);
+  const {state: { viewport, userPosition }, dispatch} = useDashboardContext();
 
   // data && console.log(data.getPingsByLocation[0].id);
 
@@ -30,9 +26,9 @@ export default function Map({ data }) {
           />
         );
       })
-    : Loading;
+    : <Loading />;
 
-  const getUserPosition = () => {
+  function getUserPosition() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -47,6 +43,8 @@ export default function Map({ data }) {
       });
     }
   };
+
+  getUserPosition();
 
   return (
     <Grid item>

@@ -17,7 +17,7 @@ import { useForm } from "../../utils/useForm";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 
 export default function NewComment() {
-  const [{ userPosition }] = useDashboardContext();
+  const {state: {userPosition}} = useDashboardContext();
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const initialState = { body: "", imageUrl: "" };

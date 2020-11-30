@@ -16,7 +16,7 @@ export default function ProfileBox({ userData }) {
 
   const [highlightFeed, setHighlightFeed] = useState(feedType[2]);
   const { user } = useAuthContext();
-  const [state] = useDashboardContext();
+  const {state} = useDashboardContext();
 
   useEffect(() => {
     setHighlightFeed(feedType[2]);

@@ -11,7 +11,7 @@ import { useDashboardContext } from "../../utils/useDashboardContext";
 
 export default function Comment({ createdAt, body, author }) {
   const classes = useStyles();
-  const [_, dispatch] = useDashboardContext();
+  const {dispatch} = useDashboardContext();
   const { user } = useAuthContext();
 
   function displayProfile(selectedUser) {

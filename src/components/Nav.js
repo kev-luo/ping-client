@@ -19,7 +19,7 @@ import { useDashboardContext } from "../utils/useDashboardContext";
 export default function Nav({ darkMode, setDarkMode }) {
   const classes = useStyles();
   const context = useAuthContext();
-  const [_, dispatch] = useDashboardContext();
+  const {dispatch} = useDashboardContext();
 
   const logoutOps = () => {
     dispatch({ type: Actions.CLEAR_USER });

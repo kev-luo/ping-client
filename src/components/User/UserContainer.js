@@ -13,7 +13,7 @@ import { FETCH_USER_QUERY } from "../../utils/graphql";
 export default function UserContainer() {
   const classes = useStyles();
   const { user } = useAuthContext();
-  const [state, dispatch] = useDashboardContext();
+  const {state, dispatch} = useDashboardContext();
 
   useEffect(() => {
     if (!state.selectedUser) {

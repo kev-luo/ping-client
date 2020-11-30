@@ -15,7 +15,7 @@ export default function DeleteUser() {
   const classes = useStyles();
   const history = useHistory();
   const context = useAuthContext();
-  const [_, dispatch] = useDashboardContext();
+  const {dispatch} = useDashboardContext();
   const initialState = { password: "" };
   const { handleChange, handleSubmit, values } = useForm(
     deleteUserCb,

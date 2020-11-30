@@ -20,7 +20,7 @@ import { useDashboardContext } from "../../utils/useDashboardContext";
 
 export default function Feed({ data, feedType }) {
   const classes = useStyles();
-  const [_, dispatch] = useDashboardContext();
+  const {dispatch} = useDashboardContext();
   const { user } = useAuthContext();
 
   function displayProfile(selectedUser) {

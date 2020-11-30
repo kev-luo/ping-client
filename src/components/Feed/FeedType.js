@@ -10,12 +10,7 @@ export default function FeedType({ subscribeToMore, data }) {
   const pathArray = pathname.split("/");
 
   useEffect(() => {
-    const unsubscribe = newPingSubscription();
-    return () => unsubscribe();
-  }, []);
-
-  function newPingSubscription() {
-    return subscribeToMore({
+    const unsubscribe = subscribeToMore({
       document: NEW_PING_SUBSCRIPTION,
       updateQuery: (prevPings, { subscriptionData }) => {
         if (!subscriptionData) return prevPings;
@@ -26,7 +21,8 @@ export default function FeedType({ subscribeToMore, data }) {
         };
       },
     });
-  }
+    return () => unsubscribe();
+  }, [subscribeToMore]);
 
   const supportedPings = data?.getPingsByLocation.filter((ping) => {
     const isUserPresent = ping.support.filter((supporter) => {

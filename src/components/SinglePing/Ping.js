@@ -25,12 +25,7 @@ export default function Feed() {
     variables: { pingId },
   });
   useEffect(() => {
-    const unsubscribe = newCommentSubscription();
-    return () => unsubscribe();
-  }, []);
-
-  function newCommentSubscription() {
-    return subscribeToMore({
+    const unsubscribe = subscribeToMore({
       document: NEW_COMMENT_SUBSCRIPTION,
       variables: { pingId },
       updateQuery: (prevPing, { subscriptionData }) => {
@@ -41,7 +36,8 @@ export default function Feed() {
         };
       },
     });
-  }
+    return () => unsubscribe();
+  }, [subscribeToMore, pingId]);
 
   const getComments = () => {
     const comments = data?.getPing?.comments;
@@ -85,6 +81,7 @@ export default function Feed() {
                 <img
                   src={data.getPing.imageUrl}
                   style={{ maxHeight: "250px" }}
+                  alt={data.getPing.author.username}
                 />
               )}
             </div>

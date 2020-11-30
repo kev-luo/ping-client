@@ -15,7 +15,7 @@ import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
 export default function Dashboard() {
   const classes = useStyles();
   const { user } = useAuthContext();
-  const [{ userPosition }] = useDashboardContext();
+  const {state: {userPosition}} = useDashboardContext();
   let long;
   let latt;
 

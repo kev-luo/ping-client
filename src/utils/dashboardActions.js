@@ -1,4 +1,4 @@
-export default {
+const Actions = {
   TOGGLE_FEED: "TOGGLE_FEED",
   RAW_FEED: "RAW_FEED",
   PING: "PING",
@@ -8,3 +8,5 @@ export default {
   UPDATE_VIEWPORT: "UPDATE_VIEWPORT",
   UPDATE_USER_POSITION: "UPDATE_USER_POSITION",
 };
+
+export default Actions

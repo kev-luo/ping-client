@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { deepPurple, amber, grey, red } from "@material-ui/core/colors";
+import { amber, grey, red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
