@@ -19,7 +19,7 @@ export default function UserContainer() {
     if (!state.selectedUser) {
       dispatch({ type: Actions.SELECT_USER, payload: user });
     }
-  }, [user]);
+  }, [user, dispatch, state.selectedUser]);
 
   const { data } = useQuery(FETCH_USER_QUERY, {
     skip: !state.selectedUser,
