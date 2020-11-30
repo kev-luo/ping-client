@@ -9,13 +9,13 @@ import Actions from "../../../utils/dashboardActions";
 import { useAuthContext } from "../../../utils/useAuthContext";
 import { useDashboardContext } from "../../../utils/useDashboardContext";
 import { useForm } from "../../../utils/useForm";
-import { DELETE_USER } from "../../../utils/graphql";
+import { DELETE_USER, FETCH_PINGS_BY_LOCATION } from "../../../utils/graphql";
 
 export default function DeleteUser() {
   const classes = useStyles();
   const history = useHistory();
   const context = useAuthContext();
-  const {dispatch} = useDashboardContext();
+  const {state: { userPosition}, dispatch} = useDashboardContext();
   const initialState = { password: "" };
   const { handleChange, handleSubmit, values } = useForm(
     deleteUserCb,
@@ -26,7 +26,18 @@ export default function DeleteUser() {
     onError(err) {
       console.log(err);
     },
-    onCompleted() {
+    update(cache) {
+      const data = cache.readQuery({
+        query: FETCH_PINGS_BY_LOCATION,
+        variables: { long: userPosition.longitude, latt: userPosition.latitude }
+      })
+      cache.writeQuery({
+        query: FETCH_PINGS_BY_LOCATION,
+        variables: { long: userPosition.longitude, latt: userPosition.latitude },
+        data: {
+          getPingsByLocation: data.getPingsByLocation.filter(ping => ping.author.id !== context.user.id)
+        }
+      })
       dispatch({ type: Actions.CLEAR_USER });
       context.logout();
       history.push("/");
