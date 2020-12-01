@@ -16,28 +16,28 @@ import {
   NEW_COMMENT_SUBSCRIPTION,
 } from "../../utils/graphql";
 
-export default function Feed() {
+export default function Ping({data, loading}) {
   const classes = useStyles();
-  const { pingId } = useParams();
+  // const { pingId } = useParams();
   const history = useHistory();
   // const [_, dispatch] = useDashboardContext();
-  const { subscribeToMore, loading, data } = useQuery(FETCH_PING_QUERY, {
-    variables: { pingId },
-  });
-  useEffect(() => {
-    const unsubscribe = subscribeToMore({
-      document: NEW_COMMENT_SUBSCRIPTION,
-      variables: { pingId },
-      updateQuery: (prevPing, { subscriptionData }) => {
-        if (!subscriptionData) return prevPing;
-        return {
-          ...prevPing,
-          getPing: subscriptionData.getPing,
-        };
-      },
-    });
-    return () => unsubscribe();
-  }, [subscribeToMore, pingId]);
+  // const { subscribeToMore, loading, data } = useQuery(FETCH_PING_QUERY, {
+  //   variables: { pingId },
+  // });
+  // useEffect(() => {
+  //   const unsubscribe = subscribeToMore({
+  //     document: NEW_COMMENT_SUBSCRIPTION,
+  //     variables: { pingId },
+  //     updateQuery: (prevPing, { subscriptionData }) => {
+  //       if (!subscriptionData) return prevPing;
+  //       return {
+  //         ...prevPing,
+  //         getPing: subscriptionData.getPing,
+  //       };
+  //     },
+  //   });
+  //   return () => unsubscribe();
+  // }, [subscribeToMore, pingId]);
 
   const getComments = () => {
     const comments = data?.getPing?.comments;
