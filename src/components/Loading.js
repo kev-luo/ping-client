@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { LinearProgress, CircularProgress } from '@material-ui/core';
+import { Typography, LinearProgress, CircularProgress } from '@material-ui/core';
 
-export default function Loading({comp}) {
+export default function Loading({comp, err}) {
   const classes = useStyles()
 
   const loadingType = comp === "profile" ? (
@@ -13,11 +13,15 @@ export default function Loading({comp}) {
     <LinearProgress />
   )
 
-  // const errorType
-
   return (
     <div className={classes.container}>
-      {loadingType}
+      {err ? (
+        <Typography variant="h5" centered />
+      ) : (
+        <>
+          {loadingType}
+        </>
+      )}
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { NEW_PING_SUBSCRIPTION } from "../../utils/graphql";
 import Feed from "./Feed";
 import Loading from "../Loading";
 
-export default function FeedType({ subscribeToMore, data }) {
+export default function FeedType({ subscribeToMore, data, error }) {
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
 
@@ -26,7 +26,9 @@ export default function FeedType({ subscribeToMore, data }) {
 
   const supportedPings = data?.getPingsByLocation.filter((ping) => {
     const isUserPresent = ping.support.filter((supporter) => {
-      return supporter.user?.id === pathArray[3] && supporter.supported === true;
+      return (
+        supporter.user?.id === pathArray[3] && supporter.supported === true
+      );
     });
     return isUserPresent.length > 0;
   });
@@ -43,31 +45,27 @@ export default function FeedType({ subscribeToMore, data }) {
   });
 
   return (
-    <Switch>
-      <Route exact path="/">
-        {data ? (
-          <Feed data={data.getPingsByLocation} feedType="All" />
-        ) : (
-          <Loading />
-        )}
-      </Route>
-      <Route exact path="/user/:userId">
-        {newPings ? <Feed data={newPings} feedType="New" /> : <Loading />}
-      </Route>
-      <Route exact path="/user/pinged/:userId">
-        {authoredPings ? (
-          <Feed data={authoredPings} feedType="Posted" />
-        ) : (
-          <Loading />
-        )}
-      </Route>
-      <Route exact path="/user/supported/:userId">
-        {supportedPings ? (
-          <Feed data={supportedPings} feedType="Supported" />
-        ) : (
-          <Loading />
-        )}
-      </Route>
-    </Switch>
+    <>
+      {data ? (
+        <Switch>
+          <Route exact path="/">
+            <Feed data={data.getPingsByLocation} feedType="All" />
+          </Route>
+          <Route exact path="/user/:userId">
+            <Feed data={newPings} feedType="New" />
+          </Route>
+          <Route exact path="/user/pinged/:userId">
+            <Feed data={authoredPings} feedType="Posted" />
+          </Route>
+          <Route exact path="/user/supported/:userId">
+            <Feed data={supportedPings} feedType="Supported" />
+          </Route>
+        </Switch>
+      ) : error ? (
+        <Loading err={error} />
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 }

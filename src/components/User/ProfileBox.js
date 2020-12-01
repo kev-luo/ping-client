@@ -9,7 +9,7 @@ import Loading from "../Loading";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 
-export default function ProfileBox({ userData }) {
+export default function ProfileBox({ userData, error }) {
   const classes = useStyles();
   const { pathname } = useLocation();
   const feedType = pathname.split("/");
@@ -67,7 +67,9 @@ export default function ProfileBox({ userData }) {
 
   return (
     <div>
-      {userData ? (
+      {error ? (
+        <Loading err={error}/>
+      ) : userData ? (
         <>
           {editProfile()}
           <Grid container justify="center">
@@ -84,7 +86,9 @@ export default function ProfileBox({ userData }) {
               <Link to={`/user/supported/${userData.id}`}>
                 <Button
                   variant="contained"
-                  color={highlightFeed === "supported" ? "secondary" : "primary"}
+                  color={
+                    highlightFeed === "supported" ? "secondary" : "primary"
+                  }
                 >
                   Supported Pings
                 </Button>
@@ -102,7 +106,7 @@ export default function ProfileBox({ userData }) {
           </Grid>
         </>
       ) : (
-        <Loading comp="profile"/>
+        <Loading comp="profile" />
       )}
     </div>
   );

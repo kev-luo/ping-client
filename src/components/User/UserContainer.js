@@ -21,7 +21,7 @@ export default function UserContainer() {
     }
   }, [user, dispatch, state.selectedUser]);
 
-  const { data } = useQuery(FETCH_USER_QUERY, {
+  const { data, error } = useQuery(FETCH_USER_QUERY, {
     skip: !state.selectedUser,
     variables: { userId: state.selectedUser?.id },
   });
@@ -29,7 +29,7 @@ export default function UserContainer() {
   return (
     <Paper className={classes.paper}>
       <Grid item>
-        {user ? <ProfileBox userData={data?.getUser} /> : <About />}
+        {user ? <ProfileBox userData={data?.getUser} error={error}/> : <About />}
       </Grid>
     </Paper>
   );
