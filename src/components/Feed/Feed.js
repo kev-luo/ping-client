@@ -48,8 +48,8 @@ export default function Feed({ data, feedType }) {
   }
 
   return (
-    <Paper>
-      <Grid item className={classes.root}>
+    <Paper className={classes.root}>
+      <Grid item >
         <Typography variant="h5" align="center" className={classes.title}>
           {feedType} Pings
         </Typography>
@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
   username: {
     "&:hover": {
       cursor: "pointer",
-      color: "#DC143C",
+      color: theme.palette.primary.main,
     },
     textDecoration: "none",
     color: theme.palette.secondary.main,

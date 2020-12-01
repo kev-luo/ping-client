@@ -7,7 +7,7 @@ const theme = createMuiTheme({
     type: "light",
     primary: {
       main: "#659DBD", // bluer blue
-      dark: "#0D133D"
+      dark: "#23263D"
     },
     secondary: {
       light: "#79BD51",
@@ -36,7 +36,7 @@ const themeDark = createMuiTheme({
     primary: {
       light: "#313131",
       main: grey[800],
-      contrastText: "#C44714", // dark orange
+      contrastText: "white", // dark orange
     },
     secondary: {
       main: grey[900],
@@ -48,6 +48,12 @@ const themeDark = createMuiTheme({
       dark: "#C13838", // red
       contrastText: "#fff",
     },
+    warning: {
+      main: grey[700]
+    },
+    info: {
+      main: grey[700]
+    }
   },
 });
 
@@ -72,8 +78,8 @@ const themeOverrides = {
       }
     },
     outlinedPrimary: {
-      color: theme.palette.secondary.dark,
-      borderColor: theme.palette.secondary.dark,
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
       opacity: 0.6,
       "&:hover": {
         color: theme.palette.error.main,

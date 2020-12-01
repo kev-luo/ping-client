@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Paper, IconButton, TextField, Grid } from "@material-ui/core";
+import { Paper, IconButton, TextField, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaComments } from "react-icons/fa";
 
@@ -48,9 +48,14 @@ export default function NewPing(props) {
             />
           </Grid>
           <Grid item xs={2}>
-            <IconButton type="submit">
-              <FaComments style={{ color: "blue" }} size={15} />
-            </IconButton>
+            <Button
+            className={classes.submit}
+              type="submit"
+              variant="contained"
+              color="secondary"
+            >
+              Comment
+            </Button>
           </Grid>
         </Grid>
       </form>
@@ -60,9 +65,12 @@ export default function NewPing(props) {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    margin: theme.spacing(2, 1),
+    marginTop: theme.spacing(2),
     padding: theme.spacing(2, 2),
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.light,
+  },
+  submit: {
+    margin: "0 10px",
   },
   buttonGroup: {
     marginLeft: "1rem",

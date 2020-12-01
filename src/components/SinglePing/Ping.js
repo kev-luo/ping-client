@@ -8,7 +8,7 @@ import Loading from "../Loading";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 
-export default function Ping({data, loading}) {
+export default function Ping({ data, loading }) {
   const classes = useStyles();
 
   const history = useHistory();
@@ -56,10 +56,10 @@ export default function Ping({data, loading}) {
                 />
               )}
             </div>
-            <NewComment pingId={data.getPing.id} />
           </>
         )}
       </Paper>
+      <NewComment pingId={data?.getPing?.id} />
       {loading ? <Loading /> : getComments()}
     </>
   );
@@ -67,7 +67,7 @@ export default function Ping({data, loading}) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
     maxHeight: "80vh",
     overflow: "auto",
     padding: theme.spacing(2),

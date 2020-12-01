@@ -80,7 +80,7 @@ export default function Nav({ darkMode, setDarkMode }) {
 
 const useStyles = makeStyles((theme) => ({
   nav: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.dark
   },
   title: {
     flexGrow: 1,
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0",
   },
   link: {
-    color: theme.palette.primary.dark,
+    color: theme.palette.primary.main,
     textDecoration: "none",
     margin: theme.spacing(1),
   },

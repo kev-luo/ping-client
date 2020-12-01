@@ -14,10 +14,10 @@ import { green } from "@material-ui/core/colors";
 
 import { CREATE_PING } from "../../utils/graphql";
 import { useForm } from "../../utils/useForm";
-import { useDashboardContext } from "../../utils/useDashboardContext";
+import { useMapContext } from "../../utils/useMapContext";
 
 export default function NewComment() {
-  const {state: {userPosition}} = useDashboardContext();
+  const {state: {userPosition}} = useMapContext();
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const initialState = { body: "", imageUrl: "" };

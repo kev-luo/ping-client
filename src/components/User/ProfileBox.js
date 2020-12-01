@@ -142,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
   },
   activeFeedButton: {
     "& *": {
-      color: theme.palette.secondary.main,
+      color: theme.palette.error.main,
     },
   },
 }));
