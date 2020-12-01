@@ -2,8 +2,9 @@ import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress, CircularProgress } from '@material-ui/core';
 
-export default function Loading(comp) {
+export default function Loading({comp}) {
   const classes = useStyles()
+
   const loadingType = comp === "profile" ? (
     <CircularProgress />
   ) : comp === "map" ? (
@@ -11,6 +12,8 @@ export default function Loading(comp) {
   ) : (
     <LinearProgress />
   )
+
+  // const errorType
 
   return (
     <div className={classes.container}>

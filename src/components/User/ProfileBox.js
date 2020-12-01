@@ -102,7 +102,7 @@ export default function ProfileBox({ userData }) {
           </Grid>
         </>
       ) : (
-        <Loading />
+        <Loading comp="profile"/>
       )}
     </div>
   );

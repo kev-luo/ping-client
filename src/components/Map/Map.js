@@ -47,7 +47,7 @@ export default function Map({ data }) {
       );
     })
   ) : (
-    <Loading />
+    <Loading comp="map"/>
   );
 
   return (
