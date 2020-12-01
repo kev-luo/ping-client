@@ -9,13 +9,20 @@ import Ping from "../components/SinglePing/Ping";
 
 import { useQuery } from "@apollo/client";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PING_QUERY, FETCH_PINGS_BY_LOCATION, NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
+import {
+  FETCH_PING_QUERY,
+  FETCH_PINGS_BY_LOCATION,
+  NEW_COMMENT_SUBSCRIPTION,
+} from "../utils/graphql";
 
 export default function SinglePing() {
   const classes = useStyles();
   const { pingId } = useParams();
-  const { state: {userPosition}, dispatch } = useMapContext();
-  const { subscribeToMore, data, loading } = useQuery(FETCH_PING_QUERY, {
+  const {
+    state: { userPosition },
+    dispatch,
+  } = useMapContext();
+  const { subscribeToMore, data, error } = useQuery(FETCH_PING_QUERY, {
     variables: { pingId },
   });
 
@@ -34,18 +41,22 @@ export default function SinglePing() {
         payload: { latitude, longitude, zoom: 13 },
       });
     }
-    const unsubscribe = subscribeToMore({
-      document: NEW_COMMENT_SUBSCRIPTION,
-      variables: { pingId },
-      updateQuery: (prevPing, { subscriptionData }) => {
-        if (!subscriptionData) return prevPing;
-        return {
-          ...prevPing,
-          getPing: subscriptionData.getPing,
-        };
-      },
-    });
-    return () => unsubscribe();
+    const unsubscribe = subscribeToMore
+      ? subscribeToMore({
+          document: NEW_COMMENT_SUBSCRIPTION,
+          variables: { pingId },
+          updateQuery: (prevPing, { subscriptionData }) => {
+            if (!subscriptionData) return prevPing;
+            return {
+              ...prevPing,
+              getPing: subscriptionData.getPing,
+            };
+          },
+        })
+      : null;
+    if (unsubscribe) {
+      return () => unsubscribe();
+    }
   }, [subscribeToMore, pingId, data, dispatch]);
 
   return (
@@ -60,11 +71,11 @@ export default function SinglePing() {
             justify="space-between"
           >
             <UserContainer />
-            <Map data={pingsData.data}/>
+            <Map data={pingsData.data} error={pingsData.error} />
           </Grid>
 
           <Grid item container direction="column" lg={8}>
-            <Ping data={data} loading={loading} />
+            <Ping data={data} error={error} />
           </Grid>
         </Grid>
       </div>

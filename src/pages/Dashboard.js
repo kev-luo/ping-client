@@ -24,7 +24,7 @@ export default function Dashboard() {
     latt = userPosition.latitude;
   }
 
-  const { subscribeToMore, data } = useQuery(FETCH_PINGS_BY_LOCATION, {
+  const { subscribeToMore, data, error } = useQuery(FETCH_PINGS_BY_LOCATION, {
     skip: !userPosition,
     variables: { long, latt },
   });
@@ -41,12 +41,12 @@ export default function Dashboard() {
             justify="space-between"
           >
             <UserContainer />
-            <Map data={data} />
+            <Map data={data} error={error}/>
           </Grid>
 
           <Grid item container direction="column" lg={8}>
             {user && <NewPing />}
-            <FeedType subscribeToMore={subscribeToMore} data={data} />
+            <FeedType subscribeToMore={subscribeToMore} data={data} error={error}/>
           </Grid>
         </Grid>
       </div>

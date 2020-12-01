@@ -10,18 +10,22 @@ export default function FeedType({ subscribeToMore, data, error }) {
   const pathArray = pathname.split("/");
 
   useEffect(() => {
-    const unsubscribe = subscribeToMore({
-      document: NEW_PING_SUBSCRIPTION,
-      updateQuery: (prevPings, { subscriptionData }) => {
-        if (!subscriptionData) return prevPings;
-        const pingAdded = subscriptionData.data.newPing;
-        return {
-          ...prevPings,
-          getPingsByLocation: [pingAdded, ...prevPings.getPingsByLocation],
-        };
-      },
-    });
-    return () => unsubscribe();
+    const unsubscribe = subscribeToMore
+      ? subscribeToMore({
+          document: NEW_PING_SUBSCRIPTION,
+          updateQuery: (prevPings, { subscriptionData }) => {
+            if (!subscriptionData) return prevPings;
+            const pingAdded = subscriptionData.data.newPing;
+            return {
+              ...prevPings,
+              getPingsByLocation: [pingAdded, ...prevPings.getPingsByLocation],
+            };
+          },
+        })
+      : null;
+    if (unsubscribe) {
+      return () => unsubscribe();
+    }
   }, [subscribeToMore]);
 
   const supportedPings = data?.getPingsByLocation.filter((ping) => {

@@ -9,7 +9,7 @@ import Loading from "../Loading";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 
-export default function Ping({ data, loading }) {
+export default function Ping({ data, error }) {
   const classes = useStyles();
   const {
     state: { userPosition },
@@ -31,7 +31,7 @@ export default function Ping({ data, loading }) {
       payload: {
         latitude: userPosition?.latitude,
         longitude: userPosition?.longitude,
-        zoom: 13
+        zoom: 13,
       },
     });
     history.goBack();
@@ -40,9 +40,7 @@ export default function Ping({ data, loading }) {
   return (
     <>
       <Paper className={classes.root}>
-        {loading ? (
-          <Loading />
-        ) : (
+        {data ? (
           <>
             <Button color="primary" variant="contained" onClick={back}>
               Go Back
@@ -69,10 +67,14 @@ export default function Ping({ data, loading }) {
               )}
             </div>
           </>
+        ) : error ? (
+          <Loading err={error} />
+        ) : (
+          <Loading />
         )}
       </Paper>
       <NewComment pingId={data?.getPing?.id} />
-      {loading ? <Loading /> : getComments()}
+      {data ? getComments() : error ? <Loading err={error} /> : <Loading />}
     </>
   );
 }
