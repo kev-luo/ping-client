@@ -12,7 +12,6 @@ import Loading from "../Loading";
 export default function Map({ data }) {
   const classes = useStyles();
   const route = useParams();
-  console.log(route);
   const {
     state: { userPosition, viewport },
     dispatch,
@@ -100,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light,
     maxHeight: "60vh",
     height: "800px",
   },

@@ -6,15 +6,24 @@ const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      light: grey[500],
-      main: grey[700],
+      main: "#224459", // ocean blue
     },
     secondary: {
-      light: red[500],
-      main: "#B81C1C", // red
-      dark: "#C13838", // red
-      contrastText: "#fff",
+      main: "#A1A621", // greenish yellow
+      contrastText: "#fff", 
     },
+    success: {
+      main: "#593311" //brown
+    },
+    error: {
+      main: "#F29C50" //sherbert orange
+    },
+    warning: {
+      main: "#D9857E" // dark pink
+    },
+    info: {
+      main: "#F2F2F2" //beige
+    }
   },
 });
 
@@ -23,11 +32,11 @@ const themeDark = createMuiTheme({
     type: "dark",
     primary: {
       light: "#313131",
-      main: grey[900],
+      main: grey[800],
       contrastText: "#C44714", // dark orange
     },
     secondary: {
-      main: amber[500],
+      main: grey[900],
       contrastText: "#C13838",
     },
     error: {
@@ -46,30 +55,30 @@ const themeOverrides = {
     },
     containedPrimary: {
       "&:hover": {
-        color: themeDark.palette.error.light,
+        color: theme.palette.error.light,
       },
       fontWeight: 500,
-      backgroundColor: themeDark.palette.primary.light,
+      backgroundColor: theme.palette.secondary.main,
     },
   },
   MuiInput: {
     root: {
       "&$underline:after": {
-        borderBottomColor: themeDark.palette.error.main,
+        borderBottomColor: theme.palette.error.main,
       },
     },
   },
   MuiInputLabel: {
     root: {
       "&$focused": {
-        color: themeDark.palette.error.light,
+        color: theme.palette.error.light,
       },
     },
   },
   MuiTooltip: {
     tooltip: {
       backgroundColor: "#fff",
-      color: themeDark.palette.primary.light,
+      color: theme.palette.primary.light,
     },
     arrow: {
       color: "#fff",
@@ -90,7 +99,7 @@ themeDark.overrides = themeOverrides;
 
 const Theme = (props) => {
   const { children, darkMode } = props;
-  const setTheme = darkMode ? theme : themeDark;
+  const setTheme = darkMode ? themeDark : theme;
   return <ThemeProvider theme={setTheme}>{children}</ThemeProvider>;
 };
 

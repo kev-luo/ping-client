@@ -32,7 +32,7 @@ export default function Nav({ darkMode, setDarkMode }) {
 
   return (
     <Paper elevation={3}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.nav}>
         <Toolbar>
           <Typography variant="overline" className={classes.title}>
             <Link to="/" className={classes.link}>
@@ -46,7 +46,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 onChange={() => setDarkMode(!darkMode)}
               />
             }
-            label={darkMode ? "Dark Mode" : "Light Mode"}
+            label={darkMode ? "Light Mode" : "Dark Mode"}
             labelPlacement="start"
           />
           {context.user && (
@@ -79,6 +79,9 @@ export default function Nav({ darkMode, setDarkMode }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  nav: {
+    backgroundColor: theme.palette.primary.main
+  },
   title: {
     flexGrow: 1,
     fontSize: "2rem",

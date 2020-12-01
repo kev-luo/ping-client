@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: "5px 8px",
     marginTop: "0.7rem",
+    backgroundColor: theme.palette.primary.light
   },
   username: {
     "&:hover": {

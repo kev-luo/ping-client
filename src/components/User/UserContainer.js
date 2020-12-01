@@ -38,6 +38,6 @@ export default function UserContainer() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.light,
   },
 }));

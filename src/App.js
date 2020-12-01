@@ -52,7 +52,7 @@ function App(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.info.main,
     minHeight: "100vh",
   },
 }));

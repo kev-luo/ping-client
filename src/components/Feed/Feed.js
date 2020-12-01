@@ -115,7 +115,7 @@ export default function Feed({ data, feedType }) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.light,
     height: "70vh",
     overflow: "auto",
     padding: theme.spacing(2),
@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 1),
     padding: theme.spacing(0, 2),
     paddingRight: 0,
-    background: theme.palette.primary.light,
+    background: theme.palette.primary.main,
   },
   title: {
     textAlign: "center",
