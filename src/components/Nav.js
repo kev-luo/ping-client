@@ -46,7 +46,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 onChange={() => setDarkMode(!darkMode)}
               />
             }
-            label={darkMode ? "Light Mode" : "Dark Mode"}
+            label={darkMode ? "☀️" : "🌙"}
             labelPlacement="start"
           />
           {context.user && (
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0",
   },
   link: {
-    color: theme.palette.primary.main,
+    color: "#659DBD",
     textDecoration: "none",
     margin: theme.spacing(1),
   },
