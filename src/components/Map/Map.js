@@ -3,24 +3,31 @@ import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import PlaceTwoTone from "@material-ui/icons/PlaceTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
+import { useParams } from 'react-router-dom';
 import PingPin from "./PingPin";
 
-import { useMapContext } from '../../utils/useMapContext';
-import Actions from "../../utils/dashboardActions";
+import { useMapContext } from "../../utils/useMapContext";
 import Loading from "../Loading";
 
 export default function Map({ data }) {
   const classes = useStyles();
-  const { state: { userPosition, viewport }, dispatch } = useMapContext();
+  const route = useParams();
+  console.log(route);
+  const {
+    state: { userPosition, viewport },
+    dispatch,
+  } = useMapContext();
 
-  if(!userPosition) {
+  if (!userPosition) {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        dispatch({
-          type: "UPDATE_VIEWPORT",
-          payload: { latitude, longitude, zoom: 13 },
-        });
+        if(!route.pingId) {
+          dispatch({
+            type: "UPDATE_VIEWPORT",
+            payload: { latitude, longitude, zoom: 13 },
+          });
+        }
         dispatch({
           type: "UPDATE_USER_POSITION",
           payload: { latitude, longitude },
@@ -29,36 +36,20 @@ export default function Map({ data }) {
     }
   }
 
-  // function getUserPosition() {
-  //   if ("geolocation" in navigator) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       const { latitude, longitude } = position.coords;
-  //       dispatch({
-  //         type: Actions.UPDATE_VIEWPORT,
-  //         payload: { ...viewport, latitude, longitude },
-  //       });
-  //       dispatch({
-  //         type: Actions.UPDATE_USER_POSITION,
-  //         payload: { latitude, longitude },
-  //       });
-  //     });
-  //   }
-  // };
-
-  // data && console.log(data.getPingsByLocation[0].id);
-
-  const PingPinsComponents = data
-    ? data?.getPingsByLocation.map((ping) => {
-        return (
-          <PingPin
-            key={ping.id}
-            pingId={ping.id}
-            long={ping.location.coordinates[0]}
-            latt={ping.location.coordinates[1]}
-          />
-        );
-      })
-    : <Loading />;
+  const PingPinsComponents = data ? (
+    data?.getPingsByLocation.map((ping) => {
+      return (
+        <PingPin
+          key={ping.id}
+          pingId={ping.id}
+          long={ping.location.coordinates[0]}
+          latt={ping.location.coordinates[1]}
+        />
+      );
+    })
+  ) : (
+    <Loading />
+  );
 
   return (
     <Grid item>

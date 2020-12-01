@@ -9,14 +9,19 @@ import Ping from "../components/SinglePing/Ping";
 
 import { useQuery } from "@apollo/client";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PING_QUERY, NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
+import { FETCH_PING_QUERY, FETCH_PINGS_BY_LOCATION, NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
 
 export default function SinglePing() {
   const classes = useStyles();
   const { pingId } = useParams();
-  const { dispatch } = useMapContext();
+  const { state: {userPosition}, dispatch } = useMapContext();
   const { subscribeToMore, data, loading } = useQuery(FETCH_PING_QUERY, {
     variables: { pingId },
+  });
+
+  const pingsData = useQuery(FETCH_PINGS_BY_LOCATION, {
+    skip: !userPosition,
+    variables: { long: userPosition?.longitude, latt: userPosition?.latitude },
   });
 
   useEffect(() => {
@@ -55,7 +60,7 @@ export default function SinglePing() {
             justify="space-between"
           >
             <UserContainer />
-            <Map />
+            <Map data={pingsData.data}/>
           </Grid>
 
           <Grid item container direction="column" lg={8}>
@@ -80,16 +85,3 @@ const useStyles = makeStyles((theme) => ({
     // color: theme.palette.text.secondary,
   },
 }));
-
-// let long;
-// let latt;
-
-// if (userPosition) {
-//   long = userPosition.longitude;
-//   latt = userPosition.latitude;
-// }
-
-// const { data } = useQuery(FETCH_PINGS_BY_LOCATION, {
-//   skip: !userPosition,
-//   variables: { long, latt },
-// });
