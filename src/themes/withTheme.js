@@ -1,25 +1,28 @@
 import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { amber, grey, red } from "@material-ui/core/colors";
+import { grey, red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#224459", // ocean blue
+      main: "#659DBD", // bluer blue
+      dark: "#0D133D"
     },
     secondary: {
-      main: "#A1A621", // greenish yellow
-      contrastText: "#fff", 
+      light: "#79BD51",
+      main: "#2C4D3F", // olive green
+      dark: "#274D20"
     },
     success: {
-      main: "#593311" //brown
+      main: "#BC986A" //light brown
     },
     error: {
-      main: "#F29C50" //sherbert orange
+      main: "#DAAD86" //orangeish pink?
     },
     warning: {
-      main: "#D9857E" // dark pink
+      light: "#D5BFAC",
+      main: "#EDF1ED" // yellowish beige
     },
     info: {
       main: "#F2F2F2" //beige
@@ -55,23 +58,42 @@ const themeOverrides = {
     },
     containedPrimary: {
       "&:hover": {
-        color: theme.palette.error.light,
+        backgroundColor: theme.palette.secondary.light,
       },
       fontWeight: 500,
-      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.info.main,
+      backgroundColor: theme.palette.secondary.dark,
     },
+    containedSecondary: {
+      backgroundColor: theme.palette.error.main,
+      color: theme.palette.info.main,
+      "&:hover": {
+        backgroundColor: theme.palette.warning.light,
+      }
+    },
+    outlinedPrimary: {
+      color: theme.palette.secondary.dark,
+      borderColor: theme.palette.secondary.dark,
+      opacity: 0.6,
+      "&:hover": {
+        color: theme.palette.error.main,
+        borderColor: theme.palette.error.main,
+        opacity: 1,
+      }
+    }
   },
   MuiInput: {
     root: {
       "&$underline:after": {
-        borderBottomColor: theme.palette.error.main,
+        borderBottomColor: theme.palette.warning.main,
       },
     },
   },
   MuiInputLabel: {
     root: {
+      color: theme.palette.secondary.dark,
       "&$focused": {
-        color: theme.palette.error.light,
+        color: theme.palette.warning.main,
       },
     },
   },

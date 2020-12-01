@@ -77,7 +77,7 @@ export default function NewComment() {
                 className={classes.fileBtn}
                 htmlFor="file"
                 variant="contained"
-                color="primary"
+                color="secondary"
               >
                 Add an Image
               </Button>
@@ -92,7 +92,7 @@ export default function NewComment() {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 endIcon={<SendIcon />}
               >
                 Ping

@@ -54,7 +54,7 @@ export default function Nav({ darkMode, setDarkMode }) {
               <Link to={`/user/${context.user.id}`} className={classes.link}>
                 <Button
                   onClick={userProfile}
-                  variant="contained"
+                  variant="outlined"
                   color="primary"
                   size="small"
                 >
@@ -62,7 +62,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 </Button>
               </Link>
               <Button
-                variant="contained"
+                variant="outlined"
                 color="primary"
                 endIcon={<BiExit />}
                 size="small"
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0",
   },
   link: {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.primary.dark,
     textDecoration: "none",
     margin: theme.spacing(1),
   },
