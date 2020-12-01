@@ -9,6 +9,15 @@ const MapContext = React.createContext({
   },
 });
 
+const initialState = {
+  userPosition: null,
+  viewport: {
+    latitude: 12.5165,
+    longitude: 13.5465,
+    zoom: 13,
+  },
+}
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case "UPDATE_USER_POSITION":
@@ -25,3 +34,14 @@ function reducer(state, { type, payload }) {
       return state;
   }
 }
+
+function MapProvider(props) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return <MapContext.Provider value={{ state, dispatch }} {...props} />;
+}
+
+const useMapContext = () => {
+  return useContext(MapContext);
+}
+
+export { useMapContext, MapProvider }

@@ -7,12 +7,14 @@ import Map from "../components/Map/Map";
 import Ping from "../components/SinglePing/Ping";
 
 import { useQuery } from "@apollo/client";
+import { useMapContext} from "../utils/useMapContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
 
 export default function SinglePing() {
   const classes = useStyles();
-  const {state: {userPosition}} = useDashboardContext();
+  const { state: {userPosition}} = useMapContext();
+  // const {state: {userPosition}} = useDashboardContext();
   let long;
   let latt;
 

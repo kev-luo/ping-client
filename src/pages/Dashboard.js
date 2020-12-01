@@ -9,13 +9,15 @@ import NewPing from "../components/Feed/NewPing";
 import FeedType from "../components/Feed/FeedType";
 
 import { useQuery } from "@apollo/client";
+import { useMapContext } from "../utils/useMapContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
 
 export default function Dashboard() {
   const classes = useStyles();
   const { user } = useAuthContext();
-  const {state: {userPosition}} = useDashboardContext();
+  const { state: {userPosition}} = useMapContext();
+  // const {state: {userPosition}} = useDashboardContext();
   let long;
   let latt;
 

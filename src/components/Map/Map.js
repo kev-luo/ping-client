@@ -5,13 +5,45 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import PingPin from "./PingPin";
 
-import { useDashboardContext } from "../../utils/useDashboardContext";
+import { useMapContext } from '../../utils/useMapContext';
 import Actions from "../../utils/dashboardActions";
 import Loading from "../Loading";
 
 export default function Map({ data }) {
   const classes = useStyles();
-  const {state: { viewport, userPosition }, dispatch} = useDashboardContext();
+  const { state: { userPosition, viewport }, dispatch } = useMapContext();
+
+  if(!userPosition) {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        dispatch({
+          type: "UPDATE_VIEWPORT",
+          payload: { latitude, longitude, zoom: 13 },
+        });
+        dispatch({
+          type: "UPDATE_USER_POSITION",
+          payload: { latitude, longitude },
+        });
+      });
+    }
+  }
+
+  // function getUserPosition() {
+  //   if ("geolocation" in navigator) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       const { latitude, longitude } = position.coords;
+  //       dispatch({
+  //         type: Actions.UPDATE_VIEWPORT,
+  //         payload: { ...viewport, latitude, longitude },
+  //       });
+  //       dispatch({
+  //         type: Actions.UPDATE_USER_POSITION,
+  //         payload: { latitude, longitude },
+  //       });
+  //     });
+  //   }
+  // };
 
   // data && console.log(data.getPingsByLocation[0].id);
 
@@ -28,24 +60,6 @@ export default function Map({ data }) {
       })
     : <Loading />;
 
-  function getUserPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        dispatch({
-          type: Actions.UPDATE_VIEWPORT,
-          payload: { ...viewport, latitude, longitude },
-        });
-        dispatch({
-          type: Actions.UPDATE_USER_POSITION,
-          payload: { latitude, longitude },
-        });
-      });
-    }
-  };
-
-  getUserPosition();
-
   return (
     <Grid item>
       <Paper className={classes.paper}>
@@ -55,7 +69,7 @@ export default function Map({ data }) {
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxApiAccessToken="pk.eyJ1IjoiZ29vZGx2biIsImEiOiJja2h6OXcwdG0wcXo5MnJubXRkcm93bGh4In0.7lgoZXg3FQincUmupVj4tQ"
           onViewportChange={(newViewport) => {
-            dispatch({ type: Actions.UPDATE_VIEWPORT, payload: newViewport });
+            dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
           }}
           {...viewport}
         >
@@ -63,7 +77,7 @@ export default function Map({ data }) {
             <NavigationControl
               onViewportChange={(newViewport) => {
                 dispatch({
-                  type: Actions.UPDATE_VIEWPORT,
+                  type: "UPDATE_VIEWPORT",
                   payload: newViewport,
                 });
               }}
