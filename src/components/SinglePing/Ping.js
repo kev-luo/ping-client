@@ -4,13 +4,17 @@ import { Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 
+import { useMapContext } from "../../utils/useMapContext";
 import Loading from "../Loading";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
 
 export default function Ping({ data, loading }) {
   const classes = useStyles();
-
+  const {
+    state: { userPosition },
+    dispatch,
+  } = useMapContext();
   const history = useHistory();
 
   const getComments = () => {
@@ -21,6 +25,18 @@ export default function Ping({ data, loading }) {
     return commentComponents;
   };
 
+  const back = () => {
+    dispatch({
+      type: "UPDATE_VIEWPORT",
+      payload: {
+        latitude: userPosition?.latitude,
+        longitude: userPosition?.longitude,
+        zoom: 13
+      },
+    });
+    history.goBack();
+  };
+
   return (
     <>
       <Paper className={classes.root}>
@@ -28,11 +44,7 @@ export default function Ping({ data, loading }) {
           <Loading />
         ) : (
           <>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => history.goBack()}
-            >
+            <Button color="primary" variant="contained" onClick={back}>
               Go Back
             </Button>
             <div className={classes.textContainer}>

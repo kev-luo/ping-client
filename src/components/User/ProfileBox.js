@@ -16,7 +16,7 @@ export default function ProfileBox({ userData }) {
 
   const [highlightFeed, setHighlightFeed] = useState(feedType[2]);
   const { user } = useAuthContext();
-  const {state} = useDashboardContext();
+  const { state } = useDashboardContext();
 
   useEffect(() => {
     setHighlightFeed(feedType[2]);
@@ -35,17 +35,17 @@ export default function ProfileBox({ userData }) {
   function seeNewPings() {
     if (user.id === state.selectedUser.id) {
       return (
-        <Link
-          to={`/user/${userData.id}`}
-          className={
-            highlightFeed !== "supported" &&
-            highlightFeed !== "pinged" &&
-            feedType[1] === "user"
-              ? classes.activeFeedButton
-              : ""
-          }
-        >
-          <Button variant="contained" color="primary">
+        <Link to={`/user/${userData.id}`}>
+          <Button
+            variant="contained"
+            color={
+              highlightFeed !== "supported" &&
+              highlightFeed !== "pinged" &&
+              feedType[1] === "user"
+                ? "secondary"
+                : "primary"
+            }
+          >
             New Pings
           </Button>
         </Link>
@@ -81,23 +81,19 @@ export default function ProfileBox({ userData }) {
               {userProfile}
             </Grid>
             <Grid item className={classes.feedButtons}>
-              <Link
-                to={`/user/supported/${userData.id}`}
-                className={
-                  highlightFeed === "supported" ? classes.activeFeedButton : ""
-                }
-              >
-                <Button variant="contained" color="primary">
+              <Link to={`/user/supported/${userData.id}`}>
+                <Button
+                  variant="contained"
+                  color={highlightFeed === "supported" ? "secondary" : "primary"}
+                >
                   Supported Pings
                 </Button>
               </Link>
-              <Link
-                to={`/user/pinged/${userData.id}`}
-                className={
-                  highlightFeed === "pinged" ? classes.activeFeedButton : ""
-                }
-              >
-                <Button variant="contained" color="primary">
+              <Link to={`/user/pinged/${userData.id}`}>
+                <Button
+                  variant="contained"
+                  color={highlightFeed === "pinged" ? "secondary" : "primary"}
+                >
                   Posted Pings
                 </Button>
               </Link>
@@ -138,11 +134,6 @@ const useStyles = makeStyles((theme) => ({
       border: "none",
       fontSize: "17px",
       margin: "0 0.2rem",
-    },
-  },
-  activeFeedButton: {
-    "& *": {
-      color: theme.palette.error.main,
     },
   },
 }));

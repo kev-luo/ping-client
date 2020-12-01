@@ -10,9 +10,9 @@ const theme = createMuiTheme({
       dark: "#23263D"
     },
     secondary: {
-      light: "#79BD51",
-      main: "#2C4D3F", // olive green
-      dark: "#274D20"
+      light: "#c3ffb3",
+      main: "#5BA875", // olive green
+      dark: "#2C4D3F"
     },
     success: {
       main: "#BC986A" //light brown
@@ -64,11 +64,11 @@ const themeOverrides = {
     },
     containedPrimary: {
       "&:hover": {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.warning.light,
       },
       fontWeight: 500,
       color: theme.palette.info.main,
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: theme.palette.secondary.main,
     },
     containedSecondary: {
       backgroundColor: theme.palette.error.main,

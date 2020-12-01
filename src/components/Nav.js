@@ -14,12 +14,17 @@ import { Link } from "react-router-dom";
 
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
+import { useMapContext } from "../utils/useMapContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 
 export default function Nav({ darkMode, setDarkMode }) {
   const classes = useStyles();
   const context = useAuthContext();
-  const {dispatch} = useDashboardContext();
+  const {
+    state: { userPosition },
+    dispatch : mapDispatch ,
+  } = useMapContext();
+  const { dispatch } = useDashboardContext();
 
   const logoutOps = () => {
     dispatch({ type: Actions.CLEAR_USER });
@@ -28,6 +33,14 @@ export default function Nav({ darkMode, setDarkMode }) {
 
   const userProfile = () => {
     dispatch({ type: Actions.SELECT_USER, payload: context.user });
+    mapDispatch({
+      type: "UPDATE_VIEWPORT",
+      payload: {
+        latitude: userPosition?.latitude,
+        longitude: userPosition?.longitude,
+        zoom: 13,
+      },
+    });
   };
 
   return (
@@ -80,7 +93,7 @@ export default function Nav({ darkMode, setDarkMode }) {
 
 const useStyles = makeStyles((theme) => ({
   nav: {
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.dark,
   },
   title: {
     flexGrow: 1,
