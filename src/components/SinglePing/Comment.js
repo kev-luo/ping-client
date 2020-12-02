@@ -64,15 +64,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: "5px 8px",
     marginTop: "0.7rem",
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.info.main,
+    color: theme.palette.primary.dark
   },
   username: {
     "&:hover": {
       cursor: "pointer",
-      color: "#DC143C",
+      color: "#ffc34d",
     },
     textDecoration: "none",
-    color: "black",
+    color: theme.palette.secondary.main,
   },
   missingPic: {
     width: "3rem",

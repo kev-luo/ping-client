@@ -51,7 +51,7 @@ export default function Ping({ data, error }) {
               </Typography>
               <div className={classes.metaContainer}>
                 <Typography variant="subtitle2">
-                  {`${data.getPing.supportCount} Supported`}
+                  {`${data.getPing.supportCount} Supported |`}
                 </Typography>
                 <Typography variant="subtitle2">
                   {`Posted ${moment(Number(data.getPing.createdAt)).fromNow()}`}
@@ -74,26 +74,42 @@ export default function Ping({ data, error }) {
         )}
       </Paper>
       <NewComment pingId={data?.getPing?.id} />
-      {data ? getComments() : error ? <Loading err={error} /> : <Loading />}
+      <Paper className={classes.commentsRoot}>
+        <Typography variant="h5" align="center" className={classes.title}>
+          Comments
+        </Typography>
+        {data ? getComments() : error ? <Loading err={error} /> : <Loading />}
+      </Paper>
     </>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.main,
-    maxHeight: "80vh",
-    overflow: "auto",
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.primary.light,
     padding: theme.spacing(2),
+  },
+  commentsRoot: {
+    backgroundColor: theme.palette.primary.light,
+    maxHeight: "50vh",
+    overflow: "auto",
+    margin: theme.spacing(2, 0),
+    padding: theme.spacing(2),
+  },
+  title: {
+    color: theme.palette.primary.dark
   },
   backLink: {
     textDecoration: "none",
   },
   textContainer: {
     marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
   metaContainer: {
     display: "flex",
+    marginTop: "0.1rem",
     marginBottom: "1rem",
     "& > *": {
       marginRight: "0.34rem",

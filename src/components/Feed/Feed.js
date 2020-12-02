@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.warning.main,
   },
   title: {
-    textAlign: "center",
+    color: theme.palette.primary.dark
   },
   metaContainer: {
     display: "flex",
@@ -143,14 +143,14 @@ const useStyles = makeStyles((theme) => ({
   },
   meta: {
     "&:hover": {
-      color: "#708090",
+      color: "#ffc34d",
       cursor: "pointer",
     },
   },
   username: {
     "&:hover": {
       cursor: "pointer",
-      color: theme.palette.primary.main,
+      color: "#ffc34d",
     },
     textDecoration: "none",
     color: theme.palette.secondary.main,

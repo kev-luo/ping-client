@@ -7,8 +7,8 @@ export default function About() {
   const classes = useStyles();
   return (
     <Grid item>
-      <Typography variant="h4">Welcome to Ping</Typography>
-      <Typography variant="body1">
+      <Typography className={classes.text} variant="h4">Welcome to Ping</Typography>
+      <Typography className={classes.text} variant="body1">
         Ping helps the community by keeping users informed of local events.
         Users post information about things happening around them to create a
         web of real-time event announcements. Pings are automatically deleted

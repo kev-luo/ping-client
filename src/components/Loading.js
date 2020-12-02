@@ -16,7 +16,9 @@ export default function Loading({comp, err}) {
   return (
     <div className={classes.container}>
       {err ? (
-        <Typography variant="h5" centered />
+        <Typography variant="h5" centered >
+          ☹️ Uh oh looks like an error on our end... 
+        </Typography>
       ) : (
         <>
           {loadingType}

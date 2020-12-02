@@ -36,7 +36,7 @@ const themeDark = createMuiTheme({
     primary: {
       light: "#313131",
       main: grey[800],
-      contrastText: "white", // dark orange
+      dark: "fff",
     },
     secondary: {
       main: grey[900],
