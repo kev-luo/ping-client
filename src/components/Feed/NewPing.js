@@ -50,7 +50,6 @@ export default function NewComment() {
   }
 
   function loaderSubmit(e) {
-    console.log(e);
     setIsLoading(!isLoading);
     handleSubmit(e);
   }
