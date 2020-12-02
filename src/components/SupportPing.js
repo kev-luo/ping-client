@@ -35,14 +35,16 @@ export default function SupportPing({ user, ping }) {
   }
 
   function fillIcon(type) {
-    if (type === "support") {
-      return ping.support.find(
-        (supporter) => supporter.supported && supporter.user.id === user.id
-      );
-    } else {
-      return ping.support.find(
-        (supporter) => !supporter.supported && supporter.user.id === user.id
-      );
+    if(user) {
+      if (type === "support") {
+        return ping.support.find(
+          (supporter) => supporter.supported && supporter.user.id === user.id
+        );
+      } else {
+        return ping.support.find(
+          (supporter) => !supporter.supported && supporter.user.id === user.id
+        );
+      }
     }
   }
 

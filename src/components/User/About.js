@@ -15,7 +15,7 @@ export default function About() {
         after 24 hours to keep the information fresh.
       </Typography>
       <Link to="/portal" className={classes.portalBtn}>
-        <Button variant="contained" color="primary">
+        <Button className={classes.btn} variant="contained" color="primary">
           Get Started!
         </Button>
       </Link>
@@ -27,4 +27,7 @@ const useStyles = makeStyles((theme) => ({
   portalBtn: {
     textDecoration: "none",
   },
+  btn: {
+    marginTop: theme.spacing(2),
+  }
 }));

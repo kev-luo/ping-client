@@ -28,6 +28,9 @@ const theme = createMuiTheme({
       main: "#F2F2F2" //beige
     }
   },
+  typography: {
+    fontFamily: "Fira Sans, sans-serif"
+  }
 });
 
 const themeDark = createMuiTheme({
