@@ -50,7 +50,7 @@ export default function NewComment() {
   }
 
   function loaderSubmit(e) {
-    // console.log(values);
+    console.log(e);
     setIsLoading(!isLoading);
     handleSubmit(e);
   }
@@ -92,6 +92,7 @@ export default function NewComment() {
               <Button
                 type="submit"
                 variant="contained"
+                disabled={values.body === ""}
                 color="secondary"
                 endIcon={<SendIcon />}
               >

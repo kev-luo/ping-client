@@ -25,7 +25,7 @@ export default function SupportPing({ user, ping }) {
     if (user) {
       const alreadySupported = ping.support.filter((supporter) => {
         return (
-          supporter.supported === suppBool && supporter.user.id === user.id
+          supporter.supported === suppBool && supporter.user?.id === user?.id
         );
       });
       if (alreadySupported.length !== 1) {
@@ -38,11 +38,11 @@ export default function SupportPing({ user, ping }) {
     if(user) {
       if (type === "support") {
         return ping.support.find(
-          (supporter) => supporter.supported && supporter.user.id === user.id
+          (supporter) => supporter.supported && supporter.user?.id === user?.id
         );
       } else {
         return ping.support.find(
-          (supporter) => !supporter.supported && supporter.user.id === user.id
+          (supporter) => !supporter.supported && supporter.user?.id === user?.id
         );
       }
     }

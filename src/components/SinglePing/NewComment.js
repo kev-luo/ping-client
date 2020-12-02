@@ -52,6 +52,7 @@ export default function NewPing(props) {
               type="submit"
               variant="contained"
               color="secondary"
+              disabled={comment === ""}
             >
               Comment
             </Button>
