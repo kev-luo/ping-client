@@ -14,12 +14,17 @@ import { Link } from "react-router-dom";
 
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
+import { useMapContext } from "../utils/useMapContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 
 export default function Nav({ darkMode, setDarkMode }) {
   const classes = useStyles();
   const context = useAuthContext();
-  const {dispatch} = useDashboardContext();
+  const {
+    state: { userPosition },
+    dispatch : mapDispatch ,
+  } = useMapContext();
+  const { dispatch } = useDashboardContext();
 
   const logoutOps = () => {
     dispatch({ type: Actions.CLEAR_USER });
@@ -28,11 +33,19 @@ export default function Nav({ darkMode, setDarkMode }) {
 
   const userProfile = () => {
     dispatch({ type: Actions.SELECT_USER, payload: context.user });
+    mapDispatch({
+      type: "UPDATE_VIEWPORT",
+      payload: {
+        latitude: userPosition?.latitude,
+        longitude: userPosition?.longitude,
+        zoom: 13,
+      },
+    });
   };
 
   return (
     <Paper elevation={3}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.nav}>
         <Toolbar>
           <Typography variant="overline" className={classes.title}>
             <Link to="/" className={classes.link}>
@@ -46,7 +59,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 onChange={() => setDarkMode(!darkMode)}
               />
             }
-            label={darkMode ? "Dark Mode" : "Light Mode"}
+            label={darkMode ? "☀️" : "🌙"}
             labelPlacement="start"
           />
           {context.user && (
@@ -54,15 +67,15 @@ export default function Nav({ darkMode, setDarkMode }) {
               <Link to={`/user/${context.user.id}`} className={classes.link}>
                 <Button
                   onClick={userProfile}
-                  variant="contained"
-                  color="primary"
+                  variant="outlined"
+                  color="secondary"
                   size="small"
                 >
                   Profile
                 </Button>
               </Link>
               <Button
-                variant="contained"
+                variant="outlined"
                 color="primary"
                 endIcon={<BiExit />}
                 size="small"
@@ -79,6 +92,9 @@ export default function Nav({ darkMode, setDarkMode }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  nav: {
+    backgroundColor: theme.palette.primary.dark,
+  },
   title: {
     flexGrow: 1,
     fontSize: "2rem",
@@ -86,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0",
   },
   link: {
-    color: theme.palette.secondary.dark,
+    color: "#659DBD",
     textDecoration: "none",
     margin: theme.spacing(1),
   },

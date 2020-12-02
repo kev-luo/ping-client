@@ -13,6 +13,7 @@ import { setContext } from "apollo-link-context";
 
 const httpLink = createHttpLink({
   uri: "https://ping-app-server.herokuapp.com/",
+  // uri: "http://localhost:8080/"
 });
 
 const authLink = setContext(() => {
@@ -28,6 +29,7 @@ const authHttpLink = authLink.concat(httpLink);
 
 const wsLink = new WebSocketLink({
   uri: "wss://ping-app-server.herokuapp.com/graphql",
+  // uri: "ws://localhost:8080/graphql",
   options: { reconnect: true },
 });
 

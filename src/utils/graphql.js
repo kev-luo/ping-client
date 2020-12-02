@@ -83,6 +83,7 @@ export const FETCH_PING_QUERY = gql`
         }
       }
       supportCount
+      commentCount
     }
   }
 `;
@@ -219,6 +220,7 @@ export const CREATE_COMMENT = gql`
         }
       }
       supportCount
+      commentCount
     }
   }
 `;

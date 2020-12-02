@@ -9,13 +9,13 @@ import NewPing from "../components/Feed/NewPing";
 import FeedType from "../components/Feed/FeedType";
 
 import { useQuery } from "@apollo/client";
-import { useDashboardContext } from "../utils/useDashboardContext";
+import { useMapContext } from "../utils/useMapContext";
 import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
 
 export default function Dashboard() {
   const classes = useStyles();
   const { user } = useAuthContext();
-  const {state: {userPosition}} = useDashboardContext();
+  const { state: {userPosition}} = useMapContext();
   let long;
   let latt;
 
@@ -24,7 +24,7 @@ export default function Dashboard() {
     latt = userPosition.latitude;
   }
 
-  const { subscribeToMore, data } = useQuery(FETCH_PINGS_BY_LOCATION, {
+  const { subscribeToMore, data, error } = useQuery(FETCH_PINGS_BY_LOCATION, {
     skip: !userPosition,
     variables: { long, latt },
   });
@@ -41,12 +41,12 @@ export default function Dashboard() {
             justify="space-between"
           >
             <UserContainer />
-            <Map data={data} />
+            <Map data={data} error={error}/>
           </Grid>
 
           <Grid item container direction="column" lg={8}>
             {user && <NewPing />}
-            <FeedType subscribeToMore={subscribeToMore} data={data} />
+            <FeedType subscribeToMore={subscribeToMore} data={data} error={error}/>
           </Grid>
         </Grid>
       </div>

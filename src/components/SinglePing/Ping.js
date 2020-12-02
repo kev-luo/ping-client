@@ -1,43 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import moment from "moment";
-import { useQuery } from "@apollo/client";
 import { Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-// import { useDashboardContext } from "../../utils/useDashboardContext";
-// import Actions from "../../utils/dashboardActions";
-
+import { useMapContext } from "../../utils/useMapContext";
 import Loading from "../Loading";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
-import {
-  FETCH_PING_QUERY,
-  NEW_COMMENT_SUBSCRIPTION,
-} from "../../utils/graphql";
 
-export default function Feed() {
+export default function Ping({ data, error }) {
   const classes = useStyles();
-  const { pingId } = useParams();
+  const {
+    state: { userPosition },
+    dispatch,
+  } = useMapContext();
   const history = useHistory();
-  // const [_, dispatch] = useDashboardContext();
-  const { subscribeToMore, loading, data } = useQuery(FETCH_PING_QUERY, {
-    variables: { pingId },
-  });
-  useEffect(() => {
-    const unsubscribe = subscribeToMore({
-      document: NEW_COMMENT_SUBSCRIPTION,
-      variables: { pingId },
-      updateQuery: (prevPing, { subscriptionData }) => {
-        if (!subscriptionData) return prevPing;
-        return {
-          ...prevPing,
-          getPing: subscriptionData.getPing,
-        };
-      },
-    });
-    return () => unsubscribe();
-  }, [subscribeToMore, pingId]);
 
   const getComments = () => {
     const comments = data?.getPing?.comments;
@@ -47,21 +25,24 @@ export default function Feed() {
     return commentComponents;
   };
 
-  // data && console.log(data.getPing.location.coordinates)
-  // data && dispatch({type: Actions.UPDATE_VIEWPORT, payload: { latitude: data.getPing.location.coordinates[1], longitude: data.getPing.location.coordinates[0], zoom: 13}})
+  const back = () => {
+    dispatch({
+      type: "UPDATE_VIEWPORT",
+      payload: {
+        latitude: userPosition?.latitude,
+        longitude: userPosition?.longitude,
+        zoom: 13,
+      },
+    });
+    history.goBack();
+  };
 
   return (
     <>
       <Paper className={classes.root}>
-        {loading ? (
-          <Loading />
-        ) : (
+        {data ? (
           <>
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={() => history.goBack()}
-            >
+            <Button color="primary" variant="contained" onClick={back}>
               Go Back
             </Button>
             <div className={classes.textContainer}>
@@ -70,7 +51,7 @@ export default function Feed() {
               </Typography>
               <div className={classes.metaContainer}>
                 <Typography variant="subtitle2">
-                  {`${data.getPing.supportCount} Supported`}
+                  {`${data.getPing.supportCount} Supported |`}
                 </Typography>
                 <Typography variant="subtitle2">
                   {`Posted ${moment(Number(data.getPing.createdAt)).fromNow()}`}
@@ -85,34 +66,54 @@ export default function Feed() {
                 />
               )}
             </div>
-            <NewComment pingId={data.getPing.id} />
           </>
+        ) : error ? (
+          <Loading err={error} />
+        ) : (
+          <Loading />
         )}
       </Paper>
-      {loading ? <Loading /> : getComments()}
+      <NewComment pingId={data?.getPing?.id} />
+      <Paper className={classes.commentsRoot}>
+        <Typography variant="h5" align="center" className={classes.title}>
+          Comments
+        </Typography>
+        {data ? getComments() : error ? <Loading err={error} /> : <Loading />}
+      </Paper>
     </>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.main,
-    maxHeight: "80vh",
-    overflow: "auto",
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.dark,
     padding: theme.spacing(2),
+  },
+  commentsRoot: {
+    backgroundColor: theme.palette.primary.light,
+    maxHeight: "50vh",
+    overflow: "auto",
+    margin: theme.spacing(2, 0),
+    padding: theme.spacing(2),
+  },
+  title: {
+    color: theme.palette.primary.dark
   },
   backLink: {
     textDecoration: "none",
   },
   textContainer: {
     marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
   metaContainer: {
     display: "flex",
+    marginTop: "0.1rem",
     marginBottom: "1rem",
     "& > *": {
       marginRight: "0.34rem",
-      color: "#C0C0C0",
+      color: "#909090",
       fontSize: "12px",
       textDecoration: "none",
       "& > * ": {

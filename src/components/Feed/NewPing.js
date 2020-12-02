@@ -14,10 +14,10 @@ import { green } from "@material-ui/core/colors";
 
 import { CREATE_PING } from "../../utils/graphql";
 import { useForm } from "../../utils/useForm";
-import { useDashboardContext } from "../../utils/useDashboardContext";
+import { useMapContext } from "../../utils/useMapContext";
 
 export default function NewComment() {
-  const {state: {userPosition}} = useDashboardContext();
+  const {state: {userPosition}} = useMapContext();
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const initialState = { body: "", imageUrl: "" };
@@ -50,7 +50,6 @@ export default function NewComment() {
   }
 
   function loaderSubmit(e) {
-    // console.log(values);
     setIsLoading(!isLoading);
     handleSubmit(e);
   }
@@ -77,7 +76,7 @@ export default function NewComment() {
                 className={classes.fileBtn}
                 htmlFor="file"
                 variant="contained"
-                color="primary"
+                color="secondary"
               >
                 Add an Image
               </Button>
@@ -92,7 +91,8 @@ export default function NewComment() {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
+                disabled={values.body === ""}
+                color="secondary"
                 endIcon={<SendIcon />}
               >
                 Ping
@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginBottom: theme.spacing(2),
     padding: theme.spacing(2, 2),
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.light,
   },
   buttonGroup: {
     margin: theme.spacing(1),

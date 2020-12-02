@@ -3,48 +3,54 @@ import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import PlaceTwoTone from "@material-ui/icons/PlaceTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 import PingPin from "./PingPin";
 
-import { useDashboardContext } from "../../utils/useDashboardContext";
-import Actions from "../../utils/dashboardActions";
+import { useMapContext } from "../../utils/useMapContext";
 import Loading from "../Loading";
 
-export default function Map({ data }) {
+export default function Map({ data, error }) {
   const classes = useStyles();
-  const {state: { viewport, userPosition }, dispatch} = useDashboardContext();
+  const route = useParams();
+  const {
+    state: { userPosition, viewport },
+    dispatch,
+  } = useMapContext();
 
-  // data && console.log(data.getPingsByLocation[0].id);
-
-  const PingPinsComponents = data
-    ? data?.getPingsByLocation.map((ping) => {
-        return (
-          <PingPin
-            key={ping.id}
-            pingId={ping.id}
-            long={ping.location.coordinates[0]}
-            latt={ping.location.coordinates[1]}
-          />
-        );
-      })
-    : <Loading />;
-
-  function getUserPosition() {
+  if (!userPosition) {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
+        if (!route.pingId) {
+          dispatch({
+            type: "UPDATE_VIEWPORT",
+            payload: { latitude, longitude, zoom: 13 },
+          });
+        }
         dispatch({
-          type: Actions.UPDATE_VIEWPORT,
-          payload: { ...viewport, latitude, longitude },
-        });
-        dispatch({
-          type: Actions.UPDATE_USER_POSITION,
+          type: "UPDATE_USER_POSITION",
           payload: { latitude, longitude },
         });
       });
     }
-  };
+  }
 
-  getUserPosition();
+  const PingPinsComponents = data ? (
+    data?.getPingsByLocation.map((ping) => {
+      return (
+        <PingPin
+          key={ping.id}
+          pingId={ping.id}
+          long={ping.location.coordinates[0]}
+          latt={ping.location.coordinates[1]}
+        />
+      );
+    })
+  ) : error ? (
+    <Loading err={error} />
+  ) : (
+    <Loading comp="map" />
+  );
 
   return (
     <Grid item>
@@ -55,7 +61,7 @@ export default function Map({ data }) {
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxApiAccessToken="pk.eyJ1IjoiZ29vZGx2biIsImEiOiJja2h6OXcwdG0wcXo5MnJubXRkcm93bGh4In0.7lgoZXg3FQincUmupVj4tQ"
           onViewportChange={(newViewport) => {
-            dispatch({ type: Actions.UPDATE_VIEWPORT, payload: newViewport });
+            dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
           }}
           {...viewport}
         >
@@ -63,7 +69,7 @@ export default function Map({ data }) {
             <NavigationControl
               onViewportChange={(newViewport) => {
                 dispatch({
-                  type: Actions.UPDATE_VIEWPORT,
+                  type: "UPDATE_VIEWPORT",
                   payload: newViewport,
                 });
               }}
@@ -95,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.light,
     maxHeight: "60vh",
     height: "800px",
   },

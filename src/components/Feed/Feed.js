@@ -48,8 +48,8 @@ export default function Feed({ data, feedType }) {
   }
 
   return (
-    <Paper>
-      <Grid item className={classes.root}>
+    <Paper className={classes.root}>
+      <Grid item >
         <Typography variant="h5" align="center" className={classes.title}>
           {feedType} Pings
         </Typography>
@@ -115,7 +115,7 @@ export default function Feed({ data, feedType }) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.light,
     height: "70vh",
     overflow: "auto",
     padding: theme.spacing(2),
@@ -124,10 +124,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 1),
     padding: theme.spacing(0, 2),
     paddingRight: 0,
-    background: theme.palette.primary.light,
+    background: theme.palette.warning.main,
   },
   title: {
-    textAlign: "center",
+    color: theme.palette.primary.dark
   },
   metaContainer: {
     display: "flex",
@@ -143,20 +143,20 @@ const useStyles = makeStyles((theme) => ({
   },
   meta: {
     "&:hover": {
-      color: "#708090",
+      color: "#ffc34d",
       cursor: "pointer",
     },
   },
   username: {
     "&:hover": {
       cursor: "pointer",
-      color: "#DC143C",
+      color: "#ffc34d",
     },
     textDecoration: "none",
     color: theme.palette.secondary.main,
   },
   commentIcon: {
-    color: "blue",
+    color: "#4db8ff",
   },
   missingPic: {
     width: "3rem",

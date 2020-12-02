@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { amber, grey, red } from "@material-ui/core/colors";
+import { grey, red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      light: grey[500],
-      main: grey[700],
+      main: "#659DBD", // bluer blue
+      dark: "#23263D"
     },
     secondary: {
-      light: red[500],
-      main: "#B81C1C", // red
-      dark: "#C13838", // red
-      contrastText: "#fff",
+      light: "#33cc33",
+      main: "#5BA875", // olive green
+      dark: "#2C4D3F"
     },
+    success: {
+      main: "#BC986A" //light brown
+    },
+    error: {
+      main: "#DAAD86" //orangeish pink?
+    },
+    warning: {
+      light: "#D5BFAC",
+      main: "#EDF1ED" // yellowish beige
+    },
+    info: {
+      main: "#F2F2F2" //beige
+    }
   },
+  typography: {
+    fontFamily: "Fira Sans, sans-serif"
+  }
 });
 
 const themeDark = createMuiTheme({
@@ -23,11 +38,11 @@ const themeDark = createMuiTheme({
     type: "dark",
     primary: {
       light: "#313131",
-      main: grey[900],
-      contrastText: "#C44714", // dark orange
+      main: grey[800],
+      dark: "fff",
     },
     secondary: {
-      main: amber[500],
+      main: grey[900],
       contrastText: "#C13838",
     },
     error: {
@@ -36,6 +51,12 @@ const themeDark = createMuiTheme({
       dark: "#C13838", // red
       contrastText: "#fff",
     },
+    warning: {
+      main: grey[700]
+    },
+    info: {
+      main: grey[700]
+    }
   },
 });
 
@@ -46,30 +67,59 @@ const themeOverrides = {
     },
     containedPrimary: {
       "&:hover": {
-        color: themeDark.palette.error.light,
+        backgroundColor: theme.palette.warning.light,
       },
       fontWeight: 500,
-      backgroundColor: themeDark.palette.primary.light,
+      color: theme.palette.info.main,
+      backgroundColor: theme.palette.secondary.main,
     },
+    containedSecondary: {
+      backgroundColor: theme.palette.error.main,
+      color: theme.palette.info.main,
+      "&:hover": {
+        backgroundColor: theme.palette.warning.light,
+      }
+    },
+    outlinedPrimary: {
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+      opacity: 0.6,
+      "&:hover": {
+        color: theme.palette.error.main,
+        borderColor: theme.palette.error.main,
+        opacity: 1,
+      }
+    },
+    outlinedSecondary: {
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+      opacity: 0.6,
+      "&:hover": {
+        color: theme.palette.secondary.light,
+        borderColor: theme.palette.secondary.light,
+        opacity: 1,
+      }
+    }
   },
   MuiInput: {
     root: {
       "&$underline:after": {
-        borderBottomColor: themeDark.palette.error.main,
+        borderBottomColor: theme.palette.warning.main,
       },
     },
   },
   MuiInputLabel: {
     root: {
+      color: theme.palette.secondary.dark,
       "&$focused": {
-        color: themeDark.palette.error.light,
+        color: theme.palette.warning.main,
       },
     },
   },
   MuiTooltip: {
     tooltip: {
       backgroundColor: "#fff",
-      color: themeDark.palette.primary.light,
+      color: theme.palette.primary.light,
     },
     arrow: {
       color: "#fff",
@@ -90,7 +140,7 @@ themeDark.overrides = themeOverrides;
 
 const Theme = (props) => {
   const { children, darkMode } = props;
-  const setTheme = darkMode ? theme : themeDark;
+  const setTheme = darkMode ? themeDark : theme;
   return <ThemeProvider theme={setTheme}>{children}</ThemeProvider>;
 };
 
