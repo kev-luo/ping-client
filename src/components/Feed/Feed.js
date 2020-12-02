@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   commentIcon: {
-    color: "blue",
+    color: "#4db8ff",
   },
   missingPic: {
     width: "3rem",
