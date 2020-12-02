@@ -68,7 +68,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 <Button
                   onClick={userProfile}
                   variant="outlined"
-                  color="primary"
+                  color="Secondary"
                   size="small"
                 >
                   Profile

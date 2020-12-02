@@ -10,7 +10,7 @@ const theme = createMuiTheme({
       dark: "#23263D"
     },
     secondary: {
-      light: "#c3ffb3",
+      light: "#33cc33",
       main: "#5BA875", // olive green
       dark: "#2C4D3F"
     },
@@ -84,6 +84,16 @@ const themeOverrides = {
       "&:hover": {
         color: theme.palette.error.main,
         borderColor: theme.palette.error.main,
+        opacity: 1,
+      }
+    },
+    outlinedSecondary: {
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+      opacity: 0.6,
+      "&:hover": {
+        color: theme.palette.secondary.light,
+        borderColor: theme.palette.secondary.light,
         opacity: 1,
       }
     }

@@ -25,7 +25,7 @@ export default function ProfileBox({ userData, error }) {
   function editProfile() {
     if (user.id === state.selectedUser.id) {
       return (
-        <Link to="/settings">
+        <Link to="/settings" className={classes.settings}>
           <RiUserSettingsLine style={{ float: "right" }} />
         </Link>
       );
@@ -140,4 +140,10 @@ const useStyles = makeStyles((theme) => ({
       margin: "0 0.2rem",
     },
   },
+  settings: {
+    color: theme.palette.secondary.light,
+    "&:hover": {
+      color: theme.palette.error.main
+    }
+  }
 }));

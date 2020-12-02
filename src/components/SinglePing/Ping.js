@@ -86,8 +86,8 @@ export default function Ping({ data, error }) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.dark,
     padding: theme.spacing(2),
   },
   commentsRoot: {
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "1rem",
     "& > *": {
       marginRight: "0.34rem",
-      color: "#C0C0C0",
+      color: "#909090",
       fontSize: "12px",
       textDecoration: "none",
       "& > * ": {
