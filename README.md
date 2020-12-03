@@ -40,6 +40,10 @@ To provide some perspective, RESTful APIs use HTTP for their request/response co
 In this example, we created a subscription for creating new pings. When a new ping is created, which is the event we're listening for, the client will instantly know about it and will receive the new ping information real-time due to the open connection. This means that when a user creates a new ping, another user on a separate device will have that ping show up on their screen without needing to refresh the page
 ![subscription-example](public/subscription%20ex.gif)
 
+### React-Navigation
+![react-navigation](public/nav-mobile.gif)
+One of the main differences between React and React-Native was the navigation aspect. In React-Native, there are several types of navigation methods, namely, Stack, Drawer, Bottom Tab, and Top Tab Navigation. The cool thing about these navigation methods is that you can nest them within each other. To achieve the result in the gif above, we nested the Top Tab Navigator within a Stack Navigator, which was nested within a Bottom Tab Navigator. The Bottom Tab Navigator, along with a separate Stack Navigator was further nested in a Drawer Navigator.
+
 
 ## License
 Licensed under the [MIT](https://opensource.org/licenses/MIT) License.
