@@ -1,6 +1,6 @@
 # Ping
 
-> > > > > > > [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub top language](https://img.shields.io/github/languages/top/kev-luo/ping-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub top language](https://img.shields.io/github/languages/top/kev-luo/ping-client)
 
 ## Description
 
@@ -10,7 +10,6 @@
 
 Ping is an app that allows users to see posts from others in the area. Our aim is to aid the community by keeping users informed of local events. Users post information about things happening around them to create a web of real-time event announcements. Pings are automatically deleted after 24 hours to keep the information fresh.
 
-> > > > > > >
 
 ### Technologies Used
 
@@ -122,10 +121,15 @@ Licensed under the [MIT](https://opensource.org/licenses/MIT) License.
 
 ## Contributing
 
-[Server code repo](https://github.com/kev-luo/ping-server)
-[Mobile code repo](https://github.com/kev-luo/ping-mobile)
-[Original repo before server/client code split](https://github.com/kev-luo/ping)
+- [Server code repo](https://github.com/kev-luo/ping-server)
+- [Mobile code repo](https://github.com/kev-luo/ping-mobile)
+- [Original repo before server/client code split](https://github.com/kev-luo/ping)
 
 ## Questions
 
-- [kvn.luo@gmail.com](kvn.luo@gmail.com)
+- Kevin Luo
+  - [LinkedIn](https://www.linkedin.com/in/kevinluo49/)
+  - [Email](kvn.luo@gmail.com)
+- JD Martinez
+  - [LinkedIn](https://www.linkedin.com/in/jonathan-martinez-316406113/)
+  - [Email](focus4ursoul@gmail.com)
