@@ -6,6 +6,19 @@
 ## Description
 Ping is an app that allows users to see posts from others in the area. The idea is to keep users aware of events happening around them.
 
+### Technologies Used
+```
+- apollo-server           - react-router-dom            
+- graphQL                 - react-navigation
+- bcrypt                  - mapView
+- mongoose                - websockets
+- react.js                - webfontloader
+- mapBox                  - JWT
+- apollo-client           - expo-location
+- expo                    - async storage
+- react-native-elements   - react-native-svg
+```
+
 ## Table of Contents
 
 * [Installation](#Installation)
