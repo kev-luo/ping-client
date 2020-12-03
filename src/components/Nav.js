@@ -47,7 +47,7 @@ export default function Nav({ darkMode, setDarkMode }) {
     <Paper elevation={3}>
       <AppBar position="static" className={classes.nav}>
         <Toolbar>
-          <img src="../assets/node.svg" alt="ping logo" />
+          {/* <img src="../assets/node.svg" alt="ping logo" /> */}
           <Typography variant="overline" className={classes.title}>
             <Link to="/" className={classes.link}>
               Ping
