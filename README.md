@@ -4,7 +4,9 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/kev-luo/ping-client)
 
 ## Description
-Ping is an app that allows users to see posts from others in the area. The idea is to keep users aware of events happening around them.
+[https://ping-it.netlify.app](https://ping-it.netlify.app/)
+
+Ping is an app that allows users to see posts from others in the area. Our aim is to aid the community by keeping users informed of local events. Users post information about things happening around them to create a web of real-time event announcements. Pings are automatically deleted after 24 hours to keep the information fresh.
 
 ### Technologies Used
 ```
@@ -49,11 +51,9 @@ One of the main differences between React and React-Native was the navigation as
 Licensed under the [MIT](https://opensource.org/licenses/MIT) License.
 
 ## Contributing
-
-
-## Tests
-    npm run test
-
+[Server code repo](https://github.com/kev-luo/ping-server)
+[Mobile code repo](https://github.com/kev-luo/ping-mobile)
+[Original repo before server/client code split](https://github.com/kev-luo/ping)
 
 ## Questions
 * [kvn.luo@gmail.com](kvn.luo@gmail.com)
