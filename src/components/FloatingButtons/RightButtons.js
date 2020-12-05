@@ -23,12 +23,12 @@ const RightFloatingBtn = styled(FloatingBtn)`
   }
 `;
 
-export default function LeftTabs() {
+export default function LeftTabs({open, setOpen}) {
   return (
     <RightTabContainer>
       <ul>
         <li>
-          <RightFloatingBtn as="button">
+          <RightFloatingBtn as="button" onClick={() => setOpen(!open)}>
             <HiOutlinePlus size={20} />
           </RightFloatingBtn>
           <span className="description">Ping</span>

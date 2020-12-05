@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
+import NewPing from "../components/Feed/NewPing";
 import Feed from "../components/Feed/Feed";
 import LeftButtons from "../components/FloatingButtons/LeftButtons"
 import RightButtons from "../components/FloatingButtons/RightButtons"
@@ -12,7 +13,7 @@ import { useMapContext } from "../utils/useMapContext";
 import { FETCH_PINGS_QUERY } from "../utils/graphql";
 
 export default function Dashboard() {
-  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const { user } = useAuthContext();
   const { state: {userPosition}} = useMapContext();
   let long;
@@ -28,7 +29,8 @@ export default function Dashboard() {
   return (
     <StyledFeedContainer>
       <LeftButtons />
-      <RightButtons />
+      <RightButtons open={open} setOpen={setOpen}/>
+      <NewPing open={open} setOpen={setOpen}/>
       <Feed data={data} error={error}/>
     </StyledFeedContainer>
   );
