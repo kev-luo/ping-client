@@ -54,7 +54,9 @@ const FeedPing = styled.div`
   }
   &:hover {
     background: var(--bg-secondary);
+    cursor: pointer;
   }
+  transition: background 200ms ease;
 `;
 
 export default FeedPing;

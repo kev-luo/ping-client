@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Tooltip } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaRegComment, FaUser } from "react-icons/fa";
 import { BiDownvote, BiUpvote } from "react-icons/bi";
@@ -55,15 +55,21 @@ export default function Feed({ data, error }) {
               </span>
             </h4>
             <p className="body">{ping.body}</p>
-            <LikeBtn className="like">
-              <BiUpvote color="disabled" fontSize="large" />
-            </LikeBtn>
-            <DismissBtn className="dismiss">
-              <BiDownvote color="disabled" fontSize="large" />
-            </DismissBtn>
-            <CommentBtn className="comment">
-              <FaRegComment color="disabled" fontSize="large" />
-            </CommentBtn>
+            <Tooltip title="Support">
+              <LikeBtn className="like">
+                <BiUpvote color="disabled" fontSize="large" />
+              </LikeBtn>
+            </Tooltip>
+            <Tooltip title="Dismiss">
+              <DismissBtn className="dismiss">
+                <BiDownvote color="disabled" fontSize="large" />
+              </DismissBtn>
+            </Tooltip>
+            <Tooltip title="Comment">
+              <CommentBtn className="comment">
+                <FaRegComment color="disabled" fontSize="large" />
+              </CommentBtn>
+            </Tooltip>
             <div className="sxy_line"></div>
           </StyledFeedPing>
         ))
