@@ -32,7 +32,7 @@ export default function Dashboard() {
     <StyledFeedContainer>
       <LeftButtons />
       <RightButtons />
-      <Feed />
+      <Feed data={data} error={error}/>
     </StyledFeedContainer>
   );
 }

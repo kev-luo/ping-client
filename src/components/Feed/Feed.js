@@ -11,7 +11,7 @@ import { useDashboardContext } from "../../utils/useDashboardContext";
 import StyledFeedPing from "../Styled/StyledFeedPing";
 import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
-export default function Feed({ data, feedType }) {
+export default function Feed({ data, error }) {
   const classes = useStyles();
   const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
@@ -27,41 +27,47 @@ export default function Feed({ data, feedType }) {
   }
 
   function authorPic(ping) {
-    return ping.author.imageUrl ? (
+    return ping?.author?.imageUrl ? (
       <Avatar
         src={ping.author.imageUrl}
         alt={ping.author.username}
-        className={classes.profilePic}
+        className="img"
       />
     ) : (
-      <Avatar className={classes.missingPic}>
+      <Avatar className="img">
         <FaUser />
       </Avatar>
     );
   }
 
   return (
-    <StyledFeedPing className="ping">
-      <Avatar className="img">
-        <FaUser size={20} />
-      </Avatar>
-      <h4 className="username">
-        @Username<span className="meta"> · 2 hours ago</span>
-      </h4>
-      <p className="body">
-        Yo farmer's market just opened up on west 25th! Come check it out!
-      </p>
-      <LikeBtn className="like">
-        <BiUpvote color="disabled" fontSize="large" />
-      </LikeBtn>
-      <DismissBtn className="dismiss">
-        <BiDownvote color="disabled" fontSize="large" />
-      </DismissBtn>
-      <CommentBtn className="comment">
-        <FaRegComment color="disabled" fontSize="large" />
-      </CommentBtn>
-      <div className="sxy_line"></div>
-    </StyledFeedPing>
+    <>
+      {data ? (
+        data.getPingsByLocation.map((ping) => (
+          <StyledFeedPing className="ping">
+            {authorPic()}
+            <h4 className="username">
+              @Username<span className="meta"> · 2 hours ago</span>
+            </h4>
+            <p className="body">
+              Yo farmer's market just opened up on west 25th! Come check it out!
+            </p>
+            <LikeBtn className="like">
+              <BiUpvote color="disabled" fontSize="large" />
+            </LikeBtn>
+            <DismissBtn className="dismiss">
+              <BiDownvote color="disabled" fontSize="large" />
+            </DismissBtn>
+            <CommentBtn className="comment">
+              <FaRegComment color="disabled" fontSize="large" />
+            </CommentBtn>
+            <div className="sxy_line"></div>
+          </StyledFeedPing>
+        ))
+      ) : (
+        <div>No Pings</div>
+      )}
+    </>
   );
 }
 
