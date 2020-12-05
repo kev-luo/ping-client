@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FaRegComment, FaUser } from "react-icons/fa";
 import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { FiImage, FiFileText } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 
 import Actions from "../../utils/dashboardActions";
 import { useAuthContext } from "../../utils/useAuthContext";
@@ -14,6 +15,7 @@ import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
 export default function Feed({ data, error }) {
   const classes = useStyles();
+  const history = useHistory();
   const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
 
@@ -40,13 +42,16 @@ export default function Feed({ data, error }) {
       </Avatar>
     );
   }
-  console.log(data);
+  
+  const handleClick = (pingId) => {
+    history.push(`/ping/${pingId}`)
+  }
 
   return (
     <>
       {data ? (
         data.getPings.map((ping) => (
-          <StyledFeedPing key={ping.id} className="ping">
+          <StyledFeedPing key={ping.id} className="ping" onClick={() => handleClick(ping.id)}>
             {authorPic(ping)}
             <h4 className="username">
               @{ping.author.username}

@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 
-import UserContainer from "../components/User/UserContainer";
-import Map from "../components/Map/Map";
+import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
+import NewPing from "../components/Feed/NewPing";
+import LeftButtons from "../components/FloatingButtons/LeftButtons";
+import RightButtons from "../components/FloatingButtons/RightButtons";
 import Ping from "../components/SinglePing/Ping";
 
 import { useQuery } from "@apollo/client";
@@ -16,6 +18,7 @@ import {
 } from "../utils/graphql";
 
 export default function SinglePing() {
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const { pingId } = useParams();
   const {
@@ -60,26 +63,11 @@ export default function SinglePing() {
   }, [subscribeToMore, pingId, data, dispatch]);
 
   return (
-    <div className={classes.root}>
-      <div className={classes.grid}>
-        <Grid container spacing={2}>
-          <Grid
-            item
-            container
-            direction="column"
-            lg={4}
-            justify="space-between"
-          >
-            <UserContainer />
-            <Map data={pingsData.data} error={pingsData.error} />
-          </Grid>
-
-          <Grid item container direction="column" lg={8}>
-            <Ping data={data} error={error} />
-          </Grid>
-        </Grid>
-      </div>
-    </div>
+    <StyledFeedContainer>
+      <LeftButtons />
+      <RightButtons open={open} setOpen={setOpen} />
+      <NewPing open={open} setOpen={setOpen} />
+    </StyledFeedContainer>
   );
 }
 
