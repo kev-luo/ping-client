@@ -12,6 +12,7 @@ import {
 import { BiExit } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
+import StyledNav from "./Styled/StyledNav";
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useMapContext } from "../utils/useMapContext";
@@ -44,56 +45,56 @@ export default function Nav({ darkMode, setDarkMode }) {
   };
 
   return (
-    <Paper elevation={3}>
-      <AppBar position="static" className={classes.nav}>
-        <Toolbar>
-          {/* <img src="../assets/node.svg" alt="ping logo" /> */}
-          <Typography variant="overline" className={classes.title}>
-            <Link to="/" className={classes.link}>
-              Ping
-            </Link>
-          </Typography>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={darkMode}
-                onChange={() => setDarkMode(!darkMode)}
-              />
-            }
-            label={darkMode ? "☀️" : "🌙"}
-            labelPlacement="start"
-          />
-          {!context.user && (
-            <Link to="/portal" className={classes.link}>
-              <Button variant="outlined" color="secondary" size="small">Login</Button>
-            </Link>
-          )}
-          {context.user && (
-            <>
-              <Link to={`/user/${context.user.id}`} className={classes.link}>
-                <Button
-                  onClick={userProfile}
-                  variant="outlined"
-                  color="secondary"
-                  size="small"
-                >
-                  Profile
-                </Button>
-              </Link>
+    <StyledNav>
+      {/* <img src="../assets/node.svg" alt="ping logo" /> */}
+      <Typography variant="overline" className="logo">
+        <Link to="/" className={classes.link}>
+          Ping
+        </Link>
+      </Typography>
+      <div className="nav">
+        <FormControlLabel
+          control={
+            <Switch
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+          }
+          label={darkMode ? "☀️" : "🌙"}
+          labelPlacement="start"
+        />
+        {!context.user && (
+          <Link to="/portal" className={classes.link}>
+            <Button variant="outlined" color="secondary" size="small">
+              Login
+            </Button>
+          </Link>
+        )}
+        {context.user && (
+          <>
+            <Link to={`/user/${context.user.id}`} className={classes.link}>
               <Button
+                onClick={userProfile}
                 variant="outlined"
-                color="primary"
-                endIcon={<BiExit />}
+                color="secondary"
                 size="small"
-                onClick={logoutOps}
               >
-                Logout
+                Profile
               </Button>
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </Paper>
+            </Link>
+            <Button
+              variant="outlined"
+              color="primary"
+              endIcon={<BiExit />}
+              size="small"
+              onClick={logoutOps}
+            >
+              Logout
+            </Button>
+          </>
+        )}
+      </div>
+    </StyledNav>
   );
 }
 
