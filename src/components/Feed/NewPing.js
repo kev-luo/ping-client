@@ -17,7 +17,7 @@ import { CREATE_PING } from "../../utils/graphql";
 import { useForm } from "../../utils/useForm";
 import { useMapContext } from "../../utils/useMapContext";
 
-export default function NewPing({open, setOpen}) {
+export default function NewPing({ open, setOpen }) {
   const {
     state: { userPosition },
   } = useMapContext();
@@ -59,20 +59,30 @@ export default function NewPing({open, setOpen}) {
 
   const handleClose = () => {
     setOpen(!open);
-  }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogContent>
-        <TextField
-          name="body"
-          value={values.body}
-          onChange={handleChange}
-          rowsMax="3"
-          multiline
-          fullWidth
-          label="New ping"
-        />
+      <DialogContent className={classes.dialogContent}>
+        <form noValidate>
+          <TextField
+            name="body"
+            value={values.body}
+            onChange={handleChange}
+            rowsMax="3"
+            fullWidth
+            multiline
+            label="Let the people know!"
+          />
+          <input
+            id="file"
+            style={{ display: "none" }}
+            type="file"
+            onChange={handleChange}
+            name="imageUrl"
+            accept="image/*"
+          />
+        </form>
         {values.imageUrl && (
           <img
             src={values.imageUrl[0]}
@@ -82,47 +92,36 @@ export default function NewPing({open, setOpen}) {
         )}
       </DialogContent>
       <DialogActions>
-        <ButtonGroup size="small" className={classes.buttonGroup}>
-          <Button
-            component="label"
-            className={classes.fileBtn}
-            htmlFor="file"
-            variant="contained"
-            color="secondary"
-          >
-            Add an Image
-          </Button>
-          <input
-            id="file"
-            style={{ display: "none" }}
-            type="file"
-            onChange={handleChange}
-            name="imageUrl"
-            accept="image/*"
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={values.body === ""}
-            color="secondary"
-            endIcon={<SendIcon />}
-          >
-            Ping
-          </Button>
-          {isLoading && (
-            <CircularProgress size={24} className={classes.buttonProgress} />
-          )}
-        </ButtonGroup>
+        <Button
+          component="label"
+          className={classes.fileBtn}
+          htmlFor="file"
+          variant="contained"
+          color="secondary"
+        >
+          Add an Image
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={values.body === ""}
+          color="secondary"
+          endIcon={<SendIcon />}
+          onClick={loaderSubmit}
+        >
+          Ping
+        </Button>
+        {isLoading && (
+          <CircularProgress size={24} className={classes.buttonProgress} />
+        )}
       </DialogActions>
     </Dialog>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2, 2),
-    background: theme.palette.primary.light,
+  dialogContent: {
+    width: "500px",
   },
   buttonGroup: {
     margin: theme.spacing(1),
