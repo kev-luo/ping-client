@@ -35,17 +35,3 @@ export default function Dashboard() {
     </StyledFeedContainer>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    margin: theme.spacing(1, 1),
-  },
-  grid: {
-    margin: theme.spacing(2, 1),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    // color: theme.palette.text.secondary,
-  },
-}));
