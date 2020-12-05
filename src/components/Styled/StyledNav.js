@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledNav = styled.nav`
   height: 4rem;
-  background: #EBEDF2;
+  background: var(--bg-secondary);
   position: fixed;
   width: 100%;
   z-index: 12;

@@ -6,6 +6,7 @@ const FeedPing = styled.div`
   padding: 1rem 1rem;
   margin-top: 1rem;
   display: grid;
+  border-radius: 5px;
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 1fr 1fr 2rem 1fr;
   gap: 0px 1rem;
@@ -50,6 +51,9 @@ const FeedPing = styled.div`
     align-self: end;
     height: 1px;
     background: linear-gradient(to right, #f2f2f2, black, #f2f2f2);
+  }
+  &:hover {
+    background: var(--bg-secondary);
   }
 `;
 
