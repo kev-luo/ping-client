@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 const FeedPing = styled.div`
   width: 75%;
-  ${'' /* border: 1px solid #cfcfcf; */}
+  /* border: 1px solid #cfcfcf; */
   padding: 1rem 1rem;
   margin-top: .7rem;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 1fr 1fr 2rem 1fr;
+  gap: 0px 1rem;
   grid-template-areas: 
   "img   username username username"
   "img   body     body     body"
@@ -15,7 +16,7 @@ const FeedPing = styled.div`
   "sxy_line sxy_line sxy_line sxy_line";
   .img {
     grid-area: img;
-    justify-self: center;
+    justify-self: end;
     width: 3.5rem;
     height: 3.5rem;
   }

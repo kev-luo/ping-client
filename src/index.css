@@ -1,9 +1,22 @@
-html {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-*, *:before, *:after {
+*:before, *:after {
   box-sizing: inherit;
 }
+
+:root {
+  font-size: 16px;
+  --text-primary: #0f2612;
+  --text-secondary: #da1919;
+  --bg-primary: #f2f2f2;
+}
+
 body {
-  margin: 0;
+  background-color: var(--bg-primary);
+  margin: 0
 }

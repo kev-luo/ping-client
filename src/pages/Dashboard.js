@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import FeedContainer from "../components/Styled/StyledFeedContainer";
+import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import Feed from "../components/Feed/Feed";
 import LeftButtons from "../components/FloatingButtons/LeftButtons"
 import RightButtons from "../components/FloatingButtons/RightButtons"
@@ -29,11 +29,11 @@ export default function Dashboard() {
   });
 
   return (
-    <FeedContainer>
+    <StyledFeedContainer>
       <LeftButtons />
       <RightButtons />
       <Feed />
-    </FeedContainer>
+    </StyledFeedContainer>
   );
 }
 

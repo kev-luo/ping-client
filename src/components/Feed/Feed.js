@@ -8,7 +8,7 @@ import { FiImage, FiFileText } from "react-icons/fi";
 import Actions from "../../utils/dashboardActions";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
-import FeedPing from "../Styled/StyledFeedPing";
+import StyledFeedPing from "../Styled/StyledFeedPing";
 import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
 export default function Feed({ data, feedType }) {
@@ -41,7 +41,7 @@ export default function Feed({ data, feedType }) {
   }
 
   return (
-    <FeedPing className="ping">
+    <StyledFeedPing className="ping">
       <Avatar className="img">
         <FaUser size={20} />
       </Avatar>
@@ -61,7 +61,7 @@ export default function Feed({ data, feedType }) {
         <FaRegComment color="disabled" fontSize="large" />
       </CommentBtn>
       <div className="sxy_line"></div>
-    </FeedPing>
+    </StyledFeedPing>
   );
 }
 
