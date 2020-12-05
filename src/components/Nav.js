@@ -63,6 +63,11 @@ export default function Nav({ darkMode, setDarkMode }) {
             label={darkMode ? "☀️" : "🌙"}
             labelPlacement="start"
           />
+          {!context.user && (
+            <Link to="/portal" className={classes.link}>
+              <Button variant="outlined" color="secondary" size="small">Login</Button>
+            </Link>
+          )}
           {context.user && (
             <>
               <Link to={`/user/${context.user.id}`} className={classes.link}>
