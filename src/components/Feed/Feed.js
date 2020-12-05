@@ -1,26 +1,19 @@
 import React from "react";
-import moment from "moment";
-import {
-  Grid,
-  Paper,
-  Avatar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { FaComments, FaUser } from "react-icons/fa";
+import { FaRegComment, FaUser } from "react-icons/fa";
+import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { FiImage, FiFileText } from "react-icons/fi";
-import { Link } from "react-router-dom";
 
 import Actions from "../../utils/dashboardActions";
-import SupportPing from "../SupportPing";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
+import FeedPing from "../Styled/StyledFeedPing";
+import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
 export default function Feed({ data, feedType }) {
   const classes = useStyles();
-  const {dispatch} = useDashboardContext();
+  const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
 
   function displayProfile(selectedUser) {
@@ -48,68 +41,27 @@ export default function Feed({ data, feedType }) {
   }
 
   return (
-    <Paper className={classes.root}>
-      <Grid item >
-        <Typography variant="h5" align="center" className={classes.title}>
-          {feedType} Pings
-        </Typography>
-        {data.map((ping) => {
-          return (
-            <Paper key={ping.id} className={classes.paper}>
-              <Grid container wrap="nowrap" spacing={2} alignItems="center">
-                <Grid item>{authorPic(ping)}</Grid>
-                <Grid item>{containsImage(ping)}</Grid>
-                <Grid item xs>
-                  <Link
-                    to={`/user/supported/${ping.author.id}`}
-                    className={classes.username}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      onClick={() => displayProfile(ping.author)}
-                    >
-                      {ping.author.username}
-                    </Typography>
-                  </Link>
-                  <div className={classes.metaContainer}>
-                    <Typography variant="subtitle2">
-                      {`${moment(Number(ping.createdAt)).fromNow()} |`}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                      {`${ping.supportCount} Supported |`}
-                    </Typography>
-                    <Link to={`/ping/${ping.id}`} className={classes.meta}>
-                      <Typography
-                        variant="subtitle2"
-                        onClick={() => displayProfile(ping.author)}
-                      >
-                        {`${ping.commentCount} Comments`}
-                      </Typography>
-                    </Link>
-                  </div>
-                  <Typography variant="body2">{ping.body}</Typography>
-                </Grid>
-                <Grid item xs={2} container>
-                  <Grid item>
-                    <SupportPing user={user} ping={ping} />
-                    <Link to={`/ping/${ping.id}`}>
-                      <Tooltip title="Comment">
-                        <IconButton onClick={() => displayProfile(ping.author)}>
-                          <FaComments
-                            className={classes.commentIcon}
-                            size={15}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          );
-        })}
-      </Grid>
-    </Paper>
+    <FeedPing className="ping">
+      <Avatar className="img">
+        <FaUser size={20} />
+      </Avatar>
+      <h4 className="username">
+        @Username<span className="meta"> · 2 hours ago</span>
+      </h4>
+      <p className="body">
+        Yo farmer's market just opened up on west 25th! Come check it out!
+      </p>
+      <LikeBtn className="like">
+        <BiUpvote color="disabled" fontSize="large" />
+      </LikeBtn>
+      <DismissBtn className="dismiss">
+        <BiDownvote color="disabled" fontSize="large" />
+      </DismissBtn>
+      <CommentBtn className="comment">
+        <FaRegComment color="disabled" fontSize="large" />
+      </CommentBtn>
+      <div className="sxy_line"></div>
+    </FeedPing>
   );
 }
 
@@ -127,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.warning.main,
   },
   title: {
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
   },
   metaContainer: {
     display: "flex",

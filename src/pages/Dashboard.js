@@ -1,12 +1,9 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import UserContainer from "../components/User/UserContainer";
+import FeedContainer from "../components/Styled/StyledFeedContainer";
+import Feed from "../components/Feed/Feed";
 import { useAuthContext } from "../utils/useAuthContext";
-import Map from "../components/Map/Map";
-import NewPing from "../components/Feed/NewPing";
-import FeedType from "../components/Feed/FeedType";
 
 import { useQuery } from "@apollo/client";
 import { useMapContext } from "../utils/useMapContext";
@@ -30,27 +27,9 @@ export default function Dashboard() {
   });
 
   return (
-    <div className={classes.root}>
-      <div className={classes.grid}>
-        <Grid container spacing={2}>
-          <Grid
-            item
-            container
-            direction="column"
-            lg={4}
-            justify="space-between"
-          >
-            <UserContainer />
-            <Map data={data} error={error}/>
-          </Grid>
-
-          <Grid item container direction="column" lg={8}>
-            {user && <NewPing />}
-            <FeedType subscribeToMore={subscribeToMore} data={data} error={error}/>
-          </Grid>
-        </Grid>
-      </div>
-    </div>
+    <FeedContainer>
+      <Feed />
+    </FeedContainer>
   );
 }
 
