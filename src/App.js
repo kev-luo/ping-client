@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav";
 import Dashboard from "./pages/Dashboard";
 import Portal from "./pages/Portal";
-import Map from "./pages/Map";
+import MapView from "./pages/MapView";
 import UserSettings from "./pages/UserSettings";
 import SinglePing from "./pages/SinglePing";
 import ProtectedRoute from "./utils/ProtectedRoute";
@@ -32,7 +32,7 @@ function App(props) {
                   <Portal />
                 </Route>
                 <Route exact path="/map">
-                  <Map />
+                  <MapView />
                 </Route>
                 <ProtectedRoute path="/user/:feedType" component={Dashboard} />
                 <ProtectedRoute

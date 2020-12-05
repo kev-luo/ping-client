@@ -9,7 +9,7 @@ import { useAuthContext } from "../utils/useAuthContext";
 
 import { useQuery } from "@apollo/client";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
+import { FETCH_PINGS_QUERY } from "../utils/graphql";
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -23,10 +23,7 @@ export default function Dashboard() {
     latt = userPosition.latitude;
   }
 
-  const { subscribeToMore, data, error } = useQuery(FETCH_PINGS_BY_LOCATION, {
-    skip: !userPosition,
-    variables: { long, latt },
-  });
+  const { subscribeToMore, data, error } = useQuery(FETCH_PINGS_QUERY);
 
   return (
     <StyledFeedContainer>

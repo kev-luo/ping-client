@@ -53,47 +53,43 @@ export default function Map({ data, error }) {
   );
 
   return (
-    <Grid item>
-      <Paper className={classes.paper}>
-        <ReactMapGL
-          width="100%"
-          height="100%"
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-          mapboxApiAccessToken="pk.eyJ1IjoiZ29vZGx2biIsImEiOiJja2h6OXcwdG0wcXo5MnJubXRkcm93bGh4In0.7lgoZXg3FQincUmupVj4tQ"
+    <ReactMapGL
+      width="100vw"
+      height="100vh"
+      mapStyle="mapbox://styles/kvnluo/cki8ay4gvbbum19pj0ry9bf4r"
+      mapboxApiAccessToken="pk.eyJ1Ijoia3ZubHVvIiwiYSI6ImNraGo0cmtsbDBqMjYydG4yYTQ4NmY2MTIifQ._goJadkhJVFNIi1pXrsKIA"
+      onViewportChange={(newViewport) => {
+        dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
+      }}
+      {...viewport}
+    >
+      <div className={classes.navigationControl}>
+        <NavigationControl
           onViewportChange={(newViewport) => {
-            dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
+            dispatch({
+              type: "UPDATE_VIEWPORT",
+              payload: newViewport,
+            });
           }}
-          {...viewport}
+        />
+      </div>
+
+      {userPosition && (
+        <Marker
+          latitude={userPosition.latitude}
+          longitude={userPosition.longitude}
+          offsetLeft={-19}
+          offsetTop={-37}
         >
-          <div className={classes.navigationControl}>
-            <NavigationControl
-              onViewportChange={(newViewport) => {
-                dispatch({
-                  type: "UPDATE_VIEWPORT",
-                  payload: newViewport,
-                });
-              }}
-            />
-          </div>
+          <PlaceTwoTone
+            style={{ fontSize: "40px", color: "red" }}
+          ></PlaceTwoTone>
+        </Marker>
+        // map through all of the pings in order to put pins on the map
+      )}
 
-          {userPosition && (
-            <Marker
-              latitude={userPosition.latitude}
-              longitude={userPosition.longitude}
-              offsetLeft={-19}
-              offsetTop={-37}
-            >
-              <PlaceTwoTone
-                style={{ fontSize: "40px", color: "red" }}
-              ></PlaceTwoTone>
-            </Marker>
-            // map through all of the pings in order to put pins on the map
-          )}
-
-          {PingPinsComponents}
-        </ReactMapGL>
-      </Paper>
-    </Grid>
+      {PingPinsComponents}
+    </ReactMapGL>
   );
 }
 

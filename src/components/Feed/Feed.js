@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaRegComment, FaUser } from "react-icons/fa";
@@ -39,19 +40,21 @@ export default function Feed({ data, error }) {
       </Avatar>
     );
   }
+  console.log(data);
 
   return (
     <>
       {data ? (
-        data.getPingsByLocation.map((ping) => (
-          <StyledFeedPing className="ping">
-            {authorPic()}
+        data.getPings.map((ping) => (
+          <StyledFeedPing key={ping.id} className="ping">
+            {authorPic(ping)}
             <h4 className="username">
-              @Username<span className="meta"> · 2 hours ago</span>
+              @{ping.author.username}
+              <span className="meta">
+                {` · ${moment(Number(ping.createdAt)).fromNow()}`}
+              </span>
             </h4>
-            <p className="body">
-              Yo farmer's market just opened up on west 25th! Come check it out!
-            </p>
+            <p className="body">{ping.body}</p>
             <LikeBtn className="like">
               <BiUpvote color="disabled" fontSize="large" />
             </LikeBtn>

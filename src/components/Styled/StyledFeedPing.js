@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 const FeedPing = styled.div`
-  width: 75%;
+  width: 60%;
   /* border: 1px solid #cfcfcf; */
   padding: 1rem 1rem;
-  margin-top: .7rem;
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 1fr 1fr 2rem 1fr;
