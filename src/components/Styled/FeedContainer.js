@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
+const FeedContainer = styled.div`
   width: 95vw;
   margin: 0 auto;
   padding: 1rem;
@@ -11,4 +11,4 @@ const StyledDiv = styled.div`
   align-items: center;
 `;
 
-export default StyledDiv;
+export default FeedContainer;
