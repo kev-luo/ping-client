@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import FeedContainer from "../components/Styled/StyledFeedContainer";
 import Feed from "../components/Feed/Feed";
+import LeftButtons from "../components/FloatingButtons/LeftButtons"
+import RightButtons from "../components/FloatingButtons/RightButtons"
 import { useAuthContext } from "../utils/useAuthContext";
 
 import { useQuery } from "@apollo/client";
@@ -28,6 +30,8 @@ export default function Dashboard() {
 
   return (
     <FeedContainer>
+      <LeftButtons />
+      <RightButtons />
       <Feed />
     </FeedContainer>
   );

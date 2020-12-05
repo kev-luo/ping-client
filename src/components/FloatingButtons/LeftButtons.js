@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
-import TabContainer from "../Styled/TabContainer";
-import FloatingBtn from "../Styled/FloatingBtn";
+import TabContainer from "../Styled/StyledFloatingBtnContainer";
+import FloatingBtn from "../Styled/StyledFloatingBtn";
 
 const LeftTabContainer = styled(TabContainer)`
   left: 6rem;
