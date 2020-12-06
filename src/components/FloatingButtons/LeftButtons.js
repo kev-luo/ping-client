@@ -30,19 +30,19 @@ export default function LeftTabs({ open, setOpen }) {
     <LeftTabContainer>
       <ul>
         <li>
-          {pathname === "/" ? (
-            <>
-              <LeftFloatingBtn to="/map">
-                <RiRoadMapLine size={20} />
-              </LeftFloatingBtn>
-              <span>Map</span>
-            </>
-          ) : (
+          {pathname === "/map" ? (
             <>
               <LeftFloatingBtn to="/">
                 <GrUnorderedList size={20} />
               </LeftFloatingBtn>
               <span>Feed</span>
+            </>
+          ) : (
+            <>
+              <LeftFloatingBtn to="/map">
+                <RiRoadMapLine size={20} />
+              </LeftFloatingBtn>
+              <span>Map</span>
             </>
           )}
         </li>

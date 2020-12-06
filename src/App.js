@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Nav from "./components/Nav";
-import Dashboard from "./pages/Dashboard";
+import FeedView from "./pages/FeedView";
 import Portal from "./pages/Portal";
 import MapView from "./pages/MapView";
 import UserSettings from "./pages/UserSettings";
@@ -26,7 +26,7 @@ function App(props) {
               <Nav darkMode={darkMode} setDarkMode={setDarkMode} />
               <Switch>
                 <Route exact path="/">
-                  <Dashboard />
+                  <FeedView />
                 </Route>
                 <Route exact path="/portal">
                   <Portal />
@@ -34,7 +34,7 @@ function App(props) {
                 <Route exact path="/map">
                   <MapView />
                 </Route>
-                <ProtectedRoute path="/user/:feedType" component={Dashboard} />
+                <ProtectedRoute path="/user/:feedType" component={FeedView} />
                 <ProtectedRoute
                   exact
                   path="/settings"
