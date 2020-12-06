@@ -17,9 +17,10 @@
   --bg-secondary: #ebedf2;
   --theme-primary: #50bf6c;
   --theme-secondary: #22ccf2;
+  font-family: Fira Sans;
 }
 
 body {
   background-color: var(--bg-primary);
-  margin: 0
+  margin: 0;
 }
