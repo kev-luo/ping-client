@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
+import { HiOutlinePlus } from "react-icons/hi";
 import TabContainer from "../Styled/StyledFloatingBtnContainer";
 import FloatingBtn from "../Styled/StyledFloatingBtn";
 
@@ -10,19 +11,17 @@ const LeftTabContainer = styled(TabContainer)`
 `;
 
 const LeftFloatingBtn = styled(FloatingBtn)`
-color: #50BF6C;
+  color: var(--theme-primary);
   &:hover {
-    color: #50BF6C;
     box-shadow: 2px 4px 6px -1px rgba(80, 191, 108, 0.75);
     transform: scale(1.1);
-    ${'' /* box-shadow: 5px 4px 10px 2px #26bf47; */}
   }
   & ~ span {
     margin-left: 1rem;
   }
 `;
 
-export default function LeftTabs() {
+export default function LeftTabs({open, setOpen}) {
   return (
     <LeftTabContainer>
       <ul>
@@ -37,6 +36,12 @@ export default function LeftTabs() {
             <GrUnorderedList size={20} />
           </LeftFloatingBtn>
           <span>Feed</span>
+        </li>
+        <li>
+          <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>
+            <HiOutlinePlus size={20} />
+          </LeftFloatingBtn>
+          <span>Ping</span>
         </li>
       </ul>
     </LeftTabContainer>

@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   title: {
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
   },
   backLink: {
     textDecoration: "none",
