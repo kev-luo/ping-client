@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
 import { HiOutlinePlus } from "react-icons/hi";
@@ -21,21 +23,28 @@ const LeftFloatingBtn = styled(FloatingBtn)`
   }
 `;
 
-export default function LeftTabs({open, setOpen}) {
+export default function LeftTabs({ open, setOpen }) {
+  const { pathname } = useLocation();
+
   return (
     <LeftTabContainer>
       <ul>
         <li>
-          <LeftFloatingBtn to="/map">
-            <RiRoadMapLine size={20} />
-          </LeftFloatingBtn>
-          <span>Map</span>
-        </li>
-        <li>
-          <LeftFloatingBtn to="/">
-            <GrUnorderedList size={20} />
-          </LeftFloatingBtn>
-          <span>Feed</span>
+          {pathname === "/" ? (
+            <>
+              <LeftFloatingBtn to="/map">
+                <RiRoadMapLine size={20} />
+              </LeftFloatingBtn>
+              <span>Map</span>
+            </>
+          ) : (
+            <>
+              <LeftFloatingBtn to="/">
+                <GrUnorderedList size={20} />
+              </LeftFloatingBtn>
+              <span>Feed</span>
+            </>
+          )}
         </li>
         <li>
           <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>
