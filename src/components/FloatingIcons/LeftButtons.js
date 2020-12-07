@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
-import { HiOutlinePlus } from "react-icons/hi";
+import { HiOutlinePlus, HiOutlineUser } from "react-icons/hi";
 import TabContainer from "../Styled/StyledFloatingBtnContainer";
 import FloatingBtn from "../Styled/StyledFloatingBtn";
 
@@ -45,6 +45,12 @@ export default function LeftTabs({ open, setOpen }) {
               <span>Map</span>
             </>
           )}
+        </li>
+        <li>
+          <LeftFloatingBtn to="/">
+            <HiOutlineUser size={20} />
+          </LeftFloatingBtn>
+          <span>Profile</span>
         </li>
         <li>
           <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>

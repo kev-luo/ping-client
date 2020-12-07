@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import NewPing from "../components/Feed/NewPing";
-import LeftButtons from "../components/FloatingButtons/LeftButtons";
+import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import Ping from "../components/SinglePing/Ping";
 
 import { useQuery } from "@apollo/client";

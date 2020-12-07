@@ -22,7 +22,8 @@ const FloatingLink = styled(Link)`
   }
 
   &:hover ~ span {
-    color: var(--text-secondary);
+    color: var(--theme-primary);
+    font-weight: bold;
     visibility: visible;
   }
 `;

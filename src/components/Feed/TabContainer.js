@@ -22,8 +22,9 @@ const useStyles = makeStyles(theme => ({
       flex: 1,
       background: "var(--bg-primary)",
       color: "var(--text-primary)",
+      fontWeight: "bold",
       border: "none",
-      padding: "1rem 2rem",
+      padding: "1rem 0",
       textDecoration: "none",
       textTransform: "uppercase",
       textAlign: "center",
@@ -38,5 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
   active: {
     background: "var(--bg-secondary)",
+    borderBottom: "3px solid var(--theme-primary)",
+    color: "var(--theme-primary)"
   }
 }))
