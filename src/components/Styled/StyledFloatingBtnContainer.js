@@ -18,7 +18,6 @@ const FloatingBtnContainer = styled.div`
 
   li {
     display: flex;
-    flex-direction: row;
     align-items: center;
     margin-bottom: 5rem;
   }

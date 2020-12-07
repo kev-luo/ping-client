@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -9,7 +9,7 @@ import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
+import { FETCH_PINGS_BY_LOCATION, FETCH_USER_QUERY } from "../utils/graphql";
 
 export default function DataWrapper() {
   const route = useParams();
@@ -21,29 +21,36 @@ export default function DataWrapper() {
     dispatch,
   } = useMapContext();
 
-  if(!dashContext.state.selectedUser && user) {
-    dashContext.dispatch({ type: Actions.SELECT_USER, payload: user})
-  }
-
-  if (!userPosition) {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        if (!route.pingId) {
-          dispatch({
-            type: "UPDATE_VIEWPORT",
-            payload: { latitude, longitude, zoom: 13 },
-          });
-        }
-        dispatch({
-          type: "UPDATE_USER_POSITION",
-          payload: { latitude, longitude },
-        });
-      });
+  useEffect(() => {
+    if(!dashContext.state.selectedUser && user) {
+      dashContext.dispatch({ type: Actions.SELECT_USER, payload: user})
     }
-  }
+  
+    if (!userPosition) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          if (!route.pingId) {
+            dispatch({
+              type: "UPDATE_VIEWPORT",
+              payload: { latitude, longitude, zoom: 13 },
+            });
+          }
+          dispatch({
+            type: "UPDATE_USER_POSITION",
+            payload: { latitude, longitude },
+          });
+        });
+      }
+    }
+  })
 
-  const { data, error } = useQuery(FETCH_PINGS_BY_LOCATION, {
+  const userData = useQuery(FETCH_USER_QUERY, {
+    skip: !dashContext.state.selectedUser,
+    variables: { userId: dashContext.state.selectedUser?.id },
+  });
+
+  const pingsData = useQuery(FETCH_PINGS_BY_LOCATION, {
     skip: !userPosition,
     variables: { long: userPosition?.longitude, latt: userPosition?.latitude },
   });
@@ -51,9 +58,9 @@ export default function DataWrapper() {
   return (
     <AbsoluteWrapper>
       {pathname === "/map" ? (
-        <MapView data={data} error={error} />
+        <MapView pingData={pingsData} userData={userData} />
       ) : (
-        <FeedView data={data} error={error} />
+        <FeedView pingData={pingsData} userData={userData} />
       )}
     </AbsoluteWrapper>
   );

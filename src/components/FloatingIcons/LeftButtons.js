@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+import { Avatar } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 
 import { GrUnorderedList } from "react-icons/gr";
@@ -23,13 +25,30 @@ const LeftFloatingBtn = styled(FloatingBtn)`
   }
 `;
 
-export default function LeftTabs({ open, setOpen }) {
+export default function LeftTabs({ open, setOpen, userData }) {
   const { pathname } = useLocation();
+  const classes = useStyles();
+
+  function authorPic(user) {
+    return user.imageUrl ? (
+      <Avatar
+        src={user.imageUrl}
+        alt={user.username}
+        className={classes.img}
+      />
+    ) : (
+      <Avatar className={classes.img} />
+    );
+  }
 
   return (
     <LeftTabContainer>
       <ul>
-        <li>
+        {userData.data && <li className={classes.user}>
+          {authorPic(userData.data.getUser)}
+          <h4 className={classes.username}>@{userData.data.getUser.username}</h4>
+        </li>}
+        <li className={classes.btn}>
           {pathname === "/map" ? (
             <>
               <LeftFloatingBtn to="/">
@@ -46,13 +65,13 @@ export default function LeftTabs({ open, setOpen }) {
             </>
           )}
         </li>
-        <li>
+        <li className={classes.btn}>
           <LeftFloatingBtn to="/">
             <HiOutlineUser size={20} />
           </LeftFloatingBtn>
           <span>Profile</span>
         </li>
-        <li>
+        <li className={classes.btn}>
           <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>
             <HiOutlinePlus size={20} />
           </LeftFloatingBtn>
@@ -62,3 +81,20 @@ export default function LeftTabs({ open, setOpen }) {
     </LeftTabContainer>
   );
 }
+
+const useStyles = makeStyles((theme) => ({
+  user: {
+    flexDirection: "column",
+  },
+  btn: {
+    flexDirection: "row",
+  },
+  img: {
+    width: "4.5rem",
+    height: "4.5rem",
+  },
+  username: {
+    marginTop: ".5rem",
+    color: "var(--theme-primary)",
+  }
+}));
