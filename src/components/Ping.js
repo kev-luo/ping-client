@@ -42,8 +42,8 @@ export default function Ping({ ping }) {
   }
 
   function addComment(e) {
-    e.stopPropagation();
     setOpen(!open);
+    e.stopPropagation();
   }
 
   return (

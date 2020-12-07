@@ -11,21 +11,23 @@ export default function SinglePing({ pingData, userData }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = pingData.subscribeToMore
-      ? pingData.subscribeToMore({
-          document: NEW_COMMENT_SUBSCRIPTION,
-          variables: { pingId: pingData.data?.getPing?.id },
-          updateQuery: (prevPing, { subscriptionData }) => {
-            if (!subscriptionData) return prevPing;
-            return {
-              ...prevPing,
-              getPing: subscriptionData.getPing,
-            };
-          },
-        })
-      : null;
-    if (unsubscribe) {
-      return () => unsubscribe();
+    if (pingData.data) {
+      const unsubscribe = pingData.subscribeToMore
+        ? pingData.subscribeToMore({
+            document: NEW_COMMENT_SUBSCRIPTION,
+            variables: { pingId: pingData.data?.getPing?.id },
+            updateQuery: (prevPing, { subscriptionData }) => {
+              if (!subscriptionData) return prevPing;
+              return {
+                ...prevPing,
+                getPing: subscriptionData.getPing,
+              };
+            },
+          })
+        : null;
+        if (unsubscribe) {
+          return () => unsubscribe();
+        }
     }
   }, [pingData]);
 
