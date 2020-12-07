@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
@@ -7,12 +7,32 @@ import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import NewPing from "../components/Feed/NewPing";
 import Feed from "../components/Feed/Feed";
 import { useAuthContext } from "../utils/useAuthContext";
+import { NEW_PING_SUBSCRIPTION } from "../utils/graphql";
 
 export default function Dashboard({ pingData, userData }) {
   const [open, setOpen] = useState(false);
   const { user } = useAuthContext();
   const { pathname } = useLocation();
   const pathArray = pathname.split("/");
+
+  useEffect(() => {
+    const unsubscribe = pingData.subscribeToMore
+      ? pingData.subscribeToMore({
+          document: NEW_PING_SUBSCRIPTION,
+          updateQuery: (prevPings, { subscriptionData }) => {
+            if (!subscriptionData) return prevPings;
+            const pingAdded = subscriptionData.data.newPing;
+            return {
+              ...prevPings,
+              getPingsByLocation: [pingAdded, ...prevPings.getPingsByLocation],
+            };
+          },
+        })
+      : null;
+    if (unsubscribe) {
+      return () => unsubscribe();
+    }
+  }, [pingData]);
 
   const supportedPings =
     pathArray[2] === "supports" &&
