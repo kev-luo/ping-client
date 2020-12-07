@@ -50,7 +50,7 @@ export default function Feed({ data, error }) {
   return (
     <>
       {data ? (
-        data.getPings.map((ping) => (
+        data.getPingsByLocation.map((ping) => (
           <StyledFeedPing key={ping.id} className="ping" onClick={() => handleClick(ping.id)}>
             {authorPic(ping)}
             <h4 className="username">

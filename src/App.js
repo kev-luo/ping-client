@@ -3,9 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Nav from "./components/Nav";
-import FeedView from "./pages/FeedView";
+import DataWrapper from "./components/DataWrapper";
 import Portal from "./pages/Portal";
-import MapView from "./pages/MapView";
 import UserSettings from "./pages/UserSettings";
 import SinglePing from "./pages/SinglePing";
 import ProtectedRoute from "./utils/ProtectedRoute";
@@ -25,16 +24,13 @@ function App(props) {
             <Router>
               <Nav darkMode={darkMode} setDarkMode={setDarkMode} />
               <Switch>
-                <Route exact path="/">
-                  <FeedView />
-                </Route>
-                <Route exact path="/portal">
-                  <Portal />
-                </Route>
-                <Route exact path="/map">
-                  <MapView />
-                </Route>
-                <ProtectedRoute path="/user/:feedType" component={FeedView} />
+                <Route exact path="/" component={DataWrapper} />
+                <Route exact path="/portal" component={Portal} />
+                <Route exact path="/map" component={DataWrapper} />
+                <ProtectedRoute
+                  path="/feed/:feedType"
+                  component={DataWrapper}
+                />
                 <ProtectedRoute
                   exact
                   path="/settings"

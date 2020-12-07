@@ -2,38 +2,17 @@ import React from "react";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import PlaceTwoTone from "@material-ui/icons/PlaceTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
-import { useParams } from "react-router-dom";
-import PingPin from "./PingPin";
 
-import { useMapContext } from "../../utils/useMapContext";
+import PingPin from "./PingPin";
 import Loading from "../Loading";
+import { useMapContext } from "../../utils/useMapContext";
 
 export default function Map({ data, error }) {
   const classes = useStyles();
-  const route = useParams();
   const {
     state: { userPosition, viewport },
     dispatch,
   } = useMapContext();
-
-  if (!userPosition) {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        if (!route.pingId) {
-          dispatch({
-            type: "UPDATE_VIEWPORT",
-            payload: { latitude, longitude, zoom: 13 },
-          });
-        }
-        dispatch({
-          type: "UPDATE_USER_POSITION",
-          payload: { latitude, longitude },
-        });
-      });
-    }
-  }
 
   const PingPinsComponents = data ? (
     data?.getPingsByLocation.map((ping) => {

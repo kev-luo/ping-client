@@ -6,7 +6,7 @@ export default function TabContainer() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Link to="/feed">All</Link>
+      <Link to="/feed/all">All</Link>
       <Link to="/feed/supports">Supports</Link>
       <Link to="/feed/posted">Posted</Link>
       <Link to="/feed/new">New</Link>
