@@ -66,7 +66,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
           )}
         </li>
         <li className={classes.btn}>
-          <LeftFloatingBtn to="/">
+          <LeftFloatingBtn to="/feed/all">
             <HiOutlineUser size={20} />
           </LeftFloatingBtn>
           <span>Profile</span>

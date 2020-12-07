@@ -19,12 +19,6 @@ export default function Feed({ data, error }) {
   const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
 
-  function displayProfile(selectedUser) {
-    if (user) {
-      dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
-    }
-  }
-
   function containsImage(ping) {
     return ping.imageUrl ? <FiImage size={32} /> : <FiFileText size={32} />;
   }
@@ -35,25 +29,38 @@ export default function Feed({ data, error }) {
         src={ping.author.imageUrl}
         alt={ping.author.username}
         className="img"
+        onClick={(e) => selectUser(e, ping.author)}
       />
     ) : (
-      <Avatar className="img">
+      <Avatar className="img" onClick={(e) => selectUser(e, ping.author)}>
         <FaUser />
       </Avatar>
     );
   }
-  
-  const handleClick = (pingId) => {
-    history.push(`/ping/${pingId}`)
+
+  function selectUser(e, selectedUser) {
+    e.stopPropagation();
+    if (user) {
+      dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
+    }
+    console.log(selectedUser);
+  }
+
+  function displayPing(pingId) {
+    history.push(`/ping/${pingId}`);
   }
 
   return (
     <>
       {data ? (
-        data.getPingsByLocation.map((ping) => (
-          <StyledFeedPing key={ping.id} className="ping" onClick={() => handleClick(ping.id)}>
+        data.map((ping) => (
+          <StyledFeedPing
+            key={ping.id}
+            className="ping"
+            onClick={() => displayPing(ping.id)}
+          >
             {authorPic(ping)}
-            <h4 className="username">
+            <h4 className="username" onClick={(e) => selectUser(e, ping.author)}>
               @{ping.author.username}
               <span className="meta">
                 {` · ${moment(Number(ping.createdAt)).fromNow()}`}
