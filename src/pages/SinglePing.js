@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import NewPing from "../components/Feed/NewPing";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
-import Ping from "../components/SinglePing/Ping";
+import PingWrapper from "../components/SinglePing/PingWrapper";
 
 import { NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
 
@@ -33,7 +33,7 @@ export default function SinglePing({ pingData, userData }) {
     <StyledFeedContainer>
       <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <NewPing open={open} setOpen={setOpen} />
-      <Ping data={pingData.data} error={pingData.error} />
+      <PingWrapper data={pingData.data} error={pingData.error} />
     </StyledFeedContainer>
   );
 }

@@ -8,7 +8,7 @@ const FeedPing = styled.div`
   display: grid;
   border-radius: 5px;
   grid-template-columns: 1fr 2fr 2fr 2fr;
-  grid-template-rows: 1fr 1fr 2rem 1fr;
+  grid-template-rows: 1fr 1fr 2rem 1.5fr;
   gap: 0px 1rem;
   grid-template-areas: 
   "img   username username username"
@@ -45,6 +45,12 @@ const FeedPing = styled.div`
     grid-area: comment;
     align-self: center;
     justify-self: start;
+  }
+  .time {
+    grid-area: 4/2/auto/auto;
+    align-self: center;
+    font-weight: lighter;
+    color: #A0A0A0;
   }
   .sxy_line {
     grid-area: sxy_line;

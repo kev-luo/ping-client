@@ -1,14 +1,18 @@
 import React from "react";
-import moment from "moment";
-import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Button, Typography, Avatar, Tooltip } from "@material-ui/core";
+import { FaUser } from "react-icons/fa";
+import { useHistory } from "react-router-dom"
 
+import Ping from "../Ping";
 import Loading from "../Loading";
 import Comment from "./Comment";
 import NewComment from "./NewComment";
+import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
-export default function Ping({ data, error }) {
+export default function SinglePing({ data, error }) {
   const classes = useStyles();
+  const history = useHistory();
 
   const getComments = () => {
     const comments = data?.getPing?.comments;
@@ -18,34 +22,24 @@ export default function Ping({ data, error }) {
     return commentComponents;
   };
 
+  function authorPic(author) {
+    return author.imageUrl ? (
+      <Avatar src={author.imageUrl} alt={author.username} className="img" />
+    ) : (
+      <Avatar className="img">
+        <FaUser />
+      </Avatar>
+    );
+  }
+
   return (
     <>
       {data ? (
         <>
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={() => history.goBack()}>
             Go Back
           </Button>
-          <div className={classes.textContainer}>
-            <Typography variant="h6">
-              {`@${data.getPing.author.username}`}
-            </Typography>
-            <div className={classes.metaContainer}>
-              <Typography variant="subtitle2">
-                {`${data.getPing.supportCount} Supported |`}
-              </Typography>
-              <Typography variant="subtitle2">
-                {`Posted ${moment(Number(data.getPing.createdAt)).fromNow()}`}
-              </Typography>
-            </div>
-            <Typography variant="body1">{data.getPing.body}</Typography>
-            {data.getPing.imageUrl && (
-              <img
-                src={data.getPing.imageUrl}
-                style={{ maxHeight: "250px" }}
-                alt={data.getPing.author.username}
-              />
-            )}
-          </div>
+          <Ping ping={data.getPing}/>
         </>
       ) : error ? (
         <Loading err={error} />

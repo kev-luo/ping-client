@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledComment = styled.div`
-  width: 65%;
+  width: 50%;
   ${'' /* border: 1px solid #cfcfcf; */}
   padding: 1rem 1rem;
   margin-top: .7rem;
