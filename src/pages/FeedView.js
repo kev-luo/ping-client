@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Switch, Route } from "react-router-dom";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import TabContainer from "../components/Feed/TabContainer";
@@ -14,9 +15,22 @@ export default function Dashboard({ pingData, userData }) {
   return (
     <StyledFeedContainer>
       {user && <TabContainer />}
-      <LeftButtons open={open} setOpen={setOpen} userData={userData}/>
+      <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <NewPing open={open} setOpen={setOpen} />
-      <Feed data={pingData.data} error={pingData.error} />
+      <Switch>
+        <Route path="/feed/all">
+          <Feed data={pingData.data} error={pingData.error} />
+        </Route>
+        <Route path="/feed/supports/:userId">
+          <Feed data={pingData.data} error={pingData.error} />
+        </Route>
+        <Route path="/feed/posted/:userId">
+          <Feed data={pingData.data} error={pingData.error} />
+        </Route>
+        <Route path="/feed/new">
+          <Feed data={pingData.data} error={pingData.error} />
+        </Route>
+      </Switch>
     </StyledFeedContainer>
   );
 }

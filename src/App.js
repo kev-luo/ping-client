@@ -28,7 +28,7 @@ function App(props) {
                 <Route exact path="/portal" component={Portal} />
                 <Route exact path="/map" component={DataWrapper} />
                 <ProtectedRoute
-                  path="/feed/:feedType"
+                  path="/feed"
                   component={DataWrapper}
                 />
                 <ProtectedRoute

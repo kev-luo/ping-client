@@ -48,7 +48,7 @@ export default function Nav({ darkMode, setDarkMode }) {
     <StyledNav>
       {/* <img src="../assets/node.svg" alt="ping logo" /> */}
       <Typography variant="overline" className="logo">
-        <Link to="/" className={classes.link}>
+        <Link to={context.user ? "/feed/all" : "/"} className={classes.link}>
           Ping
         </Link>
       </Typography>
@@ -79,7 +79,7 @@ export default function Nav({ darkMode, setDarkMode }) {
                 color="secondary"
                 size="small"
               >
-                Profile
+                Settings
               </Button>
             </Link>
             <Button
