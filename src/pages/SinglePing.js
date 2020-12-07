@@ -1,26 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import NewPing from "../components/Feed/NewPing";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import Ping from "../components/SinglePing/Ping";
 
-import { useQuery } from "@apollo/client";
-import { FETCH_PING_QUERY, NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
+import { NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
 
-export default function SinglePing() {
+export default function SinglePing({ pingData, userData }) {
   const [open, setOpen] = useState(false);
-  const { pingId } = useParams();
-  const { subscribeToMore, data, error } = useQuery(FETCH_PING_QUERY, {
-    variables: { pingId },
-  });
 
   useEffect(() => {
-    const unsubscribe = subscribeToMore
-      ? subscribeToMore({
+    const unsubscribe = pingData.subscribeToMore
+      ? pingData.subscribeToMore({
           document: NEW_COMMENT_SUBSCRIPTION,
-          variables: { pingId },
+          variables: { pingId: pingData.data?.getPing?.id },
           updateQuery: (prevPing, { subscriptionData }) => {
             if (!subscriptionData) return prevPing;
             return {
@@ -33,13 +27,13 @@ export default function SinglePing() {
     if (unsubscribe) {
       return () => unsubscribe();
     }
-  }, [subscribeToMore, pingId, data]);
+  }, [pingData]);
 
   return (
     <StyledFeedContainer>
-      <LeftButtons open={open} setOpen={setOpen}/>
+      <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <NewPing open={open} setOpen={setOpen} />
-      <Ping data={data} error={error} />
+      <Ping data={pingData.data} error={pingData.error} />
     </StyledFeedContainer>
   );
 }

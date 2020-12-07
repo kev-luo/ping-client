@@ -5,11 +5,12 @@ import { useQuery } from "@apollo/client";
 import AbsoluteWrapper from "./Styled/AbsoluteWrapper";
 import MapView from "../pages/MapView";
 import FeedView from "../pages/FeedView";
+import SinglePing from "../pages/SinglePing";
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PINGS_BY_LOCATION, FETCH_USER_QUERY } from "../utils/graphql";
+import { FETCH_PINGS_BY_LOCATION, FETCH_USER_QUERY, FETCH_PING_QUERY } from "../utils/graphql";
 
 export default function DataWrapper() {
   const route = useParams();
@@ -22,10 +23,10 @@ export default function DataWrapper() {
   } = useMapContext();
 
   useEffect(() => {
-    if(!dashContext.state.selectedUser && user) {
-      dashContext.dispatch({ type: Actions.SELECT_USER, payload: user})
+    if (!dashContext.state.selectedUser && user) {
+      dashContext.dispatch({ type: Actions.SELECT_USER, payload: user });
     }
-  
+
     if (!userPosition) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -43,7 +44,7 @@ export default function DataWrapper() {
         });
       }
     }
-  })
+  });
 
   const userData = useQuery(FETCH_USER_QUERY, {
     skip: !dashContext.state.selectedUser,
@@ -51,14 +52,21 @@ export default function DataWrapper() {
   });
 
   const pingsData = useQuery(FETCH_PINGS_BY_LOCATION, {
-    skip: !userPosition,
+    skip: !userPosition || route.pingId,
     variables: { long: userPosition?.longitude, latt: userPosition?.latitude },
+  });
+
+  const pingData = useQuery(FETCH_PING_QUERY, {
+    skip: !route.pingId,
+    variables: { pingId: route.pingId },
   });
 
   return (
     <AbsoluteWrapper>
       {pathname === "/map" ? (
         <MapView pingData={pingsData} userData={userData} />
+      ) : route.pingId ? (
+        <SinglePing pingData={pingData} userData={userData} />
       ) : (
         <FeedView pingData={pingsData} userData={userData} />
       )}

@@ -39,7 +39,7 @@ function App(props) {
                 <ProtectedRoute
                   exact
                   path="/ping/:pingId"
-                  component={SinglePing}
+                  component={DataWrapper}
                 />
               </Switch>
             </Router>
