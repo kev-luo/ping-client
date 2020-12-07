@@ -9,6 +9,9 @@ import { RiRoadMapLine } from "react-icons/ri";
 import { HiOutlinePlus, HiOutlineUser } from "react-icons/hi";
 import TabContainer from "../Styled/StyledFloatingBtnContainer";
 import FloatingBtn from "../Styled/StyledFloatingBtn";
+import Actions from "../../utils/dashboardActions";
+import { useDashboardContext } from "../../utils/useDashboardContext";
+import { useAuthContext } from "../../utils/useAuthContext";
 
 const LeftTabContainer = styled(TabContainer)`
   left: 6rem;
@@ -26,8 +29,10 @@ const LeftFloatingBtn = styled(FloatingBtn)`
 `;
 
 export default function LeftTabs({ open, setOpen, userData }) {
-  const { pathname } = useLocation();
   const classes = useStyles();
+  const { pathname } = useLocation();
+  const { user } = useAuthContext();
+  const { dispatch } = useDashboardContext();
 
   function authorPic(user) {
     return user.imageUrl ? (
@@ -39,6 +44,10 @@ export default function LeftTabs({ open, setOpen, userData }) {
     ) : (
       <Avatar className={classes.img} />
     );
+  }
+
+  function userProfile(user) {
+    dispatch({ type: Actions.SELECT_USER, payload: user })
   }
 
   return (
@@ -66,10 +75,10 @@ export default function LeftTabs({ open, setOpen, userData }) {
           )}
         </li>
         <li className={classes.btn}>
-          <LeftFloatingBtn to="/feed/all">
+          <LeftFloatingBtn to="/feed/new" onClick={() => userProfile(user)}>
             <HiOutlineUser size={20} />
           </LeftFloatingBtn>
-          <span>Profile</span>
+          <span>My Profile</span>
         </li>
         <li className={classes.btn}>
           <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>

@@ -25,12 +25,14 @@ export default function Dashboard({ pingData, userData }) {
       return isUserPresent.length > 0;
     });
 
-  // const newPings = pingData.data?.getPingsByLocation.filter((ping) => {
-  //   const isUserPresent = ping.support.filter((supporter) => {
-  //     return supporter.user?.id === pathArray[3];
-  //   });
-  //   return isUserPresent.length === 0;
-  // });
+  const newPings =
+    pathArray[2] === "new" &&
+    pingData.data?.getPingsByLocation.filter((ping) => {
+      const isUserPresent = ping.support.filter((supporter) => {
+        return supporter.user?.id === user.id;
+      });
+      return isUserPresent.length === 0;
+    });
 
   const authoredPings =
     pathArray[2] === "posted" &&
@@ -45,7 +47,10 @@ export default function Dashboard({ pingData, userData }) {
       <NewPing open={open} setOpen={setOpen} />
       <Switch>
         <Route path="/feed/all">
-          <Feed data={pingData.data?.getPingsByLocation} error={pingData.error} />
+          <Feed
+            data={pingData.data?.getPingsByLocation}
+            error={pingData.error}
+          />
         </Route>
         <Route path="/feed/supports/:userId">
           <Feed data={supportedPings} error={pingData.error} />
@@ -54,7 +59,7 @@ export default function Dashboard({ pingData, userData }) {
           <Feed data={authoredPings} error={pingData.error} />
         </Route>
         <Route path="/feed/new">
-          <Feed data={pingData.data?.getPingsByLocation} error={pingData.error} />
+          <Feed data={newPings} error={pingData.error} />
         </Route>
       </Switch>
     </StyledFeedContainer>

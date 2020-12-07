@@ -42,8 +42,8 @@ export default function Feed({ data, error }) {
     e.stopPropagation();
     if (user) {
       dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
+      history.push(`/feed/posted/${selectedUser.id}`)
     }
-    console.log(selectedUser);
   }
 
   function displayPing(pingId) {
