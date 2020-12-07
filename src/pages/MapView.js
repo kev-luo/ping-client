@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import LeftButtons from "../components/FloatingIcons/LeftButtons"
-import NewPing from "../components/Feed/NewPing";
+import NewPing from "../components/NewPing";
 import Map from "../components/Map/Map";
 
 export default function Mapview({ pingData, userData }) {

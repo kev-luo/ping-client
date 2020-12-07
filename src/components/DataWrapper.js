@@ -13,7 +13,7 @@ import { useMapContext } from "../utils/useMapContext";
 import { FETCH_PINGS_BY_LOCATION, FETCH_USER_QUERY, FETCH_PING_QUERY } from "../utils/graphql";
 
 export default function DataWrapper() {
-  const route = useParams();
+  const params = useParams();
   const { pathname } = useLocation();
   const { user } = useAuthContext();
   const dashContext = useDashboardContext();
@@ -31,7 +31,7 @@ export default function DataWrapper() {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
           const { latitude, longitude } = position.coords;
-          if (!route.pingId) {
+          if (!params.pingId) {
             dispatch({
               type: "UPDATE_VIEWPORT",
               payload: { latitude, longitude, zoom: 13 },
@@ -52,20 +52,20 @@ export default function DataWrapper() {
   });
 
   const pingsData = useQuery(FETCH_PINGS_BY_LOCATION, {
-    skip: !userPosition || route.pingId,
+    skip: !userPosition || params.pingId,
     variables: { long: userPosition?.longitude, latt: userPosition?.latitude },
   });
 
   const pingData = useQuery(FETCH_PING_QUERY, {
-    skip: !route.pingId,
-    variables: { pingId: route.pingId },
+    skip: !params.pingId,
+    variables: { pingId: params.pingId },
   });
 
   return (
     <AbsoluteWrapper>
       {pathname === "/map" ? (
         <MapView pingData={pingsData} userData={userData} />
-      ) : route.pingId ? (
+      ) : params.pingId ? (
         <SinglePing pingData={pingData} userData={userData} />
       ) : (
         <FeedView pingData={pingsData} userData={userData} />

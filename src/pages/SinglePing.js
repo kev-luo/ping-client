@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
-import NewPing from "../components/Feed/NewPing";
+import NewPing from "../components/NewPing";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import PingWrapper from "../components/SinglePing/PingWrapper";
 

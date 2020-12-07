@@ -4,7 +4,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
 import TabContainer from "../components/Feed/TabContainer";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
-import NewPing from "../components/Feed/NewPing";
+import NewPing from "../components/NewPing";
 import Feed from "../components/Feed/Feed";
 import Loading from "../components/Loading";
 import { useAuthContext } from "../utils/useAuthContext";

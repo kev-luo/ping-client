@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { FaRegComment, FaUser } from "react-icons/fa";
-import { BiDownvote, BiUpvote } from "react-icons/bi";
 import { useHistory, useParams } from 'react-router-dom';
 import moment from "moment";
 
@@ -11,8 +10,10 @@ import { useDashboardContext } from "../utils/useDashboardContext";
 import StyledFeedPing from "./Styled/StyledFeedPing";
 import SupportPing from "./SupportPing";
 import { CommentBtn } from "./Styled/StyledPingIcons";
+import NewComment from "./NewComment";
 
 export default function Ping({ ping }) {
+  const [open, setOpen] = useState(false);
   const history = useHistory();
   const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
@@ -40,6 +41,11 @@ export default function Ping({ ping }) {
     }
   }
 
+  function addComment(e) {
+    e.stopPropagation();
+    setOpen(!open);
+  }
+
   return (
     <StyledFeedPing
       className="ping"
@@ -56,7 +62,7 @@ export default function Ping({ ping }) {
       <SupportPing user={user} ping={ping}/>
       <div className="comment">
         <Tooltip title="Comment">
-          <CommentBtn className="comment">
+          <CommentBtn className="comment" onClick={(e) => addComment(e)}>
             <FaRegComment color="disabled" fontSize="large" />
           </CommentBtn>
         </Tooltip>
@@ -66,6 +72,7 @@ export default function Ping({ ping }) {
         <p className="time">{moment().format("h:mm a, MMM Do YYYY")}</p>
       )}
       <div className="sxy_line"></div>
+      <NewComment pingId={ping.id} open={open} setOpen={setOpen}/>
     </StyledFeedPing>
   );
 }

@@ -74,6 +74,12 @@ export const FETCH_PING_QUERY = gql`
         imageUrl
         username
       }
+      support {
+        supported
+        user {
+          id
+        }
+      }
       comments {
         id
         createdAt

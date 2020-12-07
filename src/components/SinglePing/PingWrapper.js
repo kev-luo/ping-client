@@ -1,14 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography, Avatar, Tooltip } from "@material-ui/core";
-import { FaUser } from "react-icons/fa";
+import { Button, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom"
 
 import Ping from "../Ping";
 import Loading from "../Loading";
 import Comment from "./Comment";
-import NewComment from "./NewComment";
-import { LikeBtn, DismissBtn, CommentBtn } from "../Styled/StyledPingIcons";
 
 export default function SinglePing({ data, error }) {
   const classes = useStyles();
@@ -21,16 +18,6 @@ export default function SinglePing({ data, error }) {
     ));
     return commentComponents;
   };
-
-  function authorPic(author) {
-    return author.imageUrl ? (
-      <Avatar src={author.imageUrl} alt={author.username} className="img" />
-    ) : (
-      <Avatar className="img">
-        <FaUser />
-      </Avatar>
-    );
-  }
 
   return (
     <>
@@ -46,7 +33,6 @@ export default function SinglePing({ data, error }) {
       ) : (
         <Loading />
       )}
-      <NewComment pingId={data?.getPing?.id} />
       <Typography variant="h5" align="center" className={classes.title}>
         Comments
       </Typography>

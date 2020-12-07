@@ -12,9 +12,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import SendIcon from "@material-ui/icons/Send";
 import { green } from "@material-ui/core/colors";
 
-import { CREATE_PING } from "../../utils/graphql";
-import { useForm } from "../../utils/useForm";
-import { useMapContext } from "../../utils/useMapContext";
+import { CREATE_PING } from "../utils/graphql";
+import { useForm } from "../utils/useForm";
+import { useMapContext } from "../utils/useMapContext";
 
 export default function NewPing({ open, setOpen }) {
   const {
