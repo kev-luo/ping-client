@@ -1,15 +1,15 @@
 import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function TabContainer() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Link to="/feed/all">All</Link>
-      <Link to="/feed/supports">Supports</Link>
-      <Link to="/feed/posted">Posted</Link>
-      <Link to="/feed/new">New</Link>
+      <NavLink activeClassName={classes.active} to="/feed/all">All</NavLink>
+      <NavLink activeClassName={classes.active} to="/feed/supports">Supports</NavLink>
+      <NavLink activeClassName={classes.active} to="/feed/posted">Posted</NavLink>
+      <NavLink activeClassName={classes.active} to="/feed/new">New</NavLink>
     </div>
   )
 }
@@ -35,5 +35,8 @@ const useStyles = makeStyles(theme => ({
         cursor: "pointer"
       }
     }
+  },
+  active: {
+    background: "var(--bg-secondary)",
   }
 }))
