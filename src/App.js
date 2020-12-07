@@ -6,7 +6,6 @@ import Nav from "./components/Nav";
 import DataWrapper from "./components/DataWrapper";
 import Portal from "./pages/Portal";
 import UserSettings from "./pages/UserSettings";
-import SinglePing from "./pages/SinglePing";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { MapProvider } from "./utils/useMapContext";
 import { AuthProvider } from "./utils/useAuthContext";

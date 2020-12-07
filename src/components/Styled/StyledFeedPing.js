@@ -26,7 +26,7 @@ const FeedPing = styled.div`
   }
   .meta {
     font-weight: lighter;
-    color: #A0A0A0;
+    color: var(--theme-meta);
   }
   .body {
     grid-area: body;
@@ -45,6 +45,9 @@ const FeedPing = styled.div`
     grid-area: comment;
     align-self: center;
     justify-self: start;
+  }
+  span {
+    color: var(--theme-meta);
   }
   .time {
     grid-area: 4/2/auto/auto;

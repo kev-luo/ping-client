@@ -9,7 +9,8 @@ import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import StyledFeedPing from "./Styled/StyledFeedPing";
-import { LikeBtn, DismissBtn, CommentBtn } from "./Styled/StyledPingIcons";
+import SupportPing from "./SupportPing";
+import { CommentBtn } from "./Styled/StyledPingIcons";
 
 export default function Ping({ ping }) {
   const history = useHistory();
@@ -52,21 +53,15 @@ export default function Ping({ ping }) {
         </span>
       </h4>
       <p className="body">{ping.body}</p>
-      <Tooltip title="Support">
-        <LikeBtn className="like">
-          <BiUpvote color="disabled" fontSize="large" />
-        </LikeBtn>
-      </Tooltip>
-      <Tooltip title="Dismiss">
-        <DismissBtn className="dismiss">
-          <BiDownvote color="disabled" fontSize="large" />
-        </DismissBtn>
-      </Tooltip>
-      <Tooltip title="Comment">
-        <CommentBtn className="comment">
-          <FaRegComment color="disabled" fontSize="large" />
-        </CommentBtn>
-      </Tooltip>
+      <SupportPing user={user} ping={ping}/>
+      <div className="comment">
+        <Tooltip title="Comment">
+          <CommentBtn className="comment">
+            <FaRegComment color="disabled" fontSize="large" />
+          </CommentBtn>
+        </Tooltip>
+        <span>{ping.commentCount}</span>
+      </div>
       {params.pingId && (
         <p className="time">{moment().format("h:mm a, MMM Do YYYY")}</p>
       )}

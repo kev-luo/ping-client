@@ -24,6 +24,7 @@ export const FETCH_PINGS_QUERY = gql`
         }
       }
       supportCount
+      dismissCount
       commentCount
     }
   }
@@ -51,6 +52,7 @@ export const FETCH_PINGS_BY_LOCATION = gql`
         }
       }
       supportCount
+      dismissCount
       commentCount
     }
   }
@@ -83,6 +85,7 @@ export const FETCH_PING_QUERY = gql`
         }
       }
       supportCount
+      dismissCount
       commentCount
     }
   }

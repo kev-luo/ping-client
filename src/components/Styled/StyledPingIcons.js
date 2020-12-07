@@ -2,7 +2,7 @@ import { IconButton } from "@material-ui/core";
 import styled from "styled-components";
 
 const PingBtn = styled(IconButton)`
-  color: #A9A9A9;
+  color: var(--theme-meta);
 `;
 
 const LikeBtn = styled(PingBtn)`
