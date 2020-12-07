@@ -5,7 +5,7 @@ import { Avatar } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 
 import TabContainer from "../Styled/StyledFloatingBtnContainer";
-import FloatingBtn from "../Styled/StyledFloatingBtn";
+import { useDashboardContext } from "../../utils/useDashboardContext";
 
 const RightTabContainer = styled(TabContainer)`
   right: 6rem;
@@ -18,19 +18,33 @@ const RightTabContainer = styled(TabContainer)`
       margin-bottom: 1rem;
     }
   }
-  
 `;
 
 export default function RightUser({ open, setOpen }) {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const {
+    state: { selectedUser },
+  } = useDashboardContext();
+
+  function authorPic(selectedUser) {
+    return selectedUser?.imageUrl ? (
+      <Avatar
+        src={selectedUser.imageUrl}
+        alt={selectedUser.username}
+        className={classes.img}
+      />
+    ) : (
+      <Avatar className={classes.img} />
+    );
+  }
 
   return (
     <RightTabContainer>
       <ul>
         <li>
-          <span>Profile</span>
-          <Avatar className={classes.img} />
+          <span>@{selectedUser?.username}</span>
+          {authorPic(selectedUser)}
         </li>
       </ul>
     </RightTabContainer>

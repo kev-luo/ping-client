@@ -15,8 +15,8 @@ export default function Dashboard({ data, error }) {
   return (
     <StyledFeedContainer>
       {user && <TabContainer />}
+      {user && <RightUser />}
       <LeftButtons open={open} setOpen={setOpen} />
-      <RightUser />
       <NewPing open={open} setOpen={setOpen} />
       <Feed data={data} error={error} />
     </StyledFeedContainer>

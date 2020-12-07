@@ -5,16 +5,25 @@ import { useQuery } from "@apollo/client";
 import AbsoluteWrapper from "./Styled/AbsoluteWrapper";
 import MapView from "../pages/MapView";
 import FeedView from "../pages/FeedView";
+import Actions from "../utils/dashboardActions";
+import { useAuthContext } from "../utils/useAuthContext";
+import { useDashboardContext } from "../utils/useDashboardContext";
 import { useMapContext } from "../utils/useMapContext";
 import { FETCH_PINGS_BY_LOCATION } from "../utils/graphql";
 
 export default function DataWrapper() {
   const route = useParams();
   const { pathname } = useLocation();
+  const { user } = useAuthContext();
+  const dashContext = useDashboardContext();
   const {
     state: { userPosition },
     dispatch,
   } = useMapContext();
+
+  if(!dashContext.state.selectedUser && user) {
+    dashContext.dispatch({ type: Actions.SELECT_USER, payload: user})
+  }
 
   if (!userPosition) {
     if ("geolocation" in navigator) {
