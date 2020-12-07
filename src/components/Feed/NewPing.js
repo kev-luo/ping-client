@@ -40,8 +40,6 @@ export default function NewPing({ open, setOpen }) {
   });
 
   function createPingCb(img) {
-    console.log(userPosition.latitude);
-    // setValues({...values, imageUrl: img, lat: userPosition.latitude, long: userPosition.longitude})
     createPing({
       variables: {
         ...values,

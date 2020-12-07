@@ -6,6 +6,7 @@ import TabContainer from "../components/Feed/TabContainer";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import NewPing from "../components/Feed/NewPing";
 import Feed from "../components/Feed/Feed";
+import Loading from "../components/Loading";
 import { useAuthContext } from "../utils/useAuthContext";
 import { NEW_PING_SUBSCRIPTION } from "../utils/graphql";
 
@@ -63,25 +64,33 @@ export default function Dashboard({ pingData, userData }) {
   return (
     <StyledFeedContainer>
       {user && <TabContainer />}
-      <LeftButtons open={open} setOpen={setOpen} userData={userData} />
-      <NewPing open={open} setOpen={setOpen} />
-      <Switch>
-        <Route path="/feed/all">
-          <Feed
-            data={pingData.data?.getPingsByLocation}
-            error={pingData.error}
-          />
-        </Route>
-        <Route path="/feed/supports/:userId">
-          <Feed data={supportedPings} error={pingData.error} />
-        </Route>
-        <Route path="/feed/posted/:userId">
-          <Feed data={authoredPings} error={pingData.error} />
-        </Route>
-        <Route path="/feed/new">
-          <Feed data={newPings} error={pingData.error} />
-        </Route>
-      </Switch>
+      {pingData.data ? (
+        <>
+        <LeftButtons open={open} setOpen={setOpen} userData={userData} />
+        <NewPing open={open} setOpen={setOpen} />
+        <Switch>
+          <Route path="/feed/all">
+            <Feed
+              data={pingData.data?.getPingsByLocation}
+              error={pingData.error}
+            />
+          </Route>
+          <Route path="/feed/supports/:userId">
+            <Feed data={supportedPings} error={pingData.error} />
+          </Route>
+          <Route path="/feed/posted/:userId">
+            <Feed data={authoredPings} error={pingData.error} />
+          </Route>
+          <Route path="/feed/new">
+            <Feed data={newPings} error={pingData.error} />
+          </Route>
+        </Switch>
+        </>
+      ) : pingData.error ? (
+        <Loading err={pingData.error} />
+      ) : (
+        <Loading />
+      )}
     </StyledFeedContainer>
   );
 }
