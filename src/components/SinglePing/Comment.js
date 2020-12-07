@@ -5,13 +5,14 @@ import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import StyledComment from "../Styled/StyledComment";
 import Actions from "../../utils/dashboardActions";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 
 export default function Comment({ createdAt, body, author }) {
   const classes = useStyles();
-  const {dispatch} = useDashboardContext();
+  const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
 
   function displayProfile(selectedUser) {
@@ -22,41 +23,24 @@ export default function Comment({ createdAt, body, author }) {
 
   function authorPic(author) {
     return author.imageUrl ? (
-      <Avatar
-        src={author.imageUrl}
-        alt={author.username}
-        className={classes.profilePic}
-      />
+      <Avatar src={author.imageUrl} alt={author.username} className="img" />
     ) : (
-      <Avatar className={classes.missingPic}>
+      <Avatar className="img">
         <FaUser />
       </Avatar>
     );
   }
 
   return (
-    <Paper className={classes.root}>
-      <Grid container wrap="nowrap" spacing={2} alignItems="center">
-        <Grid item>{authorPic(author)}</Grid>
-        <Grid item xs>
-          <Link
-            to={`/user/supported/${author.id}`}
-            className={classes.username}
-          >
-            <Typography
-              variant="subtitle2"
-              onClick={() => displayProfile(author)}
-            >
-              {author.username}
-            </Typography>
-          </Link>
-          <Typography variant="subtitle2" className={classes.meta}>
-            {moment(Number(createdAt)).fromNow()}
-          </Typography>
-          <Typography variant="body2">{body}</Typography>
-        </Grid>
-      </Grid>
-    </Paper>
+    <StyledComment>
+      {authorPic(author)}
+      <h4 className="username">
+        @{author.username}
+        <span className="meta"> · {moment(Number(createdAt)).fromNow()}</span>
+      </h4>
+      <p className="body">{body}</p>
+      <div className="sxy_line"></div>
+    </StyledComment>
   );
 }
 
@@ -65,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px 8px",
     marginTop: "0.7rem",
     backgroundColor: theme.palette.info.main,
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
   },
   username: {
     "&:hover": {
