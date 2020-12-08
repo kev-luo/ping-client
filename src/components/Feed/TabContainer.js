@@ -1,19 +1,21 @@
 import React from "react";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 
-export default function TabContainer() {
+export default function TabContainer({ darkMode }) {
   const classes = useStyles();
   const {
     state: { selectedUser },
   } = useDashboardContext();
   const { user } = useAuthContext();
+  console.log(darkMode);
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, darkMode ? classes.darkColor : classes.color)}>
       {user?.id === selectedUser?.id && (
         <NavLink activeClassName={classes.active} to="/feed/all">
           All
@@ -46,8 +48,7 @@ const useStyles = makeStyles((theme) => ({
     width: "65%",
     "& *": {
       flex: 1,
-      background: "var(--bg-primary)",
-      color: "var(--text-primary)",
+      background: theme.palette.info.main,
       fontWeight: "bold",
       border: "none",
       padding: "1rem 0",
@@ -58,18 +59,27 @@ const useStyles = makeStyles((theme) => ({
         outline: "none",
       },
       "&:hover": {
-        background: "var(--bg-secondary)",
+        background: theme.palette.info.light,
         cursor: "pointer",
       },
     },
     "@media (max-width: 1200px)": {
-      width: "100%"
+      width: "100%",
+    },
+  },
+  color: {
+    "& *": {
+      color: "#0f2612"
+    }
+  },
+  darkColor: {
+    "& *": {
+      color: "#50bf6c"
     }
   },
   active: {
-    background: "var(--bg-secondary)",
+    background: theme.palette.info.light,
     borderBottom: "3px solid var(--theme-primary)",
     color: "var(--theme-primary)",
   },
-
 }));

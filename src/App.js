@@ -28,7 +28,7 @@ function App(props) {
                 <Route exact path="/map" component={DataWrapper} />
                 <ProtectedRoute
                   path="/feed"
-                  component={DataWrapper}
+                  component={() => <DataWrapper darkMode={darkMode} />}
                 />
                 <ProtectedRoute
                   exact

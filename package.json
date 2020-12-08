@@ -12,6 +12,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-server": "^2.19.0",
     "axios": "^0.21.0",
+    "clsx": "^1.1.1",
     "graphql": "^15.4.0",
     "graphql-request": "^3.3.0",
     "graphql-tag": "^2.11.0",

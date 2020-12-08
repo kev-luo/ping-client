@@ -10,9 +10,13 @@ import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import { useMapContext } from "../utils/useMapContext";
-import { FETCH_PINGS_BY_LOCATION, FETCH_USER_QUERY, FETCH_PING_QUERY } from "../utils/graphql";
+import {
+  FETCH_PINGS_BY_LOCATION,
+  FETCH_USER_QUERY,
+  FETCH_PING_QUERY,
+} from "../utils/graphql";
 
-export default function DataWrapper() {
+export default function DataWrapper({ darkMode }) {
   const params = useParams();
   const { pathname } = useLocation();
   const { user } = useAuthContext();
@@ -68,7 +72,7 @@ export default function DataWrapper() {
       ) : params.pingId ? (
         <SinglePing pingData={pingData} userData={userData} />
       ) : (
-        <FeedView pingData={pingsData} userData={userData} />
+        <FeedView darkMode={darkMode} pingData={pingsData} userData={userData} />
       )}
     </AbsoluteWrapper>
   );

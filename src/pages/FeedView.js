@@ -10,7 +10,7 @@ import Loading from "../components/Loading";
 import { useAuthContext } from "../utils/useAuthContext";
 import { NEW_PING_SUBSCRIPTION } from "../utils/graphql";
 
-export default function Dashboard({ pingData, userData }) {
+export default function Dashboard({ pingData, userData, darkMode }) {
   const [open, setOpen] = useState(false);
   const { user } = useAuthContext();
   const { pathname } = useLocation();
@@ -65,7 +65,7 @@ export default function Dashboard({ pingData, userData }) {
     <>
       <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <StyledContainer>
-        {user && <TabContainer />}
+        {user && <TabContainer darkMode={darkMode}/>}
         {pingData.data ? (
           <>
             <NewPing open={open} setOpen={setOpen} />
