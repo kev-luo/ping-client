@@ -1,8 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { Tooltip } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { LikeBtn, DismissBtn } from "./Styled/StyledPingIcons";
+import { Tooltip, IconButton } from "@material-ui/core";
 
 import {
   TiArrowUpOutline,
@@ -52,37 +50,28 @@ export default function SupportPing({ user, ping }) {
     <>
       <div className="like">
         <Tooltip title="Support">
-          <LikeBtn onClick={(e) => handleClick(e, true)}>
+          <IconButton onClick={(e) => handleClick(e, true)}>
             {fillIcon("support") ? (
               <TiArrowUpThick color="#50BF6C" fontSize="large" />
             ) : (
-              <TiArrowUpOutline color="disabled" fontSize="large" />
+              <TiArrowUpOutline color="#50BF6C" fontSize="large" />
             )}
-          </LikeBtn>
+          </IconButton>
         </Tooltip>
         <span>{ping.supportCount}</span>
       </div>
       <div className="dismiss">
         <Tooltip title="Dismiss">
-          <DismissBtn onClick={(e) => handleClick(e, false)}>
+          <IconButton onClick={(e) => handleClick(e, false)}>
             {fillIcon("dismiss") ? (
               <TiArrowDownThick color="#BF213E" fontSize="large" />
             ) : (
-              <TiArrowDownOutline color="disabled" fontSize="large" />
+              <TiArrowDownOutline color="#BF213E" fontSize="large" />
             )}
-          </DismissBtn>
+          </IconButton>
         </Tooltip>
         <span>{ping.dismissCount}</span>
       </div>
     </>
   );
 }
-
-const useStyles = makeStyles(() => ({
-  support: {
-    color: "#ff6666",
-  },
-  dismiss: {
-    color: "gray",
-  },
-}));

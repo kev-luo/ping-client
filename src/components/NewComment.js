@@ -28,6 +28,7 @@ export default function NewPing({ pingId, open, setOpen }) {
 
   const handleSubmit = () => {
     createComment();
+    setOpen(!open);
   };
 
   const handleChange = (event) => {

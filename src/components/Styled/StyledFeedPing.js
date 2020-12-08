@@ -10,11 +10,11 @@ const FeedPing = styled.div`
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 1fr 1fr 2rem 1.5fr;
   gap: 0px 1rem;
-  grid-template-areas: 
-  "img   username username username"
-  "img   body     body     body"
-  ".     like     dismiss  comment"
-  "sxy_line sxy_line sxy_line sxy_line";
+  grid-template-areas:
+    "img   username username username"
+    "img   body     body     body"
+    ".     like     dismiss  comment"
+    "sxy_line sxy_line sxy_line sxy_line";
   .img {
     grid-area: img;
     justify-self: end;
@@ -50,15 +50,15 @@ const FeedPing = styled.div`
     color: var(--theme-meta);
   }
   .time {
-    grid-area: 4/2/auto/auto;
+    grid-area: 4/2 / auto/auto;
     align-self: center;
     font-weight: lighter;
-    color: #A0A0A0;
+    color: #a0a0a0;
   }
   .sxy_line {
     grid-area: sxy_line;
     align-self: end;
-    height: 1px;
+    height: 2px;
     background: linear-gradient(to right, #f2f2f2, black, #f2f2f2);
   }
   &:hover {

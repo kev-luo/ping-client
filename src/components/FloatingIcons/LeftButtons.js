@@ -7,26 +7,11 @@ import { useLocation } from "react-router-dom";
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
 import { HiOutlinePlus, HiOutlineUser } from "react-icons/hi";
-import TabContainer from "../Styled/StyledFloatingBtnContainer";
+import BtnContainer from "../Styled/StyledFloatingBtnContainer";
 import FloatingBtn from "../Styled/StyledFloatingBtn";
 import Actions from "../../utils/dashboardActions";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 import { useAuthContext } from "../../utils/useAuthContext";
-
-const LeftTabContainer = styled(TabContainer)`
-  left: 6rem;
-`;
-
-const LeftFloatingBtn = styled(FloatingBtn)`
-  color: var(--theme-primary);
-  &:hover {
-    box-shadow: 2px 4px 6px -1px rgba(80, 191, 108, 0.75);
-    transform: scale(1.1);
-  }
-  & ~ span {
-    margin-left: 1rem;
-  }
-`;
 
 export default function LeftTabs({ open, setOpen, userData }) {
   const classes = useStyles();
@@ -51,7 +36,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
   }
 
   return (
-    <LeftTabContainer>
+    <BtnContainer>
       <ul>
         {userData.data && <li className={classes.user}>
           {authorPic(userData.data.getUser)}
@@ -60,34 +45,34 @@ export default function LeftTabs({ open, setOpen, userData }) {
         <li className={classes.btn}>
           {pathname === "/map" ? (
             <>
-              <LeftFloatingBtn to="/">
+              <FloatingBtn to="/">
                 <GrUnorderedList size={20} />
-              </LeftFloatingBtn>
+              </FloatingBtn>
               <span>Feed</span>
             </>
           ) : (
             <>
-              <LeftFloatingBtn to="/map">
+              <FloatingBtn to="/map">
                 <RiRoadMapLine size={20} />
-              </LeftFloatingBtn>
+              </FloatingBtn>
               <span>Map</span>
             </>
           )}
         </li>
         <li className={classes.btn}>
-          <LeftFloatingBtn to="/feed/new" onClick={() => userProfile(user)}>
+          <FloatingBtn to="/feed/new" onClick={() => userProfile(user)}>
             <HiOutlineUser size={20} />
-          </LeftFloatingBtn>
+          </FloatingBtn>
           <span>My Profile</span>
         </li>
         <li className={classes.btn}>
-          <LeftFloatingBtn as="button" onClick={() => setOpen(!open)}>
+          <FloatingBtn as="button" onClick={() => setOpen(!open)}>
             <HiOutlinePlus size={20} />
-          </LeftFloatingBtn>
+          </FloatingBtn>
           <span>Ping</span>
         </li>
       </ul>
-    </LeftTabContainer>
+    </BtnContainer>
   );
 }
 

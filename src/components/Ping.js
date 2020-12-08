@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, Tooltip } from "@material-ui/core";
+import { Avatar, Tooltip, IconButton } from "@material-ui/core";
 import { FaRegComment, FaUser } from "react-icons/fa";
 import { useHistory, useParams } from "react-router-dom";
 import moment from "moment";
@@ -9,7 +9,6 @@ import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 import StyledFeedPing from "./Styled/StyledFeedPing";
 import SupportPing from "./SupportPing";
-import { CommentBtn } from "./Styled/StyledPingIcons";
 import NewComment from "./NewComment";
 
 export default function Ping({ ping }) {
@@ -64,14 +63,14 @@ export default function Ping({ ping }) {
         <SupportPing user={user} ping={ping} />
         <div className="comment">
           <Tooltip title="Comment">
-            <CommentBtn className="comment" onClick={(e) => addComment(e)}>
-              <FaRegComment color="disabled" fontSize="large" />
-            </CommentBtn>
+            <IconButton onClick={(e) => addComment(e)}>
+              <FaRegComment color="#22ccf2" fontSize="large" />
+            </IconButton>
           </Tooltip>
           <span>{ping.commentCount}</span>
         </div>
         {params.pingId && (
-          <p className="time">{moment().format("h:mm a, MMM Do YYYY")}</p>
+          <p className="time">{moment(Number(ping.createdAt)).format("h:mm a, MMM Do YYYY")}</p>
         )}
         <div className="sxy_line"></div>
       </StyledFeedPing>

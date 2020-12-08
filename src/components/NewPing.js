@@ -52,6 +52,7 @@ export default function NewPing({ open, setOpen }) {
   function loaderSubmit(e) {
     setIsLoading(!isLoading);
     handleSubmit(e);
+    setOpen(!open);
   }
 
   const handleClose = () => {

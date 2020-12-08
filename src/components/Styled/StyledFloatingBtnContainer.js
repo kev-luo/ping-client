@@ -4,6 +4,7 @@ const FloatingBtnContainer = styled.div`
   position: absolute;
   height: 100%;
   z-index: 15;
+  left: 6rem;
 
   ul {
     position: sticky;
@@ -20,6 +21,17 @@ const FloatingBtnContainer = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 5rem;
+  }
+
+  @media (max-width: 768px) {
+    left: 3rem;
+    ul {
+      flex-direction: row;
+    }
+    li {
+      flex-direction: column;
+      margin-right: 1rem;
+    }
   }
 `;
 
