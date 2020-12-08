@@ -42,7 +42,7 @@ export default function Nav({ darkMode, setDarkMode }) {
   };
 
   return (
-    <StyledNav>
+    <StyledNav className={classes.nav}>
       {/* <img src="../assets/node.svg" alt="ping logo" /> */}
       <Typography variant="overline" className="logo">
         <Link to={context.user ? "/feed/all" : "/"} className={classes.link}>
@@ -97,7 +97,7 @@ export default function Nav({ darkMode, setDarkMode }) {
 
 const useStyles = makeStyles((theme) => ({
   nav: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.info.light,
   },
   title: {
     flexGrow: 1,
@@ -106,8 +106,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 0",
   },
   link: {
-    color: "#659DBD",
-    textDecoration: "none",
-    margin: theme.spacing(1),
+    color: theme.palette.secondary.main,
   },
 }));

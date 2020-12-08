@@ -80,20 +80,20 @@ const useStyles = makeStyles((theme) => ({
   user: {
     flexDirection: "column",
   },
+  username: {
+    marginTop: ".5rem",
+    color: "var(--theme-primary)",
+  },
+  img: {
+    width: "4.5rem",
+    height: "4.5rem",
+  },
   btn: {
-    background: theme.palette.info.main,
+    background: theme.palette.info.light,
     borderRadius: "50%",
     color: theme.palette.success.main,
     "& ~ span": {
       color: theme.palette.success.main,
     }
   },
-  img: {
-    width: "4.5rem",
-    height: "4.5rem",
-  },
-  username: {
-    marginTop: ".5rem",
-    color: "var(--theme-primary)",
-  }
 }));

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const StyledNav = styled.nav`
   height: 4rem;
-  background: var(--bg-secondary);
   position: fixed;
   width: 100%;
   z-index: 12;
@@ -16,7 +15,6 @@ const StyledNav = styled.nav`
   & a {
     margin: 1rem;
     text-decoration: none;
-    color: var(--text-primary);
     &:hover {
       text-decoration: underline;
     }

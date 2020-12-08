@@ -8,6 +8,10 @@ const theme = createMuiTheme({
     primary: {
       main: "#22ccf2", // electric blue
     },
+    secondary: {
+      main: "#1999B5",
+      dark: "#2E5E69"
+    },
     success: {
       main: "#50bf6c" // electric green
     },
@@ -29,6 +33,10 @@ const themeDark = createMuiTheme({
     type: "light",
     primary: {
       main: "#22ccf2", // electric blue
+    },
+    secondary: {
+      main: "#1999B5",
+      dark: "#2E5E69"
     },
     success: {
       main: "#50bf6c" // electric green
@@ -67,8 +75,8 @@ const themeOverrides = {
       }
     },
     outlinedPrimary: {
-      color: theme.palette.primary.main,
-      borderColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
       opacity: 0.6,
       "&:hover": {
         color: theme.palette.error.main,
@@ -77,8 +85,8 @@ const themeOverrides = {
       }
     },
     outlinedSecondary: {
-      color: theme.palette.primary.main,
-      borderColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
       opacity: 0.6,
       "&:hover": {
         color: theme.palette.secondary.light,
