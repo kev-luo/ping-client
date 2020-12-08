@@ -9,35 +9,32 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { useForm } from "../utils/useForm";
 import { CREATE_COMMENT } from "../utils/graphql";
 
 export default function NewPing({ pingId, open, setOpen }) {
   const classes = useStyles();
   const [errors, setErrors] = useState({})
-  const [comment, setComment] = useState("");
+  const initialState = { body: "" }
+  const { handleChange, handleSubmit, values, setValues } = useForm(createCommentCb, initialState);
 
   const [createComment] = useMutation(CREATE_COMMENT, {
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
     variables: {
+      ...values,
       pingId: pingId,
-      body: comment,
     },
-    update() {
-      setComment("");
+    onCompleted() {
+      setValues(initialState);
       setOpen(!open);
-    },
+    }
   });
 
-  const handleSubmit = () => {
+  function createCommentCb() {
     createComment();
-  };
-
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setComment(value);
-  };
+  }
 
   return (
     <Dialog open={open} onClose={() => setOpen(!open)}>
@@ -45,7 +42,7 @@ export default function NewPing({ pingId, open, setOpen }) {
         <form noValidate>
           <TextField
             name="body"
-            value={comment}
+            value={values.body}
             onChange={handleChange}
             error={errors.body ? true : false}
             helperText={errors.body}
