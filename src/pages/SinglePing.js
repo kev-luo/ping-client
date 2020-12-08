@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
+import StyledContainer from "../components/Styled/StyledContainer";
 import NewPing from "../components/NewPing";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import PingWrapper from "../components/SinglePing/PingWrapper";
@@ -32,10 +32,10 @@ export default function SinglePing({ pingData, userData }) {
   }, [pingData]);
 
   return (
-    <StyledFeedContainer>
+    <StyledContainer>
       <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <NewPing open={open} setOpen={setOpen} />
       <PingWrapper data={pingData.data} error={pingData.error} />
-    </StyledFeedContainer>
+    </StyledContainer>
   );
 }

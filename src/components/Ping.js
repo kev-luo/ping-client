@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { FaRegComment, FaUser } from "react-icons/fa";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from "react-router-dom";
 import moment from "moment";
 
 import Actions from "../utils/dashboardActions";
@@ -21,7 +21,11 @@ export default function Ping({ ping }) {
 
   function authorPic(ping) {
     return ping.author.imageUrl ? (
-      <Avatar src={ping.author.imageUrl} alt={ping.author.username} className="img" />
+      <Avatar
+        src={ping.author.imageUrl}
+        alt={ping.author.username}
+        className="img"
+      />
     ) : (
       <Avatar className="img">
         <FaUser />
@@ -37,7 +41,7 @@ export default function Ping({ ping }) {
     e.stopPropagation();
     if (user) {
       dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
-      history.push(`/feed/posted/${selectedUser.id}`)
+      history.push(`/feed/posted/${selectedUser.id}`);
     }
   }
 
@@ -47,32 +51,31 @@ export default function Ping({ ping }) {
   }
 
   return (
-    <StyledFeedPing
-      className="ping"
-      onClick={() => displayPing(ping.id)}
-    >
-      {authorPic(ping)}
-      <h4 className="username" onClick={(e) => selectUser(e, ping.author)}>
-        @{ping.author.username}
-        <span className="meta">
-          {` · ${moment(Number(ping.createdAt)).fromNow()}`}
-        </span>
-      </h4>
-      <p className="body">{ping.body}</p>
-      <SupportPing user={user} ping={ping}/>
-      <div className="comment">
-        <Tooltip title="Comment">
-          <CommentBtn className="comment" onClick={(e) => addComment(e)}>
-            <FaRegComment color="disabled" fontSize="large" />
-          </CommentBtn>
-        </Tooltip>
-        <span>{ping.commentCount}</span>
-      </div>
-      {params.pingId && (
-        <p className="time">{moment().format("h:mm a, MMM Do YYYY")}</p>
-      )}
-      <div className="sxy_line"></div>
-      <NewComment pingId={ping.id} open={open} setOpen={setOpen}/>
-    </StyledFeedPing>
+    <>
+      <StyledFeedPing className="ping" onClick={() => displayPing(ping.id)}>
+        {authorPic(ping)}
+        <h4 className="username" onClick={(e) => selectUser(e, ping.author)}>
+          @{ping.author.username}
+          <span className="meta">
+            {` · ${moment(Number(ping.createdAt)).fromNow()}`}
+          </span>
+        </h4>
+        <p className="body">{ping.body}</p>
+        <SupportPing user={user} ping={ping} />
+        <div className="comment">
+          <Tooltip title="Comment">
+            <CommentBtn className="comment" onClick={(e) => addComment(e)}>
+              <FaRegComment color="disabled" fontSize="large" />
+            </CommentBtn>
+          </Tooltip>
+          <span>{ping.commentCount}</span>
+        </div>
+        {params.pingId && (
+          <p className="time">{moment().format("h:mm a, MMM Do YYYY")}</p>
+        )}
+        <div className="sxy_line"></div>
+      </StyledFeedPing>
+      <NewComment pingId={ping.id} open={open} setOpen={setOpen} />
+    </>
   );
 }

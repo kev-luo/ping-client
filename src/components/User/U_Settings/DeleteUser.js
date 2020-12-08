@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, TextField } from "@material-ui/core";
+import { IconButton, TextField, DialogContent } from "@material-ui/core";
 import { MdDelete } from "react-icons/md";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -51,7 +51,7 @@ export default function DeleteUser() {
   }
 
   return (
-    <div className={classes.paper}>
+    <DialogContent className={classes.paper}>
       <form onSubmit={handleSubmit}>
         <TextField
           type="password"
@@ -65,15 +65,9 @@ export default function DeleteUser() {
           <MdDelete />
         </IconButton>
       </form>
-    </div>
+    </DialogContent>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
 }));

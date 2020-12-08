@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Paper, Avatar } from "@material-ui/core";
+import {
+  Avatar,
+  MenuList,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
+} from "@material-ui/core";
 import { FiImage } from "react-icons/fi";
-import { FaUser } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaUser, FaRegTrashAlt } from "react-icons/fa";
+import { TiArrowBackOutline } from "react-icons/ti";
 import { useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
+import StyledContainer from "../components/Styled/StyledContainer";
 import { FETCH_USER_QUERY } from "../utils/graphql";
 import { useAuthContext } from "../utils/useAuthContext";
 import UserSettingsModal from "../components/User/U_Settings/UserSettingsModal";
@@ -22,9 +29,9 @@ export default function UserSettings() {
     variables: { userId: user?.id },
   });
 
-  function handleClick(e) {
+  function handleClick(setting) {
     setIsOpen(!isOpen);
-    setUserSettings(e.target.textContent);
+    setUserSettings(setting);
   }
 
   const userProfile = data?.getUser ? (
@@ -40,49 +47,32 @@ export default function UserSettings() {
   );
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => history.goBack()}
-        >
-          Go Back
-        </Button>
-        {userProfile}
-        <Button endIcon={<FiImage />} onClick={handleClick}>
-          Update Profile Picture
-        </Button>
-        <Button endIcon={<MdDelete />} onClick={handleClick}>
-          Delete Profile
-        </Button>
-      </Paper>
+    <StyledContainer>
+      {userProfile}
+      <MenuList className={classes.menu}>
+        <MenuItem onClick={() => history.goBack()}>
+          <ListItemIcon><TiArrowBackOutline /></ListItemIcon>
+          <ListItemText primary="Go Back" />
+        </MenuItem>
+        <MenuItem onClick={() => handleClick("Update Avatar")}>
+          <ListItemIcon><FiImage /></ListItemIcon>
+          <ListItemText primary="Update Avatar" />
+        </MenuItem>
+        <MenuItem onClick={() => handleClick("Delete Profile")}>
+          <ListItemIcon><FaRegTrashAlt /></ListItemIcon>
+          <ListItemText primary="Delete Profile" />
+        </MenuItem>
+      </MenuList>
       <UserSettingsModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         userSettings={userSettings}
       />
-    </div>
+    </StyledContainer>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: "0 auto",
-      marginTop: "150px",
-      padding: "33px",
-      width: "50%",
-      minWidth: "333px",
-      height: "auto",
-    },
-    textAlign: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.primary.main,
-  },
   media: {
     display: "block",
     width: "150px",
@@ -90,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "50% 50%",
     backroundSize: "cover",
     borderRadius: "50%",
-    margin: "1rem auto",
+    margin: "2rem auto",
   },
+  menu: {
+    borderTop: "1px solid black",
+    padding: "1rem"
+  }
 }));

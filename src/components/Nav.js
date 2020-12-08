@@ -69,7 +69,7 @@ export default function Nav({ darkMode, setDarkMode }) {
         )}
         {context.user && (
           <>
-            <Link to={`/user/${context.user.id}`} className={classes.link}>
+            <Link to={`/settings`} className={classes.link}>
               <Button
                 onClick={userProfile}
                 variant="outlined"

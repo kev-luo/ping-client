@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 
-import StyledFeedContainer from "../components/Styled/StyledFeedContainer";
+import StyledContainer from "../components/Styled/StyledContainer";
 import TabContainer from "../components/Feed/TabContainer";
 import LeftButtons from "../components/FloatingIcons/LeftButtons";
 import NewPing from "../components/NewPing";
@@ -62,7 +62,7 @@ export default function Dashboard({ pingData, userData }) {
     });
 
   return (
-    <StyledFeedContainer>
+    <StyledContainer>
       {user && <TabContainer />}
       {pingData.data ? (
         <>
@@ -91,6 +91,6 @@ export default function Dashboard({ pingData, userData }) {
       ) : (
         <Loading />
       )}
-    </StyledFeedContainer>
+    </StyledContainer>
   );
 }
