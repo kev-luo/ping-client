@@ -68,9 +68,9 @@ export default function DataWrapper({ darkMode }) {
   return (
     <AbsoluteWrapper>
       {pathname === "/map" ? (
-        <MapView pingData={pingsData} userData={userData} />
+        <MapView darkMode={darkMode} pingData={pingsData} userData={userData} />
       ) : params.pingId ? (
-        <SinglePing pingData={pingData} userData={userData} />
+        <SinglePing darkMode={darkMode} pingData={pingData} userData={userData} />
       ) : (
         <FeedView darkMode={darkMode} pingData={pingsData} userData={userData} />
       )}

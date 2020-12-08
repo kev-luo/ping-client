@@ -65,25 +65,38 @@ export default function Dashboard({ pingData, userData, darkMode }) {
     <>
       <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <StyledContainer>
-        {user && <TabContainer darkMode={darkMode}/>}
+        {user && <TabContainer darkMode={darkMode} />}
         {pingData.data ? (
           <>
             <NewPing open={open} setOpen={setOpen} />
             <Switch>
               <Route path="/feed/all">
                 <Feed
+                  darkMode={darkMode}
                   data={pingData.data?.getPingsByLocation}
                   error={pingData.error}
                 />
               </Route>
               <Route path="/feed/supports/:userId">
-                <Feed data={supportedPings} error={pingData.error} />
+                <Feed
+                  darkMode={darkMode}
+                  data={supportedPings}
+                  error={pingData.error}
+                />
               </Route>
               <Route path="/feed/posted/:userId">
-                <Feed data={authoredPings} error={pingData.error} />
+                <Feed
+                  darkMode={darkMode}
+                  data={authoredPings}
+                  error={pingData.error}
+                />
               </Route>
               <Route path="/feed/new">
-                <Feed data={newPings} error={pingData.error} />
+                <Feed
+                  darkMode={darkMode}
+                  data={newPings}
+                  error={pingData.error}
+                />
               </Route>
             </Switch>
           </>

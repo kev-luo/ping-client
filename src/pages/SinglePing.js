@@ -7,7 +7,7 @@ import PingWrapper from "../components/SinglePing/PingWrapper";
 
 import { NEW_COMMENT_SUBSCRIPTION } from "../utils/graphql";
 
-export default function SinglePing({ pingData, userData }) {
+export default function SinglePing({ pingData, userData, darkMode }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function SinglePing({ pingData, userData }) {
     <StyledContainer>
       <LeftButtons open={open} setOpen={setOpen} userData={userData} />
       <NewPing open={open} setOpen={setOpen} />
-      <PingWrapper data={pingData.data} error={pingData.error} />
+      <PingWrapper darkMode={darkMode} data={pingData.data} error={pingData.error} />
     </StyledContainer>
   );
 }

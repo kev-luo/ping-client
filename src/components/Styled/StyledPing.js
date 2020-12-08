@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FeedPing = styled.div`
+const Ping = styled.div`
   width: 75%;
   /* border: 1px solid #cfcfcf; */
   padding: 1rem 1rem;
@@ -59,10 +59,9 @@ const FeedPing = styled.div`
     grid-area: sxy_line;
     align-self: end;
     height: 2px;
-    background: linear-gradient(to right, #f2f2f2, black, #f2f2f2);
+    /* background: linear-gradient(to right, #f2f2f2, black, #f2f2f2); */
   }
   &:hover {
-    background: var(--bg-secondary);
     cursor: pointer;
   }
   transition: background 200ms ease;
@@ -71,4 +70,4 @@ const FeedPing = styled.div`
   }
 `;
 
-export default FeedPing;
+export default Ping;

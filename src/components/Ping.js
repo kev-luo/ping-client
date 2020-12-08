@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Tooltip, IconButton } from "@material-ui/core";
 import { FaRegComment, FaUser } from "react-icons/fa";
 import { useHistory, useParams } from "react-router-dom";
@@ -7,11 +9,12 @@ import moment from "moment";
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
-import StyledFeedPing from "./Styled/StyledFeedPing";
+import StyledFeedPing from "./Styled/StyledPing";
 import SupportPing from "./SupportPing";
 import NewComment from "./NewComment";
 
-export default function Ping({ ping }) {
+export default function Ping({ ping, darkMode }) {
+  const classes=useStyles();
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const { dispatch } = useDashboardContext();
@@ -51,15 +54,15 @@ export default function Ping({ ping }) {
 
   return (
     <>
-      <StyledFeedPing className="ping" onClick={() => displayPing(ping.id)}>
+      <StyledFeedPing className={classes.ping} onClick={() => displayPing(ping.id)}>
         {authorPic(ping)}
-        <h4 className="username" onClick={(e) => selectUser(e, ping.author)}>
+        <h4 className={clsx("username", darkMode ? classes.darkColor : classes.color)} onClick={(e) => selectUser(e, ping.author)}>
           @{ping.author.username}
           <span className="meta">
             {` · ${moment(Number(ping.createdAt)).fromNow()}`}
           </span>
         </h4>
-        <p className="body">{ping.body}</p>
+        <p className={clsx("body", darkMode ? classes.darkColor : classes.color)}>{ping.body}</p>
         <SupportPing user={user} ping={ping} />
         <div className="comment">
           <Tooltip title="Comment">
@@ -72,9 +75,29 @@ export default function Ping({ ping }) {
         {params.pingId && (
           <p className="time">{moment(Number(ping.createdAt)).format("h:mm a, MMM Do YYYY")}</p>
         )}
-        <div className="sxy_line"></div>
+        <div className={clsx("sxy_line", darkMode ? classes.darkLine : classes.line)}></div>
       </StyledFeedPing>
       <NewComment pingId={ping.id} open={open} setOpen={setOpen} />
     </>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  ping: {
+    "&:hover": {
+      background: theme.palette.info.light,
+    }
+  },
+  color: {
+    color: "#0f2612",
+  },
+  darkColor: {
+    color: "#50bf6c"
+  },
+  line: {
+    background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`
+  },
+  darkLine: {
+    background: "linear-gradient(to right, #212121, #f2f2f2, #212121)"
+  }
+}))

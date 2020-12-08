@@ -1,18 +1,13 @@
 import React from "react";
-import { FiImage, FiFileText } from "react-icons/fi";
 
 import Ping from "../Ping";
 
-export default function Feed({ data, error }) {
-
-  function containsImage(ping) {
-    return ping.imageUrl ? <FiImage size={32} /> : <FiFileText size={32} />;
-  }
+export default function Feed({ data, error, darkMode }) {
 
   return (
     <>
       {data ? (
-        data.map((ping) => <Ping ping={ping} key={ping.id} />)
+        data.map((ping) => <Ping ping={ping} key={ping.id} darkMode={darkMode}/>)
       ) : (
         <div>No Pings</div>
       )}

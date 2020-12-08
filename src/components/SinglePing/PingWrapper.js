@@ -7,7 +7,7 @@ import Ping from "../Ping";
 import Loading from "../Loading";
 import Comment from "./Comment";
 
-export default function SinglePing({ data, error }) {
+export default function SinglePing({ data, error, darkMode }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -26,7 +26,7 @@ export default function SinglePing({ data, error }) {
           <Button color="primary" variant="contained" onClick={() => history.goBack()}>
             Go Back
           </Button>
-          <Ping ping={data.getPing}/>
+          <Ping ping={data.getPing} darkMode={darkMode}/>
         </>
       ) : error ? (
         <Loading err={error} />
