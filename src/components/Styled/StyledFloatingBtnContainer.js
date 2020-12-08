@@ -10,6 +10,7 @@ const FloatingBtnContainer = styled.div`
   ul {
     position: sticky;
     list-style-type: none;
+    top: 7rem;
     width: 4rem;
     margin: 0;
     padding: 0;

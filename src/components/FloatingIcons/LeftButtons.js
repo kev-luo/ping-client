@@ -45,14 +45,14 @@ export default function LeftTabs({ open, setOpen, userData }) {
         <li className={classes.btn}>
           {pathname === "/map" ? (
             <>
-              <FloatingBtn to="/">
+              <FloatingBtn className={classes.btn} to="/">
                 <GrUnorderedList size={20} />
               </FloatingBtn>
               <span>Feed</span>
             </>
           ) : (
             <>
-              <FloatingBtn to="/map">
+              <FloatingBtn className={classes.btn} to="/map">
                 <RiRoadMapLine size={20} />
               </FloatingBtn>
               <span>Map</span>
@@ -60,13 +60,13 @@ export default function LeftTabs({ open, setOpen, userData }) {
           )}
         </li>
         <li className={classes.btn}>
-          <FloatingBtn to="/feed/new" onClick={() => userProfile(user)}>
+          <FloatingBtn className={classes.btn} to="/feed/new" onClick={() => userProfile(user)}>
             <HiOutlineUser size={20} />
           </FloatingBtn>
           <span>My Profile</span>
         </li>
         <li className={classes.btn}>
-          <FloatingBtn as="button" onClick={() => setOpen(!open)}>
+          <FloatingBtn className={classes.btn} as="button" onClick={() => setOpen(!open)}>
             <HiOutlinePlus size={20} />
           </FloatingBtn>
           <span>Ping</span>
@@ -81,7 +81,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   btn: {
-    flexDirection: "row",
+    background: theme.palette.info.main,
+    borderRadius: "50%",
+    color: theme.palette.success.main,
+    "& ~ span": {
+      color: theme.palette.success.main,
+    }
   },
   img: {
     width: "4.5rem",

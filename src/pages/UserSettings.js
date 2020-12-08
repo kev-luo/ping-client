@@ -8,7 +8,7 @@ import {
   ListItemIcon,
 } from "@material-ui/core";
 import { FiImage } from "react-icons/fi";
-import { FaUser, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { TiArrowBackOutline } from "react-icons/ti";
 import { useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -34,16 +34,14 @@ export default function UserSettings() {
     setUserSettings(setting);
   }
 
-  const userProfile = data?.getUser ? (
+  const userProfile = data?.getUser?.imageUrl ? (
     <Avatar
       src={data.getUser.imageUrl}
       alt={data.getUser.username}
       className={classes.media}
     />
   ) : (
-    <Avatar className={classes.missingPic}>
-      <FaUser />
-    </Avatar>
+    <Avatar className={classes.missingPic} />
   );
 
   return (
@@ -74,16 +72,17 @@ export default function UserSettings() {
 
 const useStyles = makeStyles((theme) => ({
   media: {
-    display: "block",
-    width: "150px",
-    height: "150px",
-    backgroundPosition: "50% 50%",
-    backroundSize: "cover",
-    borderRadius: "50%",
+    width: "7rem",
+    height: "7rem",
     margin: "2rem auto",
   },
   menu: {
     borderTop: "1px solid black",
     padding: "1rem"
+  },
+  missingPic: {
+    width: "7rem",
+    height: "7rem",
+    margin: "2rem auto",
   }
 }));

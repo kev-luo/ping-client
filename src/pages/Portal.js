@@ -12,7 +12,7 @@ export default function SignUpOrIn() {
   };
 
   return (
-    <Container>
+    <Container style={{paddingTop: "4rem"}}>
       <Tabs
         variant="fullWidth"
         value={selectedTab}

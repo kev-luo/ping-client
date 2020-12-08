@@ -6,26 +6,17 @@ const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#659DBD", // bluer blue
-      dark: "#23263D"
-    },
-    secondary: {
-      light: "#33cc33",
-      main: "#5BA875", // olive green
-      dark: "#2C4D3F"
+      main: "#22ccf2", // electric blue
     },
     success: {
-      main: "#BC986A" //light brown
+      main: "#50bf6c" // electric green
     },
     error: {
-      main: "#DAAD86" //orangeish pink?
-    },
-    warning: {
-      light: "#D5BFAC",
-      main: "#EDF1ED" // yellowish beige
+      main: "#BF213E" //dark red
     },
     info: {
-      main: "#F2F2F2" //beige
+      light: "#ebedf2", // almost white
+      main: "#F2F2F2", //light grey
     }
   },
   typography: {
@@ -35,29 +26,24 @@ const theme = createMuiTheme({
 
 const themeDark = createMuiTheme({
   palette: {
-    type: "dark",
+    type: "light",
     primary: {
-      light: "#313131",
-      main: grey[800],
-      dark: "fff",
+      main: "#22ccf2", // electric blue
     },
-    secondary: {
-      main: grey[900],
-      contrastText: "#C13838",
+    success: {
+      main: "#50bf6c" // electric green
     },
     error: {
-      light: red[500],
-      main: "#B81C1C", // red
-      dark: "#C13838", // red
-      contrastText: "#fff",
-    },
-    warning: {
-      main: grey[700]
+      main: "#BF213E" //dark red
     },
     info: {
-      main: grey[700]
+      light: grey[800], // almost white
+      main: grey[900], //light grey
     }
   },
+  typography: {
+    fontFamily: "Fira Sans, sans-serif"
+  }
 });
 
 const themeOverrides = {
