@@ -5,10 +5,10 @@ const FloatingBtnContainer = styled.div`
   height: 100%;
   z-index: 15;
   left: 6rem;
+  top: 7rem;
 
   ul {
     position: sticky;
-    top: 10rem;
     list-style-type: none;
     width: 4rem;
     margin: 0;
@@ -23,14 +23,26 @@ const FloatingBtnContainer = styled.div`
     margin-bottom: 5rem;
   }
 
-  @media (max-width: 768px) {
-    left: 3rem;
+  @media (max-width: 1200px) {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    left: 0rem;
+    top: 0;
     ul {
+      width: 100%;
+      height: 9rem;
+      background-color: var(--bg-primary);
+      position: sticky;
       flex-direction: row;
+      justify-content: center;
+      padding-top: 2rem;
+      top: 3.9rem;
     }
     li {
       flex-direction: column;
       margin-right: 1rem;
+      pointer-events: auto;
     }
   }
 `;

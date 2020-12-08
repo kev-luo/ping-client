@@ -32,7 +32,7 @@ const FloatingLink = styled(Link)`
     visibility: visible;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     & ~ span {
       margin: 1.5rem 0 0 0;
     }

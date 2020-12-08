@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const FeedPing = styled.div`
-  width: 60%;
+  width: 75%;
   /* border: 1px solid #cfcfcf; */
   padding: 1rem 1rem;
   margin-top: 1rem;
@@ -50,7 +50,7 @@ const FeedPing = styled.div`
     color: var(--theme-meta);
   }
   .time {
-    grid-area: 4/2 / auto/auto;
+    grid-area: 4/2 / 4/5;
     align-self: center;
     font-weight: lighter;
     color: #a0a0a0;
@@ -66,6 +66,9 @@ const FeedPing = styled.div`
     cursor: pointer;
   }
   transition: background 200ms ease;
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 export default FeedPing;

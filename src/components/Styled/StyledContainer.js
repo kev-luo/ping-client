@@ -9,7 +9,9 @@ const FeedContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  @media (max-width: 1200px) {
+    padding-top: 14rem;
+  }
 `;
 
 export default FeedContainer;

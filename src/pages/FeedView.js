@@ -62,35 +62,37 @@ export default function Dashboard({ pingData, userData }) {
     });
 
   return (
-    <StyledContainer>
-      {user && <TabContainer />}
-      {pingData.data ? (
-        <>
-        <LeftButtons open={open} setOpen={setOpen} userData={userData} />
-        <NewPing open={open} setOpen={setOpen} />
-        <Switch>
-          <Route path="/feed/all">
-            <Feed
-              data={pingData.data?.getPingsByLocation}
-              error={pingData.error}
-            />
-          </Route>
-          <Route path="/feed/supports/:userId">
-            <Feed data={supportedPings} error={pingData.error} />
-          </Route>
-          <Route path="/feed/posted/:userId">
-            <Feed data={authoredPings} error={pingData.error} />
-          </Route>
-          <Route path="/feed/new">
-            <Feed data={newPings} error={pingData.error} />
-          </Route>
-        </Switch>
-        </>
-      ) : pingData.error ? (
-        <Loading err={pingData.error} />
-      ) : (
-        <Loading />
-      )}
-    </StyledContainer>
+    <>
+      <LeftButtons open={open} setOpen={setOpen} userData={userData} />
+      <StyledContainer>
+        {user && <TabContainer />}
+        {pingData.data ? (
+          <>
+            <NewPing open={open} setOpen={setOpen} />
+            <Switch>
+              <Route path="/feed/all">
+                <Feed
+                  data={pingData.data?.getPingsByLocation}
+                  error={pingData.error}
+                />
+              </Route>
+              <Route path="/feed/supports/:userId">
+                <Feed data={supportedPings} error={pingData.error} />
+              </Route>
+              <Route path="/feed/posted/:userId">
+                <Feed data={authoredPings} error={pingData.error} />
+              </Route>
+              <Route path="/feed/new">
+                <Feed data={newPings} error={pingData.error} />
+              </Route>
+            </Switch>
+          </>
+        ) : pingData.error ? (
+          <Loading err={pingData.error} />
+        ) : (
+          <Loading />
+        )}
+      </StyledContainer>
+    </>
   );
 }

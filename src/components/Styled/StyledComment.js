@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 const StyledComment = styled.div`
-  width: 50%;
+  width: 70%;
   ${'' /* border: 1px solid #cfcfcf; */}
   padding: 1rem 1rem;
   margin-top: .7rem;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr 2fr;
   grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 1rem;
   grid-template-areas: 
   "img   username username username"
   "img   body     body     body"
@@ -34,7 +35,9 @@ const StyledComment = styled.div`
     height: 1px;
     background: linear-gradient(to right, #f2f2f2, black, #f2f2f2);
   }
-
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export default StyledComment;

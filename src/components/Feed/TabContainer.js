@@ -62,10 +62,14 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer",
       },
     },
+    "@media (max-width: 1200px)": {
+      width: "100%"
+    }
   },
   active: {
     background: "var(--bg-secondary)",
     borderBottom: "3px solid var(--theme-primary)",
     color: "var(--theme-primary)",
   },
+
 }));
