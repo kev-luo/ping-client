@@ -45,8 +45,8 @@ const themeDark = createMuiTheme({
       main: "#BF213E" //dark red
     },
     info: {
-      light: grey[800], // almost white
-      main: grey[900], //light grey
+      light: grey[800],
+      main: grey[900],
     }
   },
   typography: {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FloatingBtnContainer = styled.div`
+const BtnContainer = styled.div`
   position: absolute;
   height: 100%;
   z-index: 15;
@@ -12,8 +12,6 @@ const FloatingBtnContainer = styled.div`
     list-style-type: none;
     top: 7rem;
     width: 4rem;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
   }
@@ -31,14 +29,13 @@ const FloatingBtnContainer = styled.div`
     left: 0rem;
     top: 0;
     ul {
+      top: 3.9rem;
       width: 100%;
       height: 9rem;
-      background-color: var(--bg-primary);
       position: sticky;
       flex-direction: row;
       justify-content: center;
       padding-top: 2rem;
-      top: 3.9rem;
     }
     li {
       flex-direction: column;
@@ -48,4 +45,4 @@ const FloatingBtnContainer = styled.div`
   }
 `;
 
-export default FloatingBtnContainer;
+export default BtnContainer;

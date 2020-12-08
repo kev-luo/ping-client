@@ -54,7 +54,7 @@ export default function Ping({ ping, darkMode }) {
 
   return (
     <>
-      <StyledFeedPing className={classes.ping} onClick={() => displayPing(ping.id)}>
+      <StyledFeedPing className={darkMode ? classes.pingDark : classes.ping} onClick={() => displayPing(ping.id)}>
         {authorPic(ping)}
         <h4 className={clsx("username", darkMode ? classes.darkColor : classes.color)} onClick={(e) => selectUser(e, ping.author)}>
           @{ping.author.username}
@@ -86,6 +86,14 @@ const useStyles = makeStyles(theme => ({
   ping: {
     "&:hover": {
       background: theme.palette.info.light,
+    }
+  },
+  pingDark: {
+    "&:hover": {
+      background: theme.palette.info.light,
+    },
+    "& > .sxy_line": {
+      background: "linear-gradient(to right, #424242, #f2f2f2, #424242)"
     }
   },
   color: {

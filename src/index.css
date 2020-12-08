@@ -22,7 +22,6 @@
   font-family: Fira Sans;
 }
 
-body {
-  background-color: var(--bg-primary);
-  margin: 0;
+html, body, #root, #root>div {
+  height: 100%;
 }

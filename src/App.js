@@ -33,7 +33,7 @@ function App(props) {
                 <ProtectedRoute
                   exact
                   path="/settings"
-                  component={UserSettings}
+                  component={() => <UserSettings darkMode={darkMode} />}
                 />
                 <ProtectedRoute
                   exact
@@ -52,7 +52,6 @@ function App(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.info.main,
-    minHeight: "100vh",
   },
 }));
 

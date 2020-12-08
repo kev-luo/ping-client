@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
@@ -17,6 +18,7 @@ import {
 } from "../utils/graphql";
 
 export default function DataWrapper({ darkMode }) {
+  const classes = useStyles();
   const params = useParams();
   const { pathname } = useLocation();
   const { user } = useAuthContext();
@@ -66,7 +68,7 @@ export default function DataWrapper({ darkMode }) {
   });
 
   return (
-    <AbsoluteWrapper>
+    <AbsoluteWrapper className={classes.root}>
       {pathname === "/map" ? (
         <MapView darkMode={darkMode} pingData={pingsData} userData={userData} />
       ) : params.pingId ? (
@@ -77,3 +79,9 @@ export default function DataWrapper({ darkMode }) {
     </AbsoluteWrapper>
   );
 }
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    background: theme.palette.info.main,
+  }
+}))

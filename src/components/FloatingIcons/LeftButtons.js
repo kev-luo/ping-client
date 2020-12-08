@@ -36,7 +36,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
   }
 
   return (
-    <BtnContainer>
+    <BtnContainer className={classes.container}>
       <ul>
         {userData.data && <li className={classes.user}>
           {authorPic(userData.data.getUser)}
@@ -77,6 +77,13 @@ export default function LeftTabs({ open, setOpen, userData }) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    "@media (max-width: 1200px)": {
+      "& > ul": {
+        backgroundColor: theme.palette.info.main
+      }
+    }
+  },
   user: {
     flexDirection: "column",
   },
@@ -89,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     height: "4.5rem",
   },
   btn: {
-    background: theme.palette.info.light,
+    background: theme.palette.info.main,
     borderRadius: "50%",
     color: theme.palette.success.main,
     "& ~ span": {
