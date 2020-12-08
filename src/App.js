@@ -38,7 +38,7 @@ function App(props) {
                 <ProtectedRoute
                   exact
                   path="/ping/:pingId"
-                  component={DataWrapper}
+                  component={() => <DataWrapper darkMode={darkMode} />}
                 />
               </Switch>
             </Router>

@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaUser } from "react-icons/fa";
@@ -9,7 +10,7 @@ import Actions from "../../utils/dashboardActions";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { useDashboardContext } from "../../utils/useDashboardContext";
 
-export default function Comment({ createdAt, body, author }) {
+export default function Comment({ createdAt, body, author, darkMode }) {
   const classes = useStyles();
   const { dispatch } = useDashboardContext();
   const { user } = useAuthContext();
@@ -33,49 +34,27 @@ export default function Comment({ createdAt, body, author }) {
   return (
     <StyledComment>
       {authorPic(author)}
-      <h4 className="username">
+      <h4 className={clsx("username", darkMode ? classes.darkColor : classes.color)}>
         @{author.username}
         <span className="meta"> · {moment(Number(createdAt)).fromNow()}</span>
       </h4>
-      <p className="body">{body}</p>
-      <div className="sxy_line"></div>
+      <p className={clsx("body", darkMode ? classes.darkColor : classes.color)}>{body}</p>
+      <div className={clsx("sxy_line", darkMode ? classes.darkLine : classes.line)}></div>
     </StyledComment>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "5px 8px",
-    marginTop: "0.7rem",
-    backgroundColor: theme.palette.info.main,
-    color: theme.palette.primary.dark,
+  color: {
+    color: "#0f2612",
   },
-  username: {
-    "&:hover": {
-      cursor: "pointer",
-      color: "#ffc34d",
-    },
-    textDecoration: "none",
-    color: theme.palette.secondary.main,
+  darkColor: {
+    color: "#50bf6c"
   },
-  missingPic: {
-    width: "3rem",
-    height: "3rem",
-    "& > *": {
-      width: "1.5rem",
-      height: "1.5rem",
-    },
+  line: {
+    background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`
   },
-  profilePic: {
-    width: "3rem",
-    height: "3rem",
-  },
-  meta: {
-    color: theme.palette.text.secondary,
-    fontSize: 12,
-    "& > * ": {
-      textDecoration: "none",
-      color: "grey",
-    },
-  },
+  darkLine: {
+    background: "linear-gradient(to right, #212121, #f2f2f2, #212121)"
+  }
 }));

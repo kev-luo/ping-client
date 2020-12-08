@@ -14,7 +14,7 @@ export default function SinglePing({ data, error, darkMode }) {
   const getComments = () => {
     const comments = data?.getPing?.comments;
     const commentComponents = comments.map((comment) => (
-      <Comment key={comment.id} {...comment} />
+      <Comment key={comment.id} {...comment} darkMode={darkMode}/>
     ));
     return commentComponents;
   };

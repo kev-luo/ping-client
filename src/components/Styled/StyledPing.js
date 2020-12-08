@@ -59,7 +59,6 @@ const Ping = styled.div`
     grid-area: sxy_line;
     align-self: end;
     height: 2px;
-    /* background: linear-gradient(to right, #f2f2f2, black, #f2f2f2); */
   }
   &:hover {
     cursor: pointer;
