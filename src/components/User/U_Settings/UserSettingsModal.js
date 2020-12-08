@@ -6,7 +6,6 @@ import DeleteUser from "./DeleteUser";
 import UpdateUser from "./UpdateUser";
 
 export default function UserSettingsModal(props) {
-  const classes = useStyles();
   return (
     <Dialog
       open={props.isOpen}
@@ -21,10 +20,3 @@ export default function UserSettingsModal(props) {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));

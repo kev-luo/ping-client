@@ -34,7 +34,7 @@ const BtnContainer = styled.div`
       height: 9rem;
       position: sticky;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-around;
       padding-top: 2rem;
     }
     li {

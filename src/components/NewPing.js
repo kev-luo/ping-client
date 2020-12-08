@@ -21,6 +21,7 @@ export default function NewPing({ open, setOpen }) {
     state: { userPosition },
   } = useMapContext();
   const classes = useStyles();
+  const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false);
   const initialState = { body: "", imageUrl: "" };
   const { handleChange, handleSubmit, values, setValues } = useForm(
@@ -30,11 +31,13 @@ export default function NewPing({ open, setOpen }) {
 
   const [createPing] = useMutation(CREATE_PING, {
     onError(err) {
-      console.log(err);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setIsLoading(!isLoading);
     },
     onCompleted() {
       setValues(initialState);
       setIsLoading(!isLoading);
+      setOpen(!open);
     },
   });
 
@@ -52,7 +55,6 @@ export default function NewPing({ open, setOpen }) {
   function loaderSubmit(e) {
     setIsLoading(!isLoading);
     handleSubmit(e);
-    setOpen(!open);
   }
 
   const handleClose = () => {
@@ -71,6 +73,8 @@ export default function NewPing({ open, setOpen }) {
             fullWidth
             multiline
             label="Let the people know!"
+            error={errors.body ? true : false}
+            helperText={errors.body}
           />
           <input
             id="file"
@@ -93,6 +97,7 @@ export default function NewPing({ open, setOpen }) {
         <Button
           component="label"
           className={classes.fileBtn}
+          size="small"
           htmlFor="file"
           variant="contained"
           color="secondary"
@@ -101,8 +106,8 @@ export default function NewPing({ open, setOpen }) {
         </Button>
         <Button
           type="submit"
+          size="large"
           variant="contained"
-          disabled={values.body === ""}
           color="secondary"
           endIcon={<SendIcon />}
           onClick={loaderSubmit}
@@ -120,6 +125,9 @@ export default function NewPing({ open, setOpen }) {
 const useStyles = makeStyles((theme) => ({
   dialogContent: {
     width: "500px",
+    "@media (max-width: 600px)": {
+      width: "250px"
+    }
   },
   buttonGroup: {
     margin: theme.spacing(1),

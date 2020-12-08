@@ -27,7 +27,7 @@ export default function UpdateUser(props) {
   }
 
   return (
-    <DialogContent>
+    <DialogContent className={classes.root}>
       <form onSubmit={handleSubmit}>
         <input
           id="file"
@@ -60,11 +60,8 @@ export default function UpdateUser(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+  root: {
+    padding: "2rem"
   },
   imgPrev: {
     height: "250px",

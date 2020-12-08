@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, TextField, DialogContent } from "@material-ui/core";
-import { MdDelete } from "react-icons/md";
+import { Button, TextField, DialogContent } from "@material-ui/core";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
@@ -14,10 +13,13 @@ import { useMapContext } from "../../../utils/useMapContext";
 
 export default function DeleteUser() {
   const classes = useStyles();
+  const [errors, setErrors] = useState({})
   const history = useHistory();
   const context = useAuthContext();
-  const { state: { userPosition}} = useMapContext();
-  const {dispatch} = useDashboardContext();
+  const {
+    state: { userPosition },
+  } = useMapContext();
+  const { dispatch } = useDashboardContext();
   const initialState = { password: "" };
   const { handleChange, handleSubmit, values } = useForm(
     deleteUserCb,
@@ -26,20 +28,28 @@ export default function DeleteUser() {
 
   const [deleteUser] = useMutation(DELETE_USER, {
     onError(err) {
-      console.log(err);
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     update(cache) {
       const data = cache.readQuery({
         query: FETCH_PINGS_BY_LOCATION,
-        variables: { long: userPosition.longitude, latt: userPosition.latitude }
-      })
+        variables: {
+          long: userPosition.longitude,
+          latt: userPosition.latitude,
+        },
+      });
       cache.writeQuery({
         query: FETCH_PINGS_BY_LOCATION,
-        variables: { long: userPosition.longitude, latt: userPosition.latitude },
+        variables: {
+          long: userPosition.longitude,
+          latt: userPosition.latitude,
+        },
         data: {
-          getPingsByLocation: data.getPingsByLocation.filter(ping => ping.author.id !== context.user.id)
-        }
-      })
+          getPingsByLocation: data.getPingsByLocation.filter(
+            (ping) => ping.author.id !== context.user.id
+          ),
+        },
+      });
       dispatch({ type: Actions.CLEAR_USER });
       context.logout();
       history.push("/");
@@ -51,7 +61,7 @@ export default function DeleteUser() {
   }
 
   return (
-    <DialogContent className={classes.paper}>
+    <DialogContent className={classes.root}>
       <form onSubmit={handleSubmit}>
         <TextField
           type="password"
@@ -60,14 +70,23 @@ export default function DeleteUser() {
           name="password"
           label="Confirm Password"
           variant="outlined"
+          error={errors.password ? true : false }
+          helperText={errors.password}
         />
-        <IconButton variant="contained" type="submit">
-          <MdDelete />
-        </IconButton>
+        <Button type="submit" variant="contained" className={classes.btn}>
+          Delete Profile
+        </Button>
       </form>
     </DialogContent>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "2rem",
+  },
+  btn: {
+    marginLeft: "2rem",
+    height: "3rem",
+  },
 }));

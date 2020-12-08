@@ -13,22 +13,25 @@ import { CREATE_COMMENT } from "../utils/graphql";
 
 export default function NewPing({ pingId, open, setOpen }) {
   const classes = useStyles();
-
+  const [errors, setErrors] = useState({})
   const [comment, setComment] = useState("");
 
   const [createComment] = useMutation(CREATE_COMMENT, {
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors)
+    },
     variables: {
       pingId: pingId,
       body: comment,
     },
     update() {
       setComment("");
+      setOpen(!open);
     },
   });
 
   const handleSubmit = () => {
     createComment();
-    setOpen(!open);
   };
 
   const handleChange = (event) => {
@@ -38,12 +41,14 @@ export default function NewPing({ pingId, open, setOpen }) {
 
   return (
     <Dialog open={open} onClose={() => setOpen(!open)}>
-      <DialogContent>
+      <DialogContent className={classes.dialogContent}>
         <form noValidate>
           <TextField
             name="body"
             value={comment}
             onChange={handleChange}
+            error={errors.body ? true : false}
+            helperText={errors.body}
             rowsMax="3"
             multiline
             fullWidth
@@ -57,7 +62,6 @@ export default function NewPing({ pingId, open, setOpen }) {
           type="submit"
           variant="contained"
           color="secondary"
-          disabled={comment === ""}
           onClick={handleSubmit}
         >
           Comment
@@ -68,15 +72,13 @@ export default function NewPing({ pingId, open, setOpen }) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(2, 2),
-    background: theme.palette.primary.light,
+  dialogContent: {
+    width: "500px",
+    "@media (max-width: 600px)": {
+      width: "250px"
+    }
   },
   submit: {
     margin: "0 10px",
-  },
-  buttonGroup: {
-    marginLeft: "1rem",
   },
 }));
