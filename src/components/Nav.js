@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
-import { BiExit, BiMenu, BiInfoCircle } from "react-icons/bi";
+import { BiMenu, BiInfoCircle, BiLogOut, BiLogIn } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSpring, animated as a } from "react-spring";
@@ -33,9 +33,9 @@ export default function Nav({ darkMode, setDarkMode }) {
     to: { opacity: 1, transform: "translate(0px)" },
     from: { opacity: 0, transform: "translate(-40rem)" },
     config: {
-      velocity:100,
+      velocity: 100,
       tension: 500,
-    }
+    },
   });
 
   const logoutOps = () => {
@@ -92,7 +92,7 @@ export default function Nav({ darkMode, setDarkMode }) {
             <Button
               variant="outlined"
               color="primary"
-              endIcon={<BiExit />}
+              endIcon={<BiLogOut />}
               size="small"
               onClick={logoutOps}
               className={classes.navItem}
@@ -102,7 +102,12 @@ export default function Nav({ darkMode, setDarkMode }) {
           </>
         ) : (
           <Link to="/portal" className={clsx(classes.link, classes.navItem)}>
-            <Button variant="outlined" color="secondary" size="small">
+            <Button
+              variant="outlined"
+              endIcon={<BiLogIn />}
+              color="secondary"
+              size="small"
+            >
               Login
             </Button>
           </Link>
@@ -111,7 +116,7 @@ export default function Nav({ darkMode, setDarkMode }) {
           <BiMenu />
         </IconButton>
       </div>
-      <NavBurger open={open} setOpen={setOpen} logout={logoutOps} />
+      <NavBurger open={open} setOpen={setOpen} logout={logoutOps} darkMode={darkMode}/>
     </StyledNav>
   );
 }
