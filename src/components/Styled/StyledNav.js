@@ -10,7 +10,7 @@ const StyledNav = styled.nav`
   justify-content: space-between;
 
   & div {
-    margin: 2rem;
+    margin: 1rem;
   }
   & a {
     margin: 1rem;

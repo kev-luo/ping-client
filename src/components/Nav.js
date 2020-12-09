@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
+  IconButton,
   Button,
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
-import { BiExit } from "react-icons/bi";
+import { BiExit, BiMenu } from "react-icons/bi";
+import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
+import NavBurger from "./NavBurger";
 import StyledNav from "./Styled/StyledNav";
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
@@ -17,6 +21,7 @@ import { useDashboardContext } from "../utils/useDashboardContext";
 
 export default function Nav({ darkMode, setDarkMode }) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const context = useAuthContext();
   const {
     state: { userPosition },
@@ -60,21 +65,18 @@ export default function Nav({ darkMode, setDarkMode }) {
           label={darkMode ? "☀️" : "🌙"}
           labelPlacement="start"
         />
-        {!context.user && (
-          <Link to="/portal" className={classes.link}>
-            <Button variant="outlined" color="secondary" size="small">
-              Login
-            </Button>
-          </Link>
-        )}
-        {context.user && (
+        {context.user ? (
           <>
-            <Link to={`/settings`} className={classes.link}>
+            <Link
+              to={`/settings`}
+              className={clsx(classes.link, classes.navItem)}
+            >
               <Button
                 onClick={userProfile}
                 variant="outlined"
                 color="secondary"
                 size="small"
+                endIcon={<FiSettings />}
               >
                 Settings
               </Button>
@@ -85,12 +87,23 @@ export default function Nav({ darkMode, setDarkMode }) {
               endIcon={<BiExit />}
               size="small"
               onClick={logoutOps}
+              className={classes.navItem}
             >
               Logout
             </Button>
           </>
+        ) : (
+          <Link to="/portal" className={clsx(classes.link, classes.navItem)}>
+            <Button variant="outlined" color="secondary" size="small">
+              Login
+            </Button>
+          </Link>
         )}
+        <IconButton className={classes.burger} onClick={() => setOpen(!open)}>
+          <BiMenu />
+        </IconButton>
       </div>
+      <NavBurger open={open} setOpen={setOpen} />
     </StyledNav>
   );
 }
@@ -99,13 +112,18 @@ const useStyles = makeStyles((theme) => ({
   nav: {
     backgroundColor: theme.palette.info.light,
   },
-  title: {
-    flexGrow: 1,
-    fontSize: "2rem",
-    padding: "0 2px",
-    margin: "0 0",
-  },
   link: {
     color: theme.palette.secondary.main,
+  },
+  navItem: {
+    "@media (max-width: 600px)": {
+      display: "none",
+    },
+  },
+  burger: {
+    display: "none",
+    "@media (max-width: 600px)": {
+      display: "inline-block",
+    },
   },
 }));

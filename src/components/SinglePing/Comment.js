@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#0f2612",
   },
   darkColor: {
-    color: "#50bf6c"
+    color: "#ebedf2"
   },
   line: {
     background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`
