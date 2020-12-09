@@ -9,10 +9,10 @@ export default function Mapview({ pingData, userData, darkMode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div style={{marginTop: "4rem"}}>
       <LeftButtons open={open} setOpen={setOpen} userData={userData}/>
       <NewPing open={open} setOpen={setOpen}/>
       <Map darkMode={darkMode} data={pingData.data} error={pingData.error} />
-    </>
+    </div>
   );
 }

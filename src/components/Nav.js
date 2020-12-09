@@ -48,7 +48,7 @@ export default function Nav({ darkMode, setDarkMode }) {
           <img src={darkMode ? logoDark : logo} alt="logo" height={30} width={30} />
         </Icon>
         <Typography variant="overline" className="logo">
-          <Link to={context.user ? "/feed/top" : "/"} className={classes.link}>
+          <Link to="/" className={classes.link}>
             Ping
           </Link>
         </Typography>
