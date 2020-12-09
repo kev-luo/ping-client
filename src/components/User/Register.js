@@ -51,6 +51,7 @@ export default function Register() {
           onChange={handleChange}
           color="secondary"
           style={{ flexGrow: 1 }}
+          inputProps={{className: classes.colorDark}}
         />
         <TextField
           label="Email"
@@ -62,6 +63,7 @@ export default function Register() {
           onChange={handleChange}
           color="secondary"
           style={{ flexGrow: 1 }}
+          inputProps={{className: classes.colorDark}}
         />
         <TextField
           label="Password"
@@ -73,6 +75,7 @@ export default function Register() {
           onChange={handleChange}
           color="secondary"
           fullWidth
+          inputProps={{className: classes.colorDark}}
         />
         <TextField
           label="Confirm Password"
@@ -84,6 +87,7 @@ export default function Register() {
           onChange={handleChange}
           color="secondary"
           fullWidth
+          inputProps={{className: classes.colorDark}}
         />
         <Button
           variant="contained"
@@ -107,4 +111,8 @@ const useStyles = makeStyles((themes) => ({
       margin: themes.spacing(0.5, 1),
     },
   },
+  colorDark: {
+    color: themes.palette.primary.dark,
+    borderBottom: `2px solid ${themes.palette.info.light}`,
+  }
 }));

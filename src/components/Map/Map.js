@@ -2,38 +2,17 @@ import React from "react";
 import ReactMapGL, { NavigationControl, Marker } from "react-map-gl";
 import PlaceTwoTone from "@material-ui/icons/PlaceTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
-import { useParams } from "react-router-dom";
+
 import PingPin from "./PingPin";
-
-import { useMapContext } from "../../utils/useMapContext";
 import Loading from "../Loading";
+import { useMapContext } from "../../utils/useMapContext";
 
-export default function Map({ data, error }) {
+export default function Map({ data, error, darkMode }) {
   const classes = useStyles();
-  const route = useParams();
   const {
     state: { userPosition, viewport },
     dispatch,
   } = useMapContext();
-
-  if (!userPosition) {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        if (!route.pingId) {
-          dispatch({
-            type: "UPDATE_VIEWPORT",
-            payload: { latitude, longitude, zoom: 13 },
-          });
-        }
-        dispatch({
-          type: "UPDATE_USER_POSITION",
-          payload: { latitude, longitude },
-        });
-      });
-    }
-  }
 
   const PingPinsComponents = data ? (
     data?.getPingsByLocation.map((ping) => {
@@ -52,59 +31,51 @@ export default function Map({ data, error }) {
     <Loading comp="map" />
   );
 
+  const lightMap = "mapbox://styles/kvnluo/cki8ay4gvbbum19pj0ry9bf4r";
+  const darkMap = "mapbox://styles/kvnluo/cki8azb472zvd19obw4ydlvjd";
+
   return (
-    <Grid item>
-      <Paper className={classes.paper}>
-        <ReactMapGL
-          width="100%"
-          height="100%"
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-          mapboxApiAccessToken="pk.eyJ1IjoiZ29vZGx2biIsImEiOiJja2h6OXcwdG0wcXo5MnJubXRkcm93bGh4In0.7lgoZXg3FQincUmupVj4tQ"
+    <ReactMapGL
+      width="100vw"
+      height="100vh"
+      mapStyle={darkMode ? darkMap : lightMap}
+      mapboxApiAccessToken="pk.eyJ1Ijoia3ZubHVvIiwiYSI6ImNraGo0cmtsbDBqMjYydG4yYTQ4NmY2MTIifQ._goJadkhJVFNIi1pXrsKIA"
+      onViewportChange={(newViewport) => {
+        dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
+      }}
+      {...viewport}
+    >
+      <div className={classes.navigationControl}>
+        <NavigationControl
           onViewportChange={(newViewport) => {
-            dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
+            dispatch({
+              type: "UPDATE_VIEWPORT",
+              payload: newViewport,
+            });
           }}
-          {...viewport}
+        />
+      </div>
+
+      {userPosition && (
+        <Marker
+          latitude={userPosition.latitude}
+          longitude={userPosition.longitude}
+          offsetLeft={-19}
+          offsetTop={-37}
         >
-          <div className={classes.navigationControl}>
-            <NavigationControl
-              onViewportChange={(newViewport) => {
-                dispatch({
-                  type: "UPDATE_VIEWPORT",
-                  payload: newViewport,
-                });
-              }}
-            />
-          </div>
+          <PlaceTwoTone
+            style={{ fontSize: "40px", color: "red" }}
+          ></PlaceTwoTone>
+        </Marker>
+        // map through all of the pings in order to put pins on the map
+      )}
 
-          {userPosition && (
-            <Marker
-              latitude={userPosition.latitude}
-              longitude={userPosition.longitude}
-              offsetLeft={-19}
-              offsetTop={-37}
-            >
-              <PlaceTwoTone
-                style={{ fontSize: "40px", color: "red" }}
-              ></PlaceTwoTone>
-            </Marker>
-            // map through all of the pings in order to put pins on the map
-          )}
-
-          {PingPinsComponents}
-        </ReactMapGL>
-      </Paper>
-    </Grid>
+      {PingPinsComponents}
+    </ReactMapGL>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.primary.light,
-    maxHeight: "60vh",
-    height: "800px",
-  },
   navigationControl: {
     position: "absolute",
     top: 0,

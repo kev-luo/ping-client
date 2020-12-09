@@ -1,173 +1,33 @@
 import React from "react";
-import moment from "moment";
-import {
-  Grid,
-  Paper,
-  Avatar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from "@material-ui/core";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { FaComments, FaUser } from "react-icons/fa";
-import { FiImage, FiFileText } from "react-icons/fi";
-import { Link } from "react-router-dom";
 
-import Actions from "../../utils/dashboardActions";
-import SupportPing from "../SupportPing";
-import { useAuthContext } from "../../utils/useAuthContext";
-import { useDashboardContext } from "../../utils/useDashboardContext";
+import Ping from "../Ping";
 
-export default function Feed({ data, feedType }) {
+export default function Feed({ data, error, darkMode }) {
   const classes = useStyles();
-  const {dispatch} = useDashboardContext();
-  const { user } = useAuthContext();
-
-  function displayProfile(selectedUser) {
-    if (user) {
-      dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
-    }
-  }
-
-  function containsImage(ping) {
-    return ping.imageUrl ? <FiImage size={32} /> : <FiFileText size={32} />;
-  }
-
-  function authorPic(ping) {
-    return ping.author.imageUrl ? (
-      <Avatar
-        src={ping.author.imageUrl}
-        alt={ping.author.username}
-        className={classes.profilePic}
-      />
-    ) : (
-      <Avatar className={classes.missingPic}>
-        <FaUser />
-      </Avatar>
-    );
-  }
 
   return (
-    <Paper className={classes.root}>
-      <Grid item >
-        <Typography variant="h5" align="center" className={classes.title}>
-          {feedType} Pings
-        </Typography>
-        {data.map((ping) => {
-          return (
-            <Paper key={ping.id} className={classes.paper}>
-              <Grid container wrap="nowrap" spacing={2} alignItems="center">
-                <Grid item>{authorPic(ping)}</Grid>
-                <Grid item>{containsImage(ping)}</Grid>
-                <Grid item xs>
-                  <Link
-                    to={`/user/supported/${ping.author.id}`}
-                    className={classes.username}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      onClick={() => displayProfile(ping.author)}
-                    >
-                      {ping.author.username}
-                    </Typography>
-                  </Link>
-                  <div className={classes.metaContainer}>
-                    <Typography variant="subtitle2">
-                      {`${moment(Number(ping.createdAt)).fromNow()} |`}
-                    </Typography>
-                    <Typography variant="subtitle2">
-                      {`${ping.supportCount} Supported |`}
-                    </Typography>
-                    <Link to={`/ping/${ping.id}`} className={classes.meta}>
-                      <Typography
-                        variant="subtitle2"
-                        onClick={() => displayProfile(ping.author)}
-                      >
-                        {`${ping.commentCount} Comments`}
-                      </Typography>
-                    </Link>
-                  </div>
-                  <Typography variant="body2">{ping.body}</Typography>
-                </Grid>
-                <Grid item xs={2} container>
-                  <Grid item>
-                    <SupportPing user={user} ping={ping} />
-                    <Link to={`/ping/${ping.id}`}>
-                      <Tooltip title="Comment">
-                        <IconButton onClick={() => displayProfile(ping.author)}>
-                          <FaComments
-                            className={classes.commentIcon}
-                            size={15}
-                          />
-                        </IconButton>
-                      </Tooltip>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
-          );
-        })}
-      </Grid>
-    </Paper>
+    <>
+      {data.length > 0 ? (
+        data.map((ping) => (
+          <Ping ping={ping} key={ping.id} darkMode={darkMode} />
+        ))
+      ) : (
+        <div className={clsx(classes.empty, darkMode ? classes.dark : "")}>
+          No Pings to display 🕵
+        </div>
+      )}
+    </>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background: theme.palette.primary.light,
-    height: "70vh",
-    overflow: "auto",
-    padding: theme.spacing(2),
+  empty: {
+    marginTop: "2rem",
+    fontSize: "1.5rem",
   },
-  paper: {
-    margin: theme.spacing(2, 1),
-    padding: theme.spacing(0, 2),
-    paddingRight: 0,
-    background: theme.palette.warning.main,
-  },
-  title: {
-    color: theme.palette.primary.dark
-  },
-  metaContainer: {
-    display: "flex",
-    "& > *": {
-      marginRight: "0.34rem",
-      color: "#C0C0C0",
-      fontSize: "12px",
-      textDecoration: "none",
-      "& > * ": {
-        fontSize: "12px",
-      },
-    },
-  },
-  meta: {
-    "&:hover": {
-      color: "#ffc34d",
-      cursor: "pointer",
-    },
-  },
-  username: {
-    "&:hover": {
-      cursor: "pointer",
-      color: "#ffc34d",
-    },
-    textDecoration: "none",
-    color: theme.palette.secondary.main,
-  },
-  commentIcon: {
-    color: "#4db8ff",
-  },
-  missingPic: {
-    width: "3rem",
-    height: "3rem",
-    "& > *": {
-      width: "1.5rem",
-      height: "1.5rem",
-    },
-  },
-  profilePic: {
-    width: "3rem",
-    height: "3rem",
+  dark: {
+    color: "white",
   },
 }));

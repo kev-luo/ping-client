@@ -1,27 +1,25 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { IconButton, Tooltip } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Tooltip, IconButton } from "@material-ui/core";
 
 import {
-  FaRegHeart,
-  FaRegMinusSquare,
-  FaMinusSquare,
-  FaHeart,
-} from "react-icons/fa";
+  TiArrowUpOutline,
+  TiArrowUpThick,
+  TiArrowDownOutline,
+  TiArrowDownThick,
+} from "react-icons/ti";
 
 import { SUPPORT_PING } from "../utils/graphql";
 
 export default function SupportPing({ user, ping }) {
-  const classes = useStyles();
-
   const [supportMutation] = useMutation(SUPPORT_PING, {
     onError(err) {
       console.log(err);
     },
   });
 
-  function handleClick(suppBool) {
+  function handleClick(e, suppBool) {
+    e.stopPropagation();
     if (user) {
       const alreadySupported = ping.support.filter((supporter) => {
         return (
@@ -35,7 +33,7 @@ export default function SupportPing({ user, ping }) {
   }
 
   function fillIcon(type) {
-    if(user) {
+    if (user) {
       if (type === "support") {
         return ping.support.find(
           (supporter) => supporter.supported && supporter.user?.id === user?.id
@@ -50,33 +48,30 @@ export default function SupportPing({ user, ping }) {
 
   return (
     <>
-      <Tooltip title="Support">
-        <IconButton onClick={() => handleClick(true)}>
-          {fillIcon("support") ? (
-            <FaHeart className={classes.support} size={15} />
-          ) : (
-            <FaRegHeart className={classes.support} size={15} />
-          )}
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Dismiss">
-        <IconButton onClick={() => handleClick(false)}>
-          {fillIcon("dismiss") ? (
-            <FaMinusSquare className={classes.dismiss} size={15} />
-          ) : (
-            <FaRegMinusSquare className={classes.dismiss} size={15} />
-          )}
-        </IconButton>
-      </Tooltip>
+      <div className="like">
+        <Tooltip title="Support">
+          <IconButton onClick={(e) => handleClick(e, true)}>
+            {fillIcon("support") ? (
+              <TiArrowUpThick color="#50BF6C" fontSize="large" />
+            ) : (
+              <TiArrowUpOutline color="#50BF6C" fontSize="large" />
+            )}
+          </IconButton>
+        </Tooltip>
+        <span>{ping.supportCount}</span>
+      </div>
+      <div className="dismiss">
+        <Tooltip title="Dismiss">
+          <IconButton onClick={(e) => handleClick(e, false)}>
+            {fillIcon("dismiss") ? (
+              <TiArrowDownThick color="#BF213E" fontSize="large" />
+            ) : (
+              <TiArrowDownOutline color="#BF213E" fontSize="large" />
+            )}
+          </IconButton>
+        </Tooltip>
+        <span>{ping.dismissCount}</span>
+      </div>
     </>
   );
 }
-
-const useStyles = makeStyles(() => ({
-  support: {
-    color: "#ff6666",
-  },
-  dismiss: {
-    color: "gray",
-  },
-}));

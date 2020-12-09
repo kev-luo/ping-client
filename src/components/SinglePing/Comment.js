@@ -1,98 +1,49 @@
 import React from "react";
-import { Grid, Typography, Avatar, Paper } from "@material-ui/core";
+import clsx from "clsx";
+import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
-import Actions from "../../utils/dashboardActions";
-import { useAuthContext } from "../../utils/useAuthContext";
-import { useDashboardContext } from "../../utils/useDashboardContext";
+import StyledComment from "../Styled/StyledComment";
 
-export default function Comment({ createdAt, body, author }) {
+export default function Comment({ createdAt, body, author, darkMode }) {
   const classes = useStyles();
-  const {dispatch} = useDashboardContext();
-  const { user } = useAuthContext();
-
-  function displayProfile(selectedUser) {
-    if (user) {
-      dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
-    }
-  }
 
   function authorPic(author) {
     return author.imageUrl ? (
-      <Avatar
-        src={author.imageUrl}
-        alt={author.username}
-        className={classes.profilePic}
-      />
+      <Avatar src={author.imageUrl} alt={author.username} className="img" />
     ) : (
-      <Avatar className={classes.missingPic}>
+      <Avatar className="img">
         <FaUser />
       </Avatar>
     );
   }
 
   return (
-    <Paper className={classes.root}>
-      <Grid container wrap="nowrap" spacing={2} alignItems="center">
-        <Grid item>{authorPic(author)}</Grid>
-        <Grid item xs>
-          <Link
-            to={`/user/supported/${author.id}`}
-            className={classes.username}
-          >
-            <Typography
-              variant="subtitle2"
-              onClick={() => displayProfile(author)}
-            >
-              {author.username}
-            </Typography>
-          </Link>
-          <Typography variant="subtitle2" className={classes.meta}>
-            {moment(Number(createdAt)).fromNow()}
-          </Typography>
-          <Typography variant="body2">{body}</Typography>
-        </Grid>
-      </Grid>
-    </Paper>
+    <StyledComment>
+      {authorPic(author)}
+      <h4 className={clsx("username", darkMode ? classes.darkColor : classes.color)}>
+        @{author.username}
+        <span className="meta"> · {moment(Number(createdAt)).fromNow()}</span>
+      </h4>
+      <p className={clsx("body", darkMode ? classes.darkColor : classes.color)}>{body}</p>
+      <div className={clsx("sxy_line", darkMode ? classes.darkLine : classes.line)}></div>
+    </StyledComment>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "5px 8px",
-    marginTop: "0.7rem",
-    backgroundColor: theme.palette.info.main,
-    color: theme.palette.primary.dark
+  color: {
+    color: "#0f2612",
   },
-  username: {
-    "&:hover": {
-      cursor: "pointer",
-      color: "#ffc34d",
-    },
-    textDecoration: "none",
-    color: theme.palette.secondary.main,
+  darkColor: {
+    color: "#ebedf2"
   },
-  missingPic: {
-    width: "3rem",
-    height: "3rem",
-    "& > *": {
-      width: "1.5rem",
-      height: "1.5rem",
-    },
+  line: {
+    background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`
   },
-  profilePic: {
-    width: "3rem",
-    height: "3rem",
-  },
-  meta: {
-    color: theme.palette.text.secondary,
-    fontSize: 12,
-    "& > * ": {
-      textDecoration: "none",
-      color: "grey",
-    },
-  },
+  darkLine: {
+    background: "linear-gradient(to right, #212121, #f2f2f2, #212121)"
+  }
 }));
