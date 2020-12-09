@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
+import _ from "lodash";
 
 import StyledContainer from "../components/Styled/StyledContainer";
 import TabContainer from "../components/Feed/TabContainer";
@@ -35,6 +36,12 @@ export default function Dashboard({ pingData, userData, darkMode }) {
       return () => unsubscribe();
     }
   }, [pingData]);
+
+  const dataCopy = _.cloneDeep(pingData.data?.getPingsByLocation);
+
+  const topPings =
+    pathArray[2] === "top" &&
+    dataCopy?.sort((a, b) => b.supportCount - a.supportCount);
 
   const supportedPings =
     pathArray[2] === "supports" &&
@@ -78,10 +85,17 @@ export default function Dashboard({ pingData, userData, darkMode }) {
                   error={pingData.error}
                 />
               </Route>
-              <Route path="/feed/all">
+              <Route path="/feed/top">
                 <Feed
                   darkMode={darkMode}
-                  data={pingData.data?.getPingsByLocation}
+                  data={topPings}
+                  error={pingData.error}
+                />
+              </Route>
+              <Route path="/feed/new">
+                <Feed
+                  darkMode={darkMode}
+                  data={newPings}
                   error={pingData.error}
                 />
               </Route>
@@ -96,13 +110,6 @@ export default function Dashboard({ pingData, userData, darkMode }) {
                 <Feed
                   darkMode={darkMode}
                   data={authoredPings}
-                  error={pingData.error}
-                />
-              </Route>
-              <Route path="/feed/new">
-                <Feed
-                  darkMode={darkMode}
-                  data={newPings}
                   error={pingData.error}
                 />
               </Route>

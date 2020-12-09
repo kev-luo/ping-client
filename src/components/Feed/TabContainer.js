@@ -14,11 +14,21 @@ export default function TabContainer({ darkMode }) {
   const { user } = useAuthContext();
 
   return (
-    <div className={clsx(classes.root, darkMode ? classes.darkColor : classes.color)}>
+    <div
+      className={clsx(
+        classes.root,
+        darkMode ? classes.darkColor : classes.color
+      )}
+    >
       {user?.id === selectedUser?.id && (
-        <NavLink activeClassName={classes.active} to="/feed/all">
-          All
-        </NavLink>
+        <>
+          <NavLink activeClassName={classes.active} to="/feed/top">
+            Top
+          </NavLink>
+          <NavLink activeClassName={classes.active} to="/feed/new">
+            New
+          </NavLink>
+        </>
       )}
       <NavLink
         activeClassName={classes.active}
@@ -32,11 +42,6 @@ export default function TabContainer({ darkMode }) {
       >
         Posted
       </NavLink>
-      {user?.id === selectedUser?.id && (
-        <NavLink activeClassName={classes.active} to="/feed/new">
-          New
-        </NavLink>
-      )}
     </div>
   );
 }
@@ -69,13 +74,13 @@ const useStyles = makeStyles((theme) => ({
   },
   color: {
     "& *": {
-      color: "#0f2612"
-    }
+      color: "#0f2612",
+    },
   },
   darkColor: {
     "& *": {
-      color: "white"
-    }
+      color: "white",
+    },
   },
   active: {
     background: theme.palette.info.light,

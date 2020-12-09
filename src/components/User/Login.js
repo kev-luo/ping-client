@@ -26,7 +26,7 @@ export default function Login(darkMode) {
     },
     update(_, result) {
       context.login(result.data.login);
-      history.push(`/feed/all`);
+      history.push(`/feed/top`);
     },
   });
 
