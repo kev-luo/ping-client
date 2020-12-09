@@ -57,7 +57,6 @@ const themeDark = createMuiTheme({
 const themeOverrides = {
   MuiButton: {
     root: {
-      textTransform: "none",
     },
     containedPrimary: {
       "&:hover": {

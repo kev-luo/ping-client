@@ -60,7 +60,7 @@ export default function Login(darkMode) {
           error={errors.password ? true : false}
           helperText={errors.password}
           color="secondary"
-          inputProps={{className: (darkMode ? classes.colorDark : "")}}
+          inputProps={{className: classes.colorDark}}
         />
         <Button
           type="submit"
@@ -88,8 +88,5 @@ const useStyles = makeStyles((themes) => ({
   colorDark: {
     color: themes.palette.primary.dark,
     borderBottom: `2px solid ${themes.palette.info.light}`,
-    "&:hover": {
-      borderBottom: `2px solid ${themes.palette.success.main}`
-    }
   }
 }));

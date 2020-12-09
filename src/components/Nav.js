@@ -55,6 +55,7 @@ export default function Nav({ darkMode, setDarkMode }) {
       </a.div>
       <div className="nav">
         <FormControlLabel
+          className={classes.toggle}
           control={
             <Switch
               checked={darkMode}
@@ -65,12 +66,7 @@ export default function Nav({ darkMode, setDarkMode }) {
           labelPlacement="start"
         />
         <Link to={`/about`} className={clsx(classes.link, classes.navItem)}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="small"
-            endIcon={<BiInfoCircle />}
-          >
+          <Button color="secondary" endIcon={<BiInfoCircle />}>
             About
           </Button>
         </Link>
@@ -80,20 +76,13 @@ export default function Nav({ darkMode, setDarkMode }) {
               to={`/settings`}
               className={clsx(classes.link, classes.navItem)}
             >
-              <Button
-                variant="outlined"
-                color="secondary"
-                size="small"
-                endIcon={<FiSettings />}
-              >
+              <Button color="secondary" endIcon={<FiSettings />}>
                 Settings
               </Button>
             </Link>
             <Button
-              variant="outlined"
-              color="primary"
+              color="secondary"
               endIcon={<BiLogOut />}
-              size="small"
               onClick={logoutOps}
               className={classes.navItem}
             >
@@ -103,10 +92,8 @@ export default function Nav({ darkMode, setDarkMode }) {
         ) : (
           <Link to="/portal" className={clsx(classes.link, classes.navItem)}>
             <Button
-              variant="outlined"
               endIcon={<BiLogIn />}
               color="secondary"
-              size="small"
             >
               Login
             </Button>
@@ -116,7 +103,12 @@ export default function Nav({ darkMode, setDarkMode }) {
           <BiMenu />
         </IconButton>
       </div>
-      <NavBurger open={open} setOpen={setOpen} logout={logoutOps} darkMode={darkMode}/>
+      <NavBurger
+        open={open}
+        setOpen={setOpen}
+        logout={logoutOps}
+        darkMode={darkMode}
+      />
     </StyledNav>
   );
 }
@@ -127,6 +119,9 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: theme.palette.secondary.main,
+  },
+  toggle: {
+    marginRight: ".1rem",
   },
   navItem: {
     margin: ".5rem",
