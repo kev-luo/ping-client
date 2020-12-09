@@ -30,7 +30,8 @@ export default function Loading({comp, err}) {
 
 const useStyles = makeStyles(theme => ({
   container: {
-    width: "100%",
+    marginTop: theme.spacing(5),
+    width: "50%",
     "& > *": {
       marginTop: theme.spacing(2)
     }

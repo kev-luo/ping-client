@@ -1,31 +1,26 @@
 import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { grey, red } from "@material-ui/core/colors";
+import { grey } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#659DBD", // bluer blue
-      dark: "#23263D"
+      main: "#22ccf2", // electric blue
     },
     secondary: {
-      light: "#33cc33",
-      main: "#5BA875", // olive green
-      dark: "#2C4D3F"
+      main: "#1999B5",
+      dark: "#2E5E69"
     },
     success: {
-      main: "#BC986A" //light brown
+      main: "#50bf6c" // electric green
     },
     error: {
-      main: "#DAAD86" //orangeish pink?
-    },
-    warning: {
-      light: "#D5BFAC",
-      main: "#EDF1ED" // yellowish beige
+      main: "#BF213E" //dark red
     },
     info: {
-      main: "#F2F2F2" //beige
+      light: "#ebedf2", // light grey 
+      main: "#F2F2F2", // almost white
     }
   },
   typography: {
@@ -35,54 +30,45 @@ const theme = createMuiTheme({
 
 const themeDark = createMuiTheme({
   palette: {
-    type: "dark",
+    type: "light",
     primary: {
-      light: "#313131",
-      main: grey[800],
-      dark: "fff",
+      main: "#22ccf2", // electric blue
     },
     secondary: {
-      main: grey[900],
-      contrastText: "#C13838",
+      main: "#1999B5",
+      dark: "#2E5E69"
+    },
+    success: {
+      main: "#50bf6c" // electric green
     },
     error: {
-      light: red[500],
-      main: "#B81C1C", // red
-      dark: "#C13838", // red
-      contrastText: "#fff",
-    },
-    warning: {
-      main: grey[700]
+      main: "#BF213E" //dark red
     },
     info: {
-      main: grey[700]
+      light: grey[800],
+      main: grey[900],
     }
   },
+  typography: {
+    fontFamily: "Fira Sans, sans-serif"
+  }
 });
 
 const themeOverrides = {
   MuiButton: {
     root: {
-      textTransform: "none",
     },
     containedPrimary: {
       "&:hover": {
-        backgroundColor: theme.palette.warning.light,
+        backgroundColor: theme.palette.primary.main,
       },
       fontWeight: 500,
       color: theme.palette.info.main,
-      backgroundColor: theme.palette.secondary.main,
-    },
-    containedSecondary: {
-      backgroundColor: theme.palette.error.main,
-      color: theme.palette.info.main,
-      "&:hover": {
-        backgroundColor: theme.palette.warning.light,
-      }
+      backgroundColor: theme.palette.primary.dark,
     },
     outlinedPrimary: {
-      color: theme.palette.primary.main,
-      borderColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
       opacity: 0.6,
       "&:hover": {
         color: theme.palette.error.main,
@@ -91,8 +77,8 @@ const themeOverrides = {
       }
     },
     outlinedSecondary: {
-      color: theme.palette.primary.main,
-      borderColor: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
+      borderColor: theme.palette.secondary.main,
       opacity: 0.6,
       "&:hover": {
         color: theme.palette.secondary.light,
@@ -104,22 +90,22 @@ const themeOverrides = {
   MuiInput: {
     root: {
       "&$underline:after": {
-        borderBottomColor: theme.palette.warning.main,
+        borderBottomColor: theme.palette.primary.dark,
       },
     },
   },
   MuiInputLabel: {
     root: {
-      color: theme.palette.secondary.dark,
+      color: theme.palette.primary.dark,
       "&$focused": {
-        color: theme.palette.warning.main,
+        color: theme.palette.primary.dark,
       },
     },
   },
   MuiTooltip: {
     tooltip: {
       backgroundColor: "#fff",
-      color: theme.palette.primary.light,
+      color: theme.palette.primary.main,
     },
     arrow: {
       color: "#fff",

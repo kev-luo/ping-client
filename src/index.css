@@ -1,9 +1,27 @@
-html {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-*, *:before, *:after {
+*:before, *:after {
   box-sizing: inherit;
 }
-body {
-  margin: 0;
+
+:root {
+  font-size: 16px;
+  --text-primary: #0f2612;
+  --text-secondary: #da1919;
+  --bg-primary: #f2f2f2;
+  --bg-secondary: #ebedf2;
+  --theme-primary: #50bf6c;
+  --theme-secondary: #22ccf2;
+  --theme-meta: #A0A0A0;
+  --error: #c53a54;
+  font-family: Fira Sans;
+}
+
+html, body, #root, #root>div {
+  height: 100%;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import { Button, DialogContent } from "@material-ui/core";
 import { FiImage } from "react-icons/fi";
 import { useMutation } from "@apollo/client";
 
@@ -27,8 +27,8 @@ export default function UpdateUser(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className={classes.paper}>
+    <DialogContent className={classes.root}>
+      <form onSubmit={handleSubmit}>
         <input
           id="file"
           style={{ display: "none" }}
@@ -54,17 +54,14 @@ export default function UpdateUser(props) {
             className={classes.imgPrev}
           />
         )}
-      </div>
-    </form>
+      </form>
+    </DialogContent>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+  root: {
+    padding: "2rem"
   },
   imgPrev: {
     height: "250px",

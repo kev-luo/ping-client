@@ -1,95 +1,168 @@
 import React, { useState } from "react";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Paper, Avatar } from "@material-ui/core";
+import {
+  Avatar,
+  MenuList,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
+} from "@material-ui/core";
 import { FiImage } from "react-icons/fi";
-import { FaUser } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { TiArrowBackOutline } from "react-icons/ti";
 import { useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { useSpring, animated as a } from "react-spring";
 
+import StyledContainer from "../components/Styled/StyledContainer";
 import { FETCH_USER_QUERY } from "../utils/graphql";
 import { useAuthContext } from "../utils/useAuthContext";
 import UserSettingsModal from "../components/User/U_Settings/UserSettingsModal";
 
-export default function UserSettings() {
+const calc = (x, y) => [
+  -(y - window.innerHeight / 2) / 20,
+  (x - window.innerWidth / 2) / 20,
+  1.1,
+];
+const trans = (x, y, s) =>
+  `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
+
+export default function UserSettings({ darkMode }) {
+  document.title="Ping | Settings"
   const classes = useStyles();
   const history = useHistory();
   const { user } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
   const [userSettings, setUserSettings] = useState("");
+  const [props, set] = useSpring(() => ({
+    xys: [0, 0, 1],
+    config: { mass: 5, tension: 350, friction: 40 },
+  }));
 
   const { data } = useQuery(FETCH_USER_QUERY, {
     variables: { userId: user?.id },
   });
 
-  function handleClick(e) {
+  function handleClick(setting) {
     setIsOpen(!isOpen);
-    setUserSettings(e.target.textContent);
+    setUserSettings(setting);
   }
 
-  const userProfile = data?.getUser ? (
+  const userProfile = data?.getUser?.imageUrl ? (
     <Avatar
       src={data.getUser.imageUrl}
       alt={data.getUser.username}
       className={classes.media}
     />
   ) : (
-    <Avatar className={classes.missingPic}>
-      <FaUser />
-    </Avatar>
+    <Avatar className={classes.missingPic} />
   );
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => history.goBack()}
-        >
-          Go Back
-        </Button>
+    <StyledContainer>
+      <a.div
+        className={classes.card}
+        onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+        onMouseLeave={() => set({ xys: [0, 0, 1] })}
+        style={{ transform: props.xys.interpolate(trans) }}
+      >
         {userProfile}
-        <Button endIcon={<FiImage />} onClick={handleClick}>
-          Update Profile Picture
-        </Button>
-        <Button endIcon={<MdDelete />} onClick={handleClick}>
-          Delete Profile
-        </Button>
-      </Paper>
-      <UserSettingsModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        userSettings={userSettings}
-      />
-    </div>
+        <hr style={{width: "9rem", margin: "0 auto"}}/>
+        <MenuList className={clsx(darkMode ? classes.menuDark : classes.menu)}>
+          <MenuItem className={classes.item} onClick={() => history.goBack()}>
+            <ListItemIcon>
+              <TiArrowBackOutline
+                className={clsx(darkMode ? classes.textDark : classes.text)}
+              />
+            </ListItemIcon>
+            <ListItemText
+              className={clsx(darkMode ? classes.textDark : classes.text)}
+              primary="Go Back"
+            />
+          </MenuItem>
+          <MenuItem
+            className={classes.item}
+            onClick={() => handleClick("Update Avatar")}
+          >
+            <ListItemIcon>
+              <FiImage
+                className={clsx(darkMode ? classes.textDark : classes.text)}
+              />
+            </ListItemIcon>
+            <ListItemText
+              className={clsx(darkMode ? classes.textDark : classes.text)}
+              primary="Update Avatar"
+            />
+          </MenuItem>
+          <MenuItem
+            className={classes.delete}
+            onClick={() => handleClick("Delete Profile")}
+          >
+            <ListItemIcon>
+              <FaRegTrashAlt
+                className={clsx(darkMode ? classes.deleteDark : classes.text)}
+              />
+            </ListItemIcon>
+            <ListItemText
+              className={clsx(darkMode ? classes.deleteDark : classes.text)}
+              primary="Delete Profile"
+            />
+          </MenuItem>
+        </MenuList>
+        <UserSettingsModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          userSettings={userSettings}
+        />
+      </a.div>
+    </StyledContainer>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: "0 auto",
-      marginTop: "150px",
-      padding: "33px",
-      width: "50%",
-      minWidth: "333px",
-      height: "auto",
+  card: {
+    borderRadius: "10px",
+    background: theme.palette.info.light,
+    boxShadow: "0px 10px 30px -5px rgba(0,0,0,.3)",
+    transition: "box-shadow 0.5s",
+    "&:hover": {
+      boxShadow: "0px 30px 100px -10px rgba(0,0,0.4)",
     },
-    textAlign: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.primary.main,
   },
   media: {
-    display: "block",
-    width: "150px",
-    height: "150px",
-    backgroundPosition: "50% 50%",
-    backroundSize: "cover",
-    borderRadius: "50%",
-    margin: "1rem auto",
+    width: "7rem",
+    height: "7rem",
+    margin: "2rem auto",
+  },
+  menu: {
+    padding: "1rem",
+  },
+  menuDark: {
+    padding: "1rem",
+  },
+  missingPic: {
+    width: "7rem",
+    height: "7rem",
+    margin: "2rem auto",
+  },
+  text: {
+    color: "#0f2612",
+  },
+  textDark: {
+    color: " #22ccf2",
+  },
+  deleteDark: {
+    color: "#c53a54",
+  },
+  item: {
+    "&:hover": {
+      background: "rgba(34,204,242,0.1)",
+    },
+  },
+  delete: {
+    "&:hover": {
+      background: "rgba(191,33,62, 0.1)",
+    },
   },
 }));
