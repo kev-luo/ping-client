@@ -8,7 +8,7 @@ import { useForm } from "../../utils/useForm";
 import { useAuthContext } from "../../utils/useAuthContext";
 import { LOGIN_USER } from "../../utils/graphql";
 
-export default function Login() {
+export default function Login(darkMode) {
   const classes = useStyles();
   const history = useHistory();
   const context = useAuthContext();
@@ -47,6 +47,7 @@ export default function Login() {
           error={errors.username ? true : false}
           helperText={errors.username}
           color="secondary"
+          inputProps={{className: (darkMode ? classes.colorDark : "")}}
         />
         <TextField
           label="Password"
@@ -59,6 +60,7 @@ export default function Login() {
           error={errors.password ? true : false}
           helperText={errors.password}
           color="secondary"
+          inputProps={{className: (darkMode ? classes.colorDark : "")}}
         />
         <Button
           type="submit"
@@ -81,5 +83,13 @@ const useStyles = makeStyles((themes) => ({
   },
   textfield: {
     margin: themes.spacing(1, 1),
+    color: "blue",
   },
+  colorDark: {
+    color: themes.palette.primary.dark,
+    borderBottom: `2px solid ${themes.palette.info.light}`,
+    "&:hover": {
+      borderBottom: `2px solid ${themes.palette.success.main}`
+    }
+  }
 }));

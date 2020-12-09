@@ -45,13 +45,13 @@ export default function About({ darkMode }) {
           <div>
             <a.div className={clsx(classes.img, classes.kev)} style={props}><span>Kevin Luo</span></a.div>
             <MenuList>
-              <MenuItem component="a" href="https://www.linkedin.com/in/kevinluo49/" target="_blank">
+              <MenuItem component="a" href="https://www.linkedin.com/in/kevinluo49/" target="_blank" className={darkMode ? classes.hover : ""}>
                 <ListItemIcon>
                   <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem component="a" href="https://github.com/kev-luo" target="_blank">
+              <MenuItem component="a" href="https://github.com/kev-luo" target="_blank" className={darkMode ? classes.hover : ""}>
                 <ListItemIcon>
                   <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
@@ -62,13 +62,13 @@ export default function About({ darkMode }) {
           <div>
             <a.div className={clsx(classes.img, classes.jd)} style={props}><span>JD Martinez</span></a.div>
             <MenuList>
-              <MenuItem component="a" href="https://www.linkedin.com/in/jonathan-martinez-316406113/" target="_blank">
+              <MenuItem component="a" href="https://www.linkedin.com/in/jonathan-martinez-316406113/" target="_blank" className={darkMode ? classes.hover : ""}>
                 <ListItemIcon>
                   <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem component="a" href="https://github.com/Goodlvn" target="_blank">
+              <MenuItem component="a" href="https://github.com/Goodlvn" target="_blank" className={darkMode ? classes.hover : ""}>
                 <ListItemIcon>
                   <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
@@ -131,4 +131,9 @@ const useStyles = makeStyles((theme) => ({
       url(${kev})`,
     },
   },
+  hover: {
+    "&:hover": {
+      backgroundColor: "rgba(235, 237, 242, 0.1)"
+    }
+  }
 }));

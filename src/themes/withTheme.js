@@ -61,18 +61,11 @@ const themeOverrides = {
     },
     containedPrimary: {
       "&:hover": {
-        backgroundColor: theme.palette.warning.light,
+        backgroundColor: theme.palette.primary.main,
       },
       fontWeight: 500,
       color: theme.palette.info.main,
-      backgroundColor: theme.palette.secondary.main,
-    },
-    containedSecondary: {
-      backgroundColor: theme.palette.error.main,
-      color: theme.palette.info.main,
-      "&:hover": {
-        backgroundColor: theme.palette.warning.light,
-      }
+      backgroundColor: theme.palette.primary.dark,
     },
     outlinedPrimary: {
       color: theme.palette.secondary.main,
@@ -98,22 +91,22 @@ const themeOverrides = {
   MuiInput: {
     root: {
       "&$underline:after": {
-        borderBottomColor: theme.palette.warning.main,
+        borderBottomColor: theme.palette.primary.dark,
       },
     },
   },
   MuiInputLabel: {
     root: {
-      color: theme.palette.secondary.dark,
+      color: theme.palette.primary.dark,
       "&$focused": {
-        color: theme.palette.warning.main,
+        color: theme.palette.primary.dark,
       },
     },
   },
   MuiTooltip: {
     tooltip: {
       backgroundColor: "#fff",
-      color: theme.palette.primary.light,
+      color: theme.palette.primary.main,
     },
     arrow: {
       color: "#fff",

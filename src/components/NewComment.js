@@ -58,7 +58,7 @@ export default function NewPing({ pingId, open, setOpen }) {
           className={classes.submit}
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={handleSubmit}
         >
           Comment

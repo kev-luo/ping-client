@@ -100,7 +100,7 @@ export default function NewPing({ open, setOpen }) {
           size="small"
           htmlFor="file"
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Add an Image
         </Button>
@@ -108,7 +108,7 @@ export default function NewPing({ open, setOpen }) {
           type="submit"
           size="large"
           variant="contained"
-          color="secondary"
+          color="primary"
           endIcon={<SendIcon />}
           onClick={loaderSubmit}
         >
