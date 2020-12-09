@@ -34,18 +34,6 @@ export default function Nav({ darkMode, setDarkMode }) {
     context.logout();
   };
 
-  const userProfile = () => {
-    dispatch({ type: Actions.SELECT_USER, payload: context.user });
-    mapDispatch({
-      type: "UPDATE_VIEWPORT",
-      payload: {
-        latitude: userPosition?.latitude,
-        longitude: userPosition?.longitude,
-        zoom: 13,
-      },
-    });
-  };
-
   return (
     <StyledNav className={classes.nav}>
       {/* <img src="../assets/node.svg" alt="ping logo" /> */}
@@ -72,7 +60,6 @@ export default function Nav({ darkMode, setDarkMode }) {
               className={clsx(classes.link, classes.navItem)}
             >
               <Button
-                onClick={userProfile}
                 variant="outlined"
                 color="secondary"
                 size="small"
@@ -103,7 +90,7 @@ export default function Nav({ darkMode, setDarkMode }) {
           <BiMenu />
         </IconButton>
       </div>
-      <NavBurger open={open} setOpen={setOpen} />
+      <NavBurger open={open} setOpen={setOpen} logout={logoutOps}/>
     </StyledNav>
   );
 }
