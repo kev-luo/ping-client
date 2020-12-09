@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Icon,
   Typography,
   IconButton,
   Button,
@@ -13,6 +14,8 @@ import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSpring, animated as a } from "react-spring";
 
+import logo from "../assets/nodes.svg";
+import logoDark from "../assets/nodesDark.svg";
 import NavBurger from "./NavBurger";
 import StyledNav from "./Styled/StyledNav";
 import Actions from "../utils/dashboardActions";
@@ -42,6 +45,9 @@ export default function Nav({ darkMode, setDarkMode }) {
     <StyledNav className={classes.nav}>
       {/* <img src="../assets/node.svg" alt="ping logo" /> */}
       <a.div style={props}>
+        <Icon style={{marginLeft: "1rem"}}>
+          <img src={darkMode ? logoDark : logo} alt="logo" height={30} width={30} />
+        </Icon>
         <Typography variant="overline" className="logo">
           <Link to={context.user ? "/feed/all" : "/"} className={classes.link}>
             Ping
