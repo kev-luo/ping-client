@@ -5,6 +5,7 @@ import Login from "../components/User/Login";
 import Register from "../components/User/Register";
 
 export default function SignUpOrIn() {
+  document.title="Ping | Portal"
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (_, newValue) => {

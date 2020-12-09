@@ -29,6 +29,7 @@ const trans = (x, y, s) =>
   `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 export default function UserSettings({ darkMode }) {
+  document.title="Ping | Settings"
   const classes = useStyles();
   const history = useHistory();
   const { user } = useAuthContext();
@@ -67,6 +68,7 @@ export default function UserSettings({ darkMode }) {
         style={{ transform: props.xys.interpolate(trans) }}
       >
         {userProfile}
+        <hr style={{width: "9rem", margin: "0 auto"}}/>
         <MenuList className={clsx(darkMode ? classes.menuDark : classes.menu)}>
           <MenuItem className={classes.item} onClick={() => history.goBack()}>
             <ListItemIcon>
@@ -120,6 +122,7 @@ export default function UserSettings({ darkMode }) {
 
 const useStyles = makeStyles((theme) => ({
   card: {
+    borderRadius: "10px",
     background: theme.palette.info.light,
     boxShadow: "0px 10px 30px -5px rgba(0,0,0,.3)",
     transition: "box-shadow 0.5s",
@@ -133,11 +136,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "2rem auto",
   },
   menu: {
-    borderTop: "1px solid black",
     padding: "1rem",
   },
   menuDark: {
-    borderTop: "1px solid white",
     padding: "1rem",
   },
   missingPic: {

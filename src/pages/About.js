@@ -1,26 +1,22 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSpring, animated as a } from "react-spring";
+import { GrLinkedin, GrGithub } from "react-icons/gr";
+import {
+  MenuList,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 
 import jd from "../assets/JD.jpg";
 import kev from "../assets/Kev.jpg";
 import AbsoluteWrapper from "../components/Styled/AbsoluteWrapper";
 
-const calc = (x, y) => [
-  -(y - window.innerHeight / 2) / 20,
-  (x - window.innerWidth / 2) / 20,
-  1.1,
-];
-const trans = (x, y, s) =>
-  `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
-
 export default function About() {
+  document.title = "Ping | About";
   const classes = useStyles();
-  const [props, set] = useSpring(() => ({
-    xys: [0, 0, 1],
-    config: { mass: 5, tension: 350, friction: 40 },
-  }));
+
   return (
     <AbsoluteWrapper className={classes.root}>
       <div className={classes.container}>
@@ -33,22 +29,40 @@ export default function About() {
           24 hours to keep the information fresh.
         </p>
         <div className={classes.contact}>
-          <a.div
-            className={clsx(classes.img, classes.kev)}
-            onMouseMove={({ clientX: x, clientY: y }) =>
-              set({ xys: calc(x, y) })
-            }
-            onMouseLeave={() => set({ xys: [0, 0, 1] })}
-            style={{ transform: props.xys.interpolate(trans) }}
-          />
-          <a.div
-            className={clsx(classes.img, classes.jd)}
-            onMouseMove={({ clientX: x, clientY: y }) =>
-              set({ xys: calc(x, y) })
-            }
-            onMouseLeave={() => set({ xys: [0, 0, 1] })}
-            style={{ transform: props.xys.interpolate(trans) }}
-          />
+          <div>
+            <div className={clsx(classes.img, classes.kev)} />
+            <MenuList>
+              <MenuItem>
+                <ListItemIcon>
+                  <GrLinkedin />
+                </ListItemIcon>
+                <ListItemText primary="LinkedIn" />
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <GrGithub />
+                </ListItemIcon>
+                <ListItemText primary="Github" />
+              </MenuItem>
+            </MenuList>
+          </div>
+          <div>
+            <div className={clsx(classes.img, classes.jd)} />
+            <MenuList>
+              <MenuItem>
+                <ListItemIcon>
+                  <GrLinkedin />
+                </ListItemIcon>
+                <ListItemText primary="LinkedIn" />
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <GrGithub />
+                </ListItemIcon>
+                <ListItemText primary="Github" />
+              </MenuItem>
+            </MenuList>
+          </div>
         </div>
       </div>
     </AbsoluteWrapper>
@@ -76,12 +90,9 @@ const useStyles = makeStyles((theme) => ({
     height: "10rem",
     backgroundSize: "cover",
     borderRadius: "5px",
-    border: "10px solid white",
+    border: "5px solid white",
     boxShadow: "0px 10px 30px -5px rgba(0,0,0,.3)",
     transition: "box-shadow 0.5s",
-    "&:hover": {
-      boxShadow: "0px 30px 100px -10px rgba(0,0,0.4)",
-    },
   },
   jd: {
     backgroundImage: `url(${jd})`,
