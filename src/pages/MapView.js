@@ -4,7 +4,7 @@ import LeftButtons from "../components/FloatingIcons/LeftButtons"
 import NewPing from "../components/NewPing";
 import Map from "../components/Map/Map";
 
-export default function Mapview({ pingData, userData }) {
+export default function Mapview({ pingData, userData, darkMode }) {
   document.title="Ping | Map"
   const [open, setOpen] = useState(false);
 
@@ -12,7 +12,7 @@ export default function Mapview({ pingData, userData }) {
     <>
       <LeftButtons open={open} setOpen={setOpen} userData={userData}/>
       <NewPing open={open} setOpen={setOpen}/>
-      <Map data={pingData.data} error={pingData.error} />
+      <Map darkMode={darkMode} data={pingData.data} error={pingData.error} />
     </>
   );
 }

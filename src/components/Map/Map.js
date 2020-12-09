@@ -7,7 +7,7 @@ import PingPin from "./PingPin";
 import Loading from "../Loading";
 import { useMapContext } from "../../utils/useMapContext";
 
-export default function Map({ data, error }) {
+export default function Map({ data, error, darkMode }) {
   const classes = useStyles();
   const {
     state: { userPosition, viewport },
@@ -31,11 +31,14 @@ export default function Map({ data, error }) {
     <Loading comp="map" />
   );
 
+  const lightMap = "mapbox://styles/kvnluo/cki8ay4gvbbum19pj0ry9bf4r";
+  const darkMap = "mapbox://styles/kvnluo/cki8azb472zvd19obw4ydlvjd";
+
   return (
     <ReactMapGL
       width="100vw"
       height="100vh"
-      mapStyle="mapbox://styles/kvnluo/cki8ay4gvbbum19pj0ry9bf4r"
+      mapStyle={darkMode ? darkMap : lightMap}
       mapboxApiAccessToken="pk.eyJ1Ijoia3ZubHVvIiwiYSI6ImNraGo0cmtsbDBqMjYydG4yYTQ4NmY2MTIifQ._goJadkhJVFNIi1pXrsKIA"
       onViewportChange={(newViewport) => {
         dispatch({ type: "UPDATE_VIEWPORT", payload: newViewport });
