@@ -73,13 +73,6 @@ export default function Map({ data, error }) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    backgroundColor: theme.palette.primary.light,
-    maxHeight: "60vh",
-    height: "800px",
-  },
   navigationControl: {
     position: "absolute",
     top: 0,

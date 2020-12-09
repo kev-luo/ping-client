@@ -26,7 +26,11 @@ function App(props) {
               <Switch>
                 <Route exact path="/" component={DataWrapper} />
                 <Route exact path="/portal" component={Portal} />
-                <Route exact path="/about" component={About} />
+                <Route
+                  exact
+                  path="/about"
+                  component={() => <About darkMode={darkMode} />}
+                />
                 <Route exact path="/map" component={DataWrapper} />
                 <ProtectedRoute
                   path="/feed"

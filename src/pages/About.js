@@ -8,18 +8,31 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
+import { useSpring, animated as a } from "react-spring";
 
 import jd from "../assets/JD.jpg";
 import kev from "../assets/Kev.jpg";
 import AbsoluteWrapper from "../components/Styled/AbsoluteWrapper";
 
-export default function About() {
+export default function About({ darkMode }) {
   document.title = "Ping | About";
   const classes = useStyles();
-
+  const props = useSpring({
+    transform: "scale(1)",
+    boxShadow: "0px 10px 30px -5px rgba(0,0,0,.3)",
+    from: {
+      transform: "scale(0.5)",
+      boxShadow: "0px 0px 0px 0px rgba(0,0,0,0.3)"
+    },
+    config: {
+      tension: 400,
+      mass: 2,
+      velocity: 10
+    }
+  })
   return (
     <AbsoluteWrapper className={classes.root}>
-      <div className={classes.container}>
+      <div className={clsx(classes.container, darkMode ? classes.dark : "")}>
         <p>
           We created Ping to help keep users informed of local events.
           Specifically, smaller towns are in need of a source that informs them
@@ -30,34 +43,34 @@ export default function About() {
         </p>
         <div className={classes.contact}>
           <div>
-            <div className={clsx(classes.img, classes.kev)} />
+            <a.div className={clsx(classes.img, classes.kev)} style={props}><span>Kevin Luo</span></a.div>
             <MenuList>
-              <MenuItem>
+              <MenuItem component="a" href="https://www.linkedin.com/in/kevinluo49/" target="_blank">
                 <ListItemIcon>
-                  <GrLinkedin />
+                  <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem>
+              <MenuItem component="a" href="https://github.com/kev-luo" target="_blank">
                 <ListItemIcon>
-                  <GrGithub />
+                  <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
                 <ListItemText primary="Github" />
               </MenuItem>
             </MenuList>
           </div>
           <div>
-            <div className={clsx(classes.img, classes.jd)} />
+            <a.div className={clsx(classes.img, classes.jd)} style={props}><span>JD Martinez</span></a.div>
             <MenuList>
-              <MenuItem>
+              <MenuItem component="a" href="https://www.linkedin.com/in/jonathan-martinez-316406113/" target="_blank">
                 <ListItemIcon>
-                  <GrLinkedin />
+                  <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem>
+              <MenuItem component="a" href="https://github.com/Goodlvn" target="_blank">
                 <ListItemIcon>
-                  <GrGithub />
+                  <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
                 <ListItemText primary="Github" />
               </MenuItem>
@@ -72,6 +85,9 @@ export default function About() {
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.info.main,
+  },
+  dark: {
+    color: "white",
   },
   container: {
     width: "70vw",
@@ -89,10 +105,17 @@ const useStyles = makeStyles((theme) => ({
     width: "10rem",
     height: "10rem",
     backgroundSize: "cover",
+    color: "white",
     borderRadius: "5px",
-    border: "5px solid white",
-    boxShadow: "0px 10px 30px -5px rgba(0,0,0,.3)",
-    transition: "box-shadow 0.5s",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "& span": {
+      display: "none"
+    },
+    "&:hover span": {
+      display: "block"
+    }
   },
   jd: {
     backgroundImage: `url(${jd})`,
