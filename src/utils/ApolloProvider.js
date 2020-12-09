@@ -28,7 +28,7 @@ const authLink = setContext(() => {
 const authHttpLink = authLink.concat(httpLink);
 
 const wsLink = new WebSocketLink({
-  uri: "wss://ping-app-server.herokuapp.com/graphql",
+  uri: "wss://ping-app-server.herokuapp.com/graphql/",
   // uri: "ws://localhost:8080/graphql",
   options: { reconnect: true },
 });
