@@ -6,7 +6,7 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@material-ui/core";
-import { BiExit } from "react-icons/bi";
+import { BiExit, BiInfoCircle } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { withRouter } from "react-router-dom";
 
@@ -15,17 +15,23 @@ import { useAuthContext } from "../utils/useAuthContext";
 function NavBurger({ open, setOpen, logout, history }) {
   const { user } = useAuthContext();
   const handleClick = (route) => {
-    if(route === "logout") {
+    if (route === "logout") {
       logout();
     } else {
-      history.push(`/${route}`)
+      history.push(`/${route}`);
     }
     setOpen(!open);
-  }
+  };
 
   return (
     <Drawer anchor="right" open={open} onClose={() => setOpen(!open)}>
       <List>
+        <ListItem button onClick={() => handleClick("about")}>
+          <ListItemIcon>
+            <BiInfoCircle />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
         {user ? (
           <>
             <ListItem button onClick={() => handleClick("settings")}>
@@ -51,4 +57,4 @@ function NavBurger({ open, setOpen, logout, history }) {
   );
 }
 
-export default withRouter(NavBurger)
+export default withRouter(NavBurger);

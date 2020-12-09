@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
-import { BiExit, BiMenu } from "react-icons/bi";
+import { BiExit, BiMenu, BiInfoCircle } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -53,6 +53,16 @@ export default function Nav({ darkMode, setDarkMode }) {
           label={darkMode ? "☀️" : "🌙"}
           labelPlacement="start"
         />
+        <Link to={`/about`} className={clsx(classes.link, classes.navItem)}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="small"
+            endIcon={<BiInfoCircle />}
+          >
+            About
+          </Button>
+        </Link>
         {context.user ? (
           <>
             <Link
@@ -90,7 +100,7 @@ export default function Nav({ darkMode, setDarkMode }) {
           <BiMenu />
         </IconButton>
       </div>
-      <NavBurger open={open} setOpen={setOpen} logout={logoutOps}/>
+      <NavBurger open={open} setOpen={setOpen} logout={logoutOps} />
     </StyledNav>
   );
 }
@@ -103,6 +113,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   navItem: {
+    margin: ".5rem",
     "@media (max-width: 600px)": {
       display: "none",
     },

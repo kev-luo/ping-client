@@ -9,27 +9,22 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: space-between;
 
-  & div {
-    margin: 1rem;
-  }
-  & a {
-    margin: 1rem;
+  & a, button {
     text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   .logo * {
     font-size: 30px;
     line-height: 100px;
     letter-spacing: 3px;
+    margin: 1rem;
   }
 
   .nav {
     font-size: 20px;
     line-height: 100px;
     letter-spacing: 1px;
+    margin: .5rem;
   }
 `;
 

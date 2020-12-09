@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import DataWrapper from "./components/DataWrapper";
 import Portal from "./pages/Portal";
 import UserSettings from "./pages/UserSettings";
+import About from "./pages/About";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { MapProvider } from "./utils/useMapContext";
 import { AuthProvider } from "./utils/useAuthContext";
@@ -25,6 +26,7 @@ function App(props) {
               <Switch>
                 <Route exact path="/" component={DataWrapper} />
                 <Route exact path="/portal" component={Portal} />
+                <Route exact path="/about" component={About} />
                 <Route exact path="/map" component={DataWrapper} />
                 <ProtectedRoute
                   path="/feed"
