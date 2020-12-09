@@ -103,9 +103,9 @@ const useStyles = makeStyles(theme => ({
     color: "#ebedf2"
   },
   line: {
-    background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`
+    background: `linear-gradient(to right, #f2f2f2, #212121, #f2f2f2)`,
   },
   darkLine: {
-    background: "linear-gradient(to right, #212121, #f2f2f2, #212121)"
+    background: "linear-gradient(to right, #212121, #f2f2f2, #212121)",
   }
 }))

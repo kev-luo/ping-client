@@ -45,13 +45,13 @@ export default function About({ darkMode }) {
           <div>
             <a.div className={clsx(classes.img, classes.kev)} style={props}><span>Kevin Luo</span></a.div>
             <MenuList>
-              <MenuItem component="a" href="https://www.linkedin.com/in/kevinluo49/" target="_blank" className={darkMode ? classes.hover : ""}>
+              <MenuItem component="a" href="https://www.linkedin.com/in/kevinluo49/" target="_blank" className={clsx(classes.item, darkMode ? classes.hover : "")}>
                 <ListItemIcon>
                   <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem component="a" href="https://github.com/kev-luo" target="_blank" className={darkMode ? classes.hover : ""}>
+              <MenuItem component="a" href="https://github.com/kev-luo" target="_blank" className={clsx(classes.item, darkMode ? classes.hover : "")}>
                 <ListItemIcon>
                   <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
@@ -62,13 +62,13 @@ export default function About({ darkMode }) {
           <div>
             <a.div className={clsx(classes.img, classes.jd)} style={props}><span>JD Martinez</span></a.div>
             <MenuList>
-              <MenuItem component="a" href="https://www.linkedin.com/in/jonathan-martinez-316406113/" target="_blank" className={darkMode ? classes.hover : ""}>
+              <MenuItem component="a" href="https://www.linkedin.com/in/jonathan-martinez-316406113/" target="_blank" className={clsx(classes.item, darkMode ? classes.hover : "")}>
                 <ListItemIcon>
                   <GrLinkedin color="#0B6BBF"/>
                 </ListItemIcon>
                 <ListItemText primary="LinkedIn" />
               </MenuItem>
-              <MenuItem component="a" href="https://github.com/Goodlvn" target="_blank" className={darkMode ? classes.hover : ""}>
+              <MenuItem component="a" href="https://github.com/Goodlvn" target="_blank" className={clsx(classes.item, darkMode ? classes.hover : "")}>
                 <ListItemIcon>
                   <GrGithub color={darkMode ? "white" : "black"}/>
                 </ListItemIcon>
@@ -122,18 +122,23 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
       url(${jd})`,
+      textShadow: "1px 1px 5px black"
     },
   },
   kev: {
     backgroundImage: `url(${kev})`,
     "&:hover": {
-      backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
+      backgroundImage: `linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(23, 112, 133, 0.73)),
       url(${kev})`,
+      textShadow: "1px 1px 5px black"
     },
   },
   hover: {
     "&:hover": {
       backgroundColor: "rgba(235, 237, 242, 0.1)"
     }
+  },
+  item: {
+    borderRadius: "5px"
   }
 }));

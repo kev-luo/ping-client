@@ -58,7 +58,7 @@ const Ping = styled.div`
   .sxy_line {
     grid-area: sxy_line;
     align-self: end;
-    height: 2px;
+    height: 1px;
   }
   &:hover {
     cursor: pointer;

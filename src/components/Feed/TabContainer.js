@@ -12,7 +12,6 @@ export default function TabContainer({ darkMode }) {
     state: { selectedUser },
   } = useDashboardContext();
   const { user } = useAuthContext();
-  console.log(darkMode);
 
   return (
     <div className={clsx(classes.root, darkMode ? classes.darkColor : classes.color)}>
@@ -60,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
       },
       "&:hover": {
         background: theme.palette.info.light,
+        color: theme.palette.success.main,
         cursor: "pointer",
       },
     },
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
   darkColor: {
     "& *": {
-      color: "#50bf6c"
+      color: "white"
     }
   },
   active: {

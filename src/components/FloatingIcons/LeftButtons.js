@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import { Avatar } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 import { GrUnorderedList } from "react-icons/gr";
 import { RiRoadMapLine } from "react-icons/ri";
@@ -16,6 +15,7 @@ import { useAuthContext } from "../../utils/useAuthContext";
 export default function LeftTabs({ open, setOpen, userData }) {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const history = useHistory();
   const { user } = useAuthContext();
   const { dispatch } = useDashboardContext();
 
@@ -35,6 +35,10 @@ export default function LeftTabs({ open, setOpen, userData }) {
     dispatch({ type: Actions.SELECT_USER, payload: user })
   }
 
+  function newPing() {
+    user ? setOpen(!open) : history.push("/portal");
+  }
+
   return (
     <BtnContainer className={classes.container}>
       <ul>
@@ -45,7 +49,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
         <li className={classes.btn}>
           {pathname === "/map" ? (
             <>
-              <FloatingBtn className={classes.btn} to="/">
+              <FloatingBtn className={classes.btn} to={user ? "/feed/all" : "/"}>
                 <GrUnorderedList size={20} />
               </FloatingBtn>
               <span>Feed</span>
@@ -66,7 +70,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
           <span>My Profile</span>
         </li>
         <li className={classes.btn}>
-          <FloatingBtn className={classes.btn} as="button" onClick={() => setOpen(!open)}>
+          <FloatingBtn className={classes.pingBtn} as="button" onClick={newPing}>
             <HiOutlinePlus size={20} />
           </FloatingBtn>
           <span>Ping</span>
@@ -99,8 +103,22 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.info.main,
     borderRadius: "50%",
     color: theme.palette.success.main,
+    "&:hover": {
+      boxShadow: '2px 4px 6px -1px rgba(80, 191, 108, 0.75)'
+    },
     "& ~ span": {
       color: theme.palette.success.main,
     }
   },
+  pingBtn: {
+    background: theme.palette.info.main,
+    borderRadius: "50%",
+    color: theme.palette.primary.dark,
+    "&:hover": {
+      boxShadow: '2px 4px 6px -1px rgba(26, 146, 173, 0.75)'
+    },
+    "& ~ span": {
+      color: theme.palette.primary.dark,
+    }
+  }
 }));

@@ -11,7 +11,7 @@ import { useAuthContext } from "../utils/useAuthContext";
 import { NEW_PING_SUBSCRIPTION } from "../utils/graphql";
 
 export default function Dashboard({ pingData, userData, darkMode }) {
-  document.title="Ping | Feed"
+  document.title = "Ping | Feed";
   const [open, setOpen] = useState(false);
   const { user } = useAuthContext();
   const { pathname } = useLocation();
@@ -71,6 +71,13 @@ export default function Dashboard({ pingData, userData, darkMode }) {
           <>
             <NewPing open={open} setOpen={setOpen} />
             <Switch>
+              <Route exact path="/">
+                <Feed
+                  darkMode={darkMode}
+                  data={pingData.data?.getPingsByLocation}
+                  error={pingData.error}
+                />
+              </Route>
               <Route path="/feed/all">
                 <Feed
                   darkMode={darkMode}

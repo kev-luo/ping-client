@@ -14,13 +14,16 @@ import { CREATE_COMMENT } from "../utils/graphql";
 
 export default function NewPing({ pingId, open, setOpen }) {
   const classes = useStyles();
-  const [errors, setErrors] = useState({})
-  const initialState = { body: "" }
-  const { handleChange, handleSubmit, values, setValues } = useForm(createCommentCb, initialState);
+  const [errors, setErrors] = useState({});
+  const initialState = { body: "" };
+  const { handleChange, handleSubmit, values, setValues } = useForm(
+    createCommentCb,
+    initialState
+  );
 
   const [createComment] = useMutation(CREATE_COMMENT, {
     onError(err) {
-      setErrors(err.graphQLErrors[0].extensions.exception.errors)
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {
       ...values,
@@ -29,7 +32,7 @@ export default function NewPing({ pingId, open, setOpen }) {
     onCompleted() {
       setValues(initialState);
       setOpen(!open);
-    }
+    },
   });
 
   function createCommentCb() {
@@ -37,7 +40,11 @@ export default function NewPing({ pingId, open, setOpen }) {
   }
 
   return (
-    <Dialog open={open} onClose={() => setOpen(!open)}>
+    <Dialog
+      open={open}
+      onClose={() => setOpen(!open)}
+      PaperProps={{ classes: { root: classes.paper } }}
+    >
       <DialogContent className={classes.dialogContent}>
         <form noValidate>
           <TextField
@@ -46,10 +53,9 @@ export default function NewPing({ pingId, open, setOpen }) {
             onChange={handleChange}
             error={errors.body ? true : false}
             helperText={errors.body}
-            rowsMax="3"
-            multiline
             fullWidth
             label="New comment"
+            inputProps={{ className: classes.colorDark }}
           />
         </form>
       </DialogContent>
@@ -72,10 +78,17 @@ const useStyles = makeStyles((theme) => ({
   dialogContent: {
     width: "500px",
     "@media (max-width: 600px)": {
-      width: "250px"
-    }
+      width: "250px",
+    },
   },
   submit: {
     margin: "0 10px",
+  },
+  paper: {
+    background: theme.palette.info.main,
+  },
+  colorDark: {
+    color: theme.palette.primary.dark,
+    borderBottom: `2px solid ${theme.palette.info.light}`,
   },
 }));

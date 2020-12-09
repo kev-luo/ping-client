@@ -6,20 +6,9 @@ import { FaUser } from "react-icons/fa";
 import moment from "moment";
 
 import StyledComment from "../Styled/StyledComment";
-import Actions from "../../utils/dashboardActions";
-import { useAuthContext } from "../../utils/useAuthContext";
-import { useDashboardContext } from "../../utils/useDashboardContext";
 
 export default function Comment({ createdAt, body, author, darkMode }) {
   const classes = useStyles();
-  const { dispatch } = useDashboardContext();
-  const { user } = useAuthContext();
-
-  function displayProfile(selectedUser) {
-    if (user) {
-      dispatch({ type: Actions.SELECT_USER, payload: selectedUser });
-    }
-  }
 
   function authorPic(author) {
     return author.imageUrl ? (

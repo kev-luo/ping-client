@@ -9,7 +9,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import SendIcon from "@material-ui/icons/Send";
+import { FiSend, FiImage } from "react-icons/fi";
 import { green } from "@material-ui/core/colors";
 
 import { CREATE_PING } from "../utils/graphql";
@@ -21,7 +21,7 @@ export default function NewPing({ open, setOpen }) {
     state: { userPosition },
   } = useMapContext();
   const classes = useStyles();
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const initialState = { body: "", imageUrl: "" };
   const { handleChange, handleSubmit, values, setValues } = useForm(
@@ -62,19 +62,22 @@ export default function NewPing({ open, setOpen }) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      PaperProps={{ classes: { root: classes.paper } }}
+    >
       <DialogContent className={classes.dialogContent}>
         <form noValidate>
           <TextField
             name="body"
             value={values.body}
             onChange={handleChange}
-            rowsMax="3"
             fullWidth
-            multiline
             label="Let the people know!"
             error={errors.body ? true : false}
             helperText={errors.body}
+            inputProps={{ className: classes.colorDark }}
           />
           <input
             id="file"
@@ -93,23 +96,21 @@ export default function NewPing({ open, setOpen }) {
           />
         )}
       </DialogContent>
-      <DialogActions>
+      <DialogActions className={classes.btns}>
         <Button
           component="label"
-          className={classes.fileBtn}
-          size="small"
           htmlFor="file"
           variant="contained"
           color="primary"
+          endIcon={<FiImage />}
         >
-          Add an Image
+          Add Image
         </Button>
         <Button
           type="submit"
-          size="large"
           variant="contained"
           color="primary"
-          endIcon={<SendIcon />}
+          endIcon={<FiSend />}
           onClick={loaderSubmit}
         >
           Ping
@@ -126,15 +127,8 @@ const useStyles = makeStyles((theme) => ({
   dialogContent: {
     width: "500px",
     "@media (max-width: 600px)": {
-      width: "250px"
-    }
-  },
-  buttonGroup: {
-    margin: theme.spacing(1),
-    position: "relative",
-  },
-  fileBtn: {
-    padding: "10px",
+      width: "250px",
+    },
   },
   imgPrev: {
     height: "250px",
@@ -149,5 +143,16 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     marginTop: -12,
     marginLeft: -12,
+  },
+  btns: {
+    margin: "1rem",
+    marginTop: ".5rem",
+  },
+  paper: {
+    background: theme.palette.info.main,
+  },
+  colorDark: {
+    color: theme.palette.primary.dark,
+    borderBottom: `2px solid ${theme.palette.info.light}`,
   },
 }));

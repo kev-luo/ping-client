@@ -24,7 +24,7 @@ function App(props) {
             <Router>
               <Nav darkMode={darkMode} setDarkMode={setDarkMode} />
               <Switch>
-                <Route exact path="/" component={DataWrapper} />
+                <Route exact path="/" component={() => <DataWrapper darkMode={darkMode} />} />
                 <Route
                   exact
                   path="/portal"

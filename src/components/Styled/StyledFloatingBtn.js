@@ -13,7 +13,6 @@ const FloatingLink = styled(Link)`
   box-shadow: 2px 4px 5px -1px rgba(15, 38, 18, 0.75);
   transition: 200ms ease;
   &:hover {
-    box-shadow: 2px 4px 6px -1px rgba(80, 191, 108, 0.75);
     transform: scale(1.1);
   }
   :focus {

@@ -83,7 +83,6 @@ const useStyles = makeStyles((themes) => ({
   },
   textfield: {
     margin: themes.spacing(1, 1),
-    color: "blue",
   },
   colorDark: {
     color: themes.palette.primary.dark,

@@ -17,17 +17,12 @@ import NavBurger from "./NavBurger";
 import StyledNav from "./Styled/StyledNav";
 import Actions from "../utils/dashboardActions";
 import { useAuthContext } from "../utils/useAuthContext";
-import { useMapContext } from "../utils/useMapContext";
 import { useDashboardContext } from "../utils/useDashboardContext";
 
 export default function Nav({ darkMode, setDarkMode }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const context = useAuthContext();
-  const {
-    state: { userPosition },
-    dispatch: mapDispatch,
-  } = useMapContext();
   const { dispatch } = useDashboardContext();
   const props = useSpring({
     to: { opacity: 1, transform: "translate(0px)" },
