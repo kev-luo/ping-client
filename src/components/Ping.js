@@ -48,8 +48,12 @@ export default function Ping({ ping, darkMode }) {
   }
 
   function addComment(e) {
-    setOpen(!open);
-    e.stopPropagation();
+    if(user) {
+      setOpen(!open);
+      e.stopPropagation();
+    } else {
+      history.push("/portal")
+    }
   }
 
   return (

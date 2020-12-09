@@ -49,7 +49,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
         <li className={classes.btn}>
           {pathname === "/map" ? (
             <>
-              <FloatingBtn className={classes.btn} to={user ? "/feed/all" : "/"}>
+              <FloatingBtn className={classes.btn} to={user ? "/feed/top" : "/"}>
                 <GrUnorderedList size={20} />
               </FloatingBtn>
               <span>Feed</span>
@@ -64,7 +64,7 @@ export default function LeftTabs({ open, setOpen, userData }) {
           )}
         </li>
         <li className={classes.btn}>
-          <FloatingBtn className={classes.btn} to="/feed/new" onClick={() => userProfile(user)}>
+          <FloatingBtn className={classes.btn} to="/feed/top" onClick={() => userProfile(user)}>
             <HiOutlineUser size={20} />
           </FloatingBtn>
           <span>My Profile</span>

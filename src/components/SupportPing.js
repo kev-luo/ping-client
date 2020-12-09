@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { Tooltip, IconButton } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 import {
   TiArrowUpOutline,
@@ -12,6 +13,7 @@ import {
 import { SUPPORT_PING } from "../utils/graphql";
 
 export default function SupportPing({ user, ping }) {
+  const history = useHistory();
   const [supportMutation] = useMutation(SUPPORT_PING, {
     onError(err) {
       console.log(err);
@@ -29,6 +31,8 @@ export default function SupportPing({ user, ping }) {
       if (alreadySupported.length !== 1) {
         supportMutation({ variables: { pingId: ping.id, support: suppBool } });
       }
+    } else {
+      history.push("/portal");
     }
   }
 
