@@ -43,7 +43,6 @@ export default function Nav({ darkMode, setDarkMode }) {
 
   return (
     <StyledNav className={classes.nav}>
-      {/* <img src="../assets/node.svg" alt="ping logo" /> */}
       <a.div style={props}>
         <Icon style={{marginLeft: "1rem"}}>
           <img src={darkMode ? logoDark : logo} alt="logo" height={30} width={30} />
