@@ -11,6 +11,7 @@ import {
 import { BiExit, BiMenu, BiInfoCircle } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useSpring, animated as a } from "react-spring";
 
 import NavBurger from "./NavBurger";
 import StyledNav from "./Styled/StyledNav";
@@ -28,6 +29,14 @@ export default function Nav({ darkMode, setDarkMode }) {
     dispatch: mapDispatch,
   } = useMapContext();
   const { dispatch } = useDashboardContext();
+  const props = useSpring({
+    to: { opacity: 1, transform: "translate(0px)" },
+    from: { opacity: 0, transform: "translate(-40rem)" },
+    config: {
+      velocity:100,
+      tension: 500,
+    }
+  });
 
   const logoutOps = () => {
     dispatch({ type: Actions.CLEAR_USER });
@@ -37,11 +46,13 @@ export default function Nav({ darkMode, setDarkMode }) {
   return (
     <StyledNav className={classes.nav}>
       {/* <img src="../assets/node.svg" alt="ping logo" /> */}
-      <Typography variant="overline" className="logo">
-        <Link to={context.user ? "/feed/all" : "/"} className={classes.link}>
-          Ping
-        </Link>
-      </Typography>
+      <a.div style={props}>
+        <Typography variant="overline" className="logo">
+          <Link to={context.user ? "/feed/all" : "/"} className={classes.link}>
+            Ping
+          </Link>
+        </Typography>
+      </a.div>
       <div className="nav">
         <FormControlLabel
           control={
