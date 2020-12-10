@@ -2,6 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![GitHub top language](https://img.shields.io/github/languages/top/kev-luo/ping-client)
 
+- [Server code repo](https://github.com/kev-luo/ping-server)
+- [Mobile code repo](https://github.com/kev-luo/ping-mobile)
+- [Original repo before server/client code split](https://github.com/kev-luo/ping)
+
 ## Description
 
 ### Ping is an app that allows users to see posts from others in the area. The idea is to keep users aware of events happening around them.
@@ -118,12 +122,6 @@ One of the main differences between React and React-Native was the navigation as
 ## License
 
 Licensed under the [MIT](https://opensource.org/licenses/MIT) License.
-
-## Contributing
-
-- [Server code repo](https://github.com/kev-luo/ping-server)
-- [Mobile code repo](https://github.com/kev-luo/ping-mobile)
-- [Original repo before server/client code split](https://github.com/kev-luo/ping)
 
 ## Questions
 
